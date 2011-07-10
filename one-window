@@ -1,0 +1,25 @@
+#!/bin/bash
+if [ "x$1" != "x" ]
+then
+  WID=`xdotool search --class $1 | head -1`
+  if [ "s$WID" != "s" ]
+  then
+    ps aux | grep terminator > /home/balkian/LOG
+
+    wmctrl -i -a $WID
+    if [ "x$2" != "x" ]
+    then
+      eval "$2"
+    fi
+  else
+    if [ "x$3" == "x" ]
+    then
+      /usr/bin/$1
+    else
+      eval "$3"
+    fi
+  fi
+else
+  echo "Usage: one-instance program-name [extra action]"
+fi
+
