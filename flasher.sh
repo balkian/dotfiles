@@ -5,7 +5,7 @@
 # @author: balkian
 
 destfile="$HOME/VideoCuevana$$"
-info=($(lsof -c /npview/i | grep -i /tmp/flash | awk '{print $2; print $9}'))
+info=($(lsof -p `pgrep -f flashplugin` | grep -i /tmp/flash | awk '{print $2; print $9}'))
 dir="/proc/${info[0]}/fd"
 file=${info[1]}
 #echo "pid" $pid
