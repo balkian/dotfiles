@@ -10,7 +10,7 @@ dir="/proc/${info[0]}/fd"
 file=${info[1]}
 #echo "pid" $pid
 #echo "file" $file
-fdn=$(ls -l  $dir | grep $file | awk '{print $8}')
+fdn=$(ls -l  $dir | grep $file | awk '{print $9}')
 sel=$(zenity --list --radiolist --text "Select action" --column "pick" --column "Option" TRUE "play" FALSE "copy" FALSE "link")
 case $sel in 
 	play)
