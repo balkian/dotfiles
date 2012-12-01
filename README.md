@@ -9,7 +9,7 @@ git clone https://github.com/balkian/dotfiles.git
 ```
 The fast way:
 ```bash
-cd; curl -#L https://github.com/balkian/dotfiles/tarball/master | tar -xzv --strip-components 1 --exclude={README.md}
+curl -#L https://github.com/balkian/dotfiles/tarball/master | tar -xzv --strip-components 1 --exclude={README.md}
 ```
 ### Install
 
