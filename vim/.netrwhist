@@ -1,7 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/media/Data/code/web4.0/hookio/hooks/test'
-let g:netrw_dirhist_2='/media/Data/code/web4.0/hookio/hooks'
-let g:netrw_dirhist_3='/media/Data/code/web4.0/hookio/hooks/test'
-let g:netrw_dirhist_4='/media/Data/code/web4.0/hookio/hooks/hook.io-mailer'
-let g:netrw_dirhist_5='/home/balkian/.config/google-googletalkplugin'
