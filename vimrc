@@ -117,7 +117,9 @@ nmap SO :so ~/.vim/Session.vim<CR>
 ":tab sball
 
 " Color and shit
-"colo vividchalk
+colo vividchalk
+set background=dark
+hi SpellBad ctermbg=Red ctermfg=White
 
 "Statusline
 

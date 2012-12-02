@@ -1,70 +1,52 @@
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-setopt appendhistory autocd extendedglob nomatch notify share_history
-bindkey -v
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/balkian/.zshrc'
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
 
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+ZSH_THEME="balkian"
 
-autoload -U colors
-colors
-setopt prompt_subst
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
-local smiley="%B%(?,%{$fg[green]%}☠%{$reset_color%},%{$fg[red]%}☠%{$reset_color%})%b"
-PS0='${debian_chroot:+($debian_chroot)}%n@%M'
+# Set to this to use case-sensitive completion
+# CASE_SENSITIVE="true"
 
-parse_git_branch()
-{
-git name-rev HEAD 2> /dev/null | sed 's#HEAD\ \(.*\)#(git::\1)#'
-}
+# Comment this out to disable weekly auto-update checks
+# DISABLE_AUTO_UPDATE="true"
 
-if ( dircolors --help && ls --color ) &> /dev/null; then
-# For some reason, the unixs machines need me to use $HOME instead of ~
-# List files from highest priority to lowest.  As soon as the loop finds one that works, it will exit.
-function precmd {
-PROMPT="%~ %{$fg[green]%}%B$(parse_git_branch)%b%{$reset_color%}
-${smiley} $PS0: ";
-RPROMPT="%T";
-}
+# Change this value to set how frequently ZSH updates¬
+export UPDATE_ZSH_DAYS=13
 
-for POSSIBLE_DIR_COLORS in "$HOME/.dir_colors" "/etc/DIR_COLORS"; do
-    [[ -f "$POSSIBLE_DIR_COLORS" ]] && [[ -r "$POSSIBLE_DIR_COLORS" ]] && eval `dircolors -b "$POSSIBLE_DIR_COLORS"` && break
-done
+# Uncomment following line if you want to disable colors in ls
+# DISABLE_LS_COLORS="true"
 
-alias ls="ls --color=auto"
-alias ll="ls --color=auto -l"
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-else
-# No color, so put a slash at the end of directory names, etc. to differentiate.
-alias ll="ls -lF"
-fi
-## Completions
-#autoload -U compinit
-#compinit -C
-#
-### case-insensitive (all),partial-word and then substring completion
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' \
-       'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# Uncomment following line if you want to disable autosetting terminal title.
+# DISABLE_AUTO_TITLE="true"
 
-bindkey -M vicmd 'r' history-incremental-search-backward
+# Uncomment following line if you want red dots to be displayed while waiting for completion
+# COMPLETION_WAITING_DOTS="true"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git vi-mode)
+
+source $ZSH/oh-my-zsh.sh
+
+# Customize to your needs...
+export PATH=/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/home/balkian/code/personal-scripts/
 
 # TMUX
 # if [[ -z "$KONSOLE_DBUS_SERVICE" & `which tmux` ]]; then
-         # if no session is started, start a new session
-         if [[ -z "$KONSOLE_DBUS_SERVICE" && -n $(which tmux) ]]; then
-     stty -ixon
-     test -z ${TMUX} && tmux attach
-     # when quitting tmux, try to attach
-     if [[ -z ${TMUX} ]]; then
-         exit;
-     fi
- fi
-
+# if no session is started, start a new session
+if [[ -z "$KONSOLE_DBUS_SERVICE" && -n $(which tmux) ]]; then
+    stty -ixon
+    test -z ${TMUX} && tmux attach
+    # when quitting tmux, try to attach
+    if [[ -z ${TMUX} ]]; then
+        exit;
+    fi
+fi
