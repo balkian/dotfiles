@@ -5,22 +5,29 @@
 # @author: balkian
 
 destfile="$HOME/VideoCuevana$$"
-PID1=$(pgrep -f flash)
-info=($(lsof -p $PID1 | grep -i /tmp/flash | awk '{print $2; print $9}'))
-dir="/proc/${info[0]}/fd"
-file=${info[1]}
-#echo "pid" $pid
-#echo "file" $file
-fdn=$(ls -l  $dir | grep $file | awk '{print $9}')
-sel=$(zenity --list --radiolist --text "Select action" --column "pick" --column "Option" TRUE "play" FALSE "copy" FALSE "link")
-case $sel in 
-	play)
-	xdg-open $dir/$fdn
-	;;
-	link)
-	ln -s $dir/$fdn $destfile && echo "Video linked successfully to $destfile." && echo "Enjoy"
-	;;
-	copy)
-	cp $dir/$fdn $destfile && echo "Video copied successfully to $destfile." && echo "Enjoy"
-	;;
-esac
+# PID1=$(pgrep -f flash)
+# info=($(lsof -p $PID1 | grep -i /tmp/flash | awk '{print $2; print $9}'))
+# dir="/proc/${info[0]}/fd"
+# file=${info[1]}
+# #echo "pid" $pid
+# #echo "file" $file
+# fdn=$(ls -l  $dir | grep $file | awk '{print $9}')
+files=$(sudo lsof 2>/dev/null | grep "Pepper Data" | awk '{gsub(/[a-Z]/,"",$4);print "/proc/"$2"/fd/"$4}')
+
+echo "Files:" $files
+for file in $files; do
+
+    sel=$(zenity --list --radiolist --text "Select action for: $file" --column "pick" --column "Option" TRUE "play" FALSE "copy" FALSE "link")
+    case $sel in 
+        play)
+            sudo totem $file
+            ;;
+        link)
+            ln -s $file $destfile && echo "Video linked successfully to $destfile." && echo "Enjoy"
+            ;;
+        copy)
+            cp $file $destfile && echo "Video copied successfully to $destfile." && echo "Enjoy"
+            ;;
+    esac
+
+done;
