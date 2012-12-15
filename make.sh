@@ -9,7 +9,7 @@
 dir=$(pwd)                    # dotfiles directory
 
 olddir=~/dotfiles$(date +%Y-%m-%d_%H:%M:%S) # old dotfiles backup directory
-files=($(ls --ignore="not_dots" --ignore="README.md" --ignore="make.sh" $dir))  # list of files/folders to symlink in homedir
+files=$(ls --ignore="not_dots" --ignore="README.md" --ignore="make.sh" $dir)  # list of files/folders to symlink in homedir
 
 ##########
 
