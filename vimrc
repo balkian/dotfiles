@@ -18,7 +18,8 @@ Bundle "tomtom/tlib_vim"
 Bundle "honza/snipmate-snippets"
 Bundle "garbas/vim-snipmate"
 Bundle "SpellCheck"
-
+Bundle "mattn/gist-vim"
+Bundle "mattn/webapi-vim"
 
 filetype plugin indent on     " required!
 
