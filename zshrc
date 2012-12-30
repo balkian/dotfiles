@@ -39,6 +39,9 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 export PATH=/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/home/balkian/code/personal-scripts/
 
+PYTHONSTARTUP=~/.pythonrc.py
+export PYTHONSTARTUP
+
 # TMUX
 # if [[ -z "$KONSOLE_DBUS_SERVICE" & `which tmux` ]]; then
 # if no session is started, start a new session
