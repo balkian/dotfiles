@@ -20,6 +20,7 @@ Bundle "garbas/vim-snipmate"
 Bundle "SpellCheck"
 Bundle "mattn/gist-vim"
 Bundle "mattn/webapi-vim"
+Bundle "tpope/vim-unimpaired"
 
 filetype plugin indent on     " required!
 
