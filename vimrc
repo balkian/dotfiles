@@ -11,6 +11,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'LaTeX-Box-Team/LaTeX-Box'
 Bundle 'tpope/vim-fugitive'
+Bundle "tpope/vim-unimpaired"
 Bundle 'scrooloose/nerdtree'
 Bundle 'taglist.vim'
 Bundle "MarcWeber/vim-addon-mw-utils"
@@ -20,9 +21,10 @@ Bundle "garbas/vim-snipmate"
 Bundle "SpellCheck"
 Bundle "mattn/gist-vim"
 Bundle "mattn/webapi-vim"
-Bundle "tpope/vim-unimpaired"
 
 filetype plugin indent on     " required!
+
+set hidden " To start working with buffers instead of tabs
 
 highlight SpecialKey ctermfg=DarkGray
 set listchars=tab:>-,trail:~
