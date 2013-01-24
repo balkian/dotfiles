@@ -4,6 +4,12 @@
 # The video can be played, but it's deleted when the flash player is closed (unless you copied it).
 # @author: balkian
 
+if [ -z "$1" ]; then
+    PLAYER=parole;
+else
+    PLAYER=$1;
+fi
+
 destfile="$HOME/VideoCuevana$$"
 # PID1=$(pgrep -f flash)
 # info=($(lsof -p $PID1 | grep -i /tmp/flash | awk '{print $2; print $9}'))
@@ -12,7 +18,7 @@ destfile="$HOME/VideoCuevana$$"
 # #echo "pid" $pid
 # #echo "file" $file
 # fdn=$(ls -l  $dir | grep $file | awk '{print $9}')
-files=$(sudo lsof 2>/dev/null | grep "Pepper Data" | awk '{gsub(/[a-Z]/,"",$4);print "/proc/"$2"/fd/"$4}')
+files=$(sudo lsof 2>/dev/null | grep "Pepper Data" | awk '{gsub(/[a-z]/,"",$4);print "/proc/"$2"/fd/"$4}' | uniq -u)
 
 echo "Files:" $files
 for file in $files; do
@@ -20,7 +26,7 @@ for file in $files; do
     sel=$(zenity --list --radiolist --text "Select action for: $file" --column "pick" --column "Option" TRUE "play" FALSE "copy" FALSE "link")
     case $sel in 
         play)
-            sudo totem $file
+            sudo $PLAYER $file
             ;;
         link)
             ln -s $file $destfile && echo "Video linked successfully to $destfile." && echo "Enjoy"
