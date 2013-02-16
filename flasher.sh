@@ -29,10 +29,12 @@ for file in $files; do
             sudo $PLAYER $file
             ;;
         link)
-            ln -s $file $destfile && echo "Video linked successfully to $destfile." && echo "Enjoy"
+            sudo ln -s $file $destfile && echo "Video linked successfully to $destfile." && echo "Enjoy"
+            sudo chown $USER:$USER $destfile
             ;;
         copy)
-            cp $file $destfile && echo "Video copied successfully to $destfile." && echo "Enjoy"
+            sudo cp $file $destfile && echo "Video copied successfully to $destfile." && echo "Enjoy"
+            sudo chown $USER:$USER $destfile
             ;;
     esac
 
