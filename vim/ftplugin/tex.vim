@@ -1,4 +1,4 @@
-setlocal formatoptions+=wa
+"setlocal formatoptions+=wa
 
 function! SyncTexForward()
      let execstr = "silent !okular --unique ".LatexBox_GetOutputFile()."\\#src:".line(".")."%:p &"

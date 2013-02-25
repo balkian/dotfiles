@@ -143,5 +143,5 @@ set laststatus=2
 " endfunction
 
 " Encryption
-set cm=blowfish
+" set cm=blowfish
 " Transparent editing of gpg encrypted files.

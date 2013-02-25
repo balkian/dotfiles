@@ -55,3 +55,6 @@ if [[ -z "$KONSOLE_DBUS_SERVICE" && -n $(which tmux) ]]; then
         exit;
     fi
 fi
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
