@@ -52,19 +52,6 @@ set hlsearch
 let mapleader=","
 noremap \ ,
 
-
-"Latex
-let g:tex_flavor = "latex"
-set suffixes+=.log,.aux,.bbl,.blg,.idx,.ilg,.ind,.out,.pdf
-
-let g:LatexBox_latexmk_options="-pvc"
-let g:LatexBox_output_type="pdf"
-let g:LatexBox_viewer="okular --unique"
-
-
-let tlist_tex_settings = 'latex;l:labels;s:sections;t:subsections;u:subsubsections'
-
-
 " Commenting blocks of code.
 autocmd FileType c,cpp,java,scala,javascript let b:comment_leader = '// '
 autocmd FileType sh,ruby,python   let b:comment_leader = '# '
@@ -130,17 +117,21 @@ hi SpellBad ctermbg=Red ctermfg=White
 set statusline=%t%h%m%r%y%{fugitive#statusline()}\%=[%{strlen(&fenc)?&fenc:'none'},%{&ff}]\ \ %c,%l/%L\ %P
 set laststatus=2
 
-" Forward search
-" function! PDFForward()
-" "     if filereadable(b:RootFileName.".".b:Ext)
-" 
-" "         silent! call system("okular --unique \"".b:RootFileName.".".b:Ext."\"\#src:".line('.').expand("%")." &")
-" 
-"         silent! call system(g:LatexBox_viewer . " \"".LatexBox_GetOutputFile()."#src:".line('.')."".expand("%:p")."\" &")
-" "     else
-" "         echo "Output file not readable."
-" "     endif
-" endfunction
+function! InsertStatuslineColor(mode)
+  if a:mode == 'i'
+    hi statusline guibg=Red ctermfg=White guifg=White ctermbg=Red
+  elseif a:mode == 'r'
+    hi statusline guibg=Blue ctermfg=White guifg=White ctermbg=Blue
+  else
+    hi statusline guibg=Yellow ctermfg=White guifg=Black ctermbg=Yellow
+  endif
+endfunction
+
+call InsertStatuslineColor('')
+
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * call InsertStatuslineColor('')
+
 
 " Encryption
 " set cm=blowfish
