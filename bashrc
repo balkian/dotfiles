@@ -172,10 +172,10 @@ PS0="$PS0 \\[\033[1;32m\]\$(parse_git_branch)\\[\033[0m\]\$ "
 #    export PROMPT_COMMAND="$PROMPT_COMMAND&&updateWindowTitle"
 #fi
 #[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-export PATH=$PATH:"/media/Data/code/personal-scripts/"
-export CDPATH=$CDPATH:"/media/Data/"
+export PATH="$PATH:$HOME/.bin"
+export CDPATH="$CDPATH:/media/Data/"
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+export PATH="$PATH:/usr/local/heroku/bin"

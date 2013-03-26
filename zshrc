@@ -1,4 +1,8 @@
-source ~/.starttmux
+export PATH=$PATH:$HOME/.bin/
+
+# Only update the path if not running interactively
+[ -z "$PS1" ] && return
+ source ~/.starttmux
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
@@ -40,11 +44,9 @@ source $ZSH/oh-my-zsh.sh
 #bindkey "^R" history-incremental-search-backward
 
 # Customize to your needs...
-export PATH=/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/home/balkian/code/personal-scripts/
 
 PYTHONSTARTUP=~/.pythonrc.py
 export PYTHONSTARTUP
 
-
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+export PATH="$PATH:/usr/local/heroku/bin"
