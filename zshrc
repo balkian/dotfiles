@@ -1,3 +1,4 @@
+source ~/.starttmux
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
@@ -44,17 +45,6 @@ export PATH=/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/u
 PYTHONSTARTUP=~/.pythonrc.py
 export PYTHONSTARTUP
 
-# TMUX
-# if [[ -z "$KONSOLE_DBUS_SERVICE" & `which tmux` ]]; then
-# if no session is started, start a new session
-if [[ -z "$KONSOLE_DBUS_SERVICE" && -n $(which tmux) ]]; then
-    stty -ixon
-    test -z ${TMUX} && tmux attach
-    # when quitting tmux, try to attach
-    if [[ -z ${TMUX} ]]; then
-        exit;
-    fi
-fi
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"

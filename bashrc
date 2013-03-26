@@ -1,3 +1,4 @@
+source ~/.starttmux
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -173,16 +174,6 @@ PS0="$PS0 \\[\033[1;32m\]\$(parse_git_branch)\\[\033[0m\]\$ "
 #[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 export PATH=$PATH:"/media/Data/code/personal-scripts/"
 export CDPATH=$CDPATH:"/media/Data/"
-
-# TMUX
-if which tmux 2>&1 >/dev/null; then
-    # if no session is started, start a new session
-    test -z ${TMUX} && tmux attach
-    # when quitting tmux, try to attach
-    if test -z ${TMUX}; then
-        exit;
-    fi
-fi
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
