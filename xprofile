@@ -1,4 +1,4 @@
 # echo "pasado(xprofile)" $(date) >> /tmp/LOG
-#setxkbmap -option ctrl:nocaps
+setxkbmap -option ctrl:nocaps
 #xmodmap ~/.Xmodmap
-source ~/.xinitrc
+#source ~/.xinitrc

@@ -8,12 +8,15 @@ call vundle#rc()
 
 " let Vundle manage Vundle
 " required! 
-Bundle 'gmarik/vundle'
-Bundle 'LaTeX-Box-Team/LaTeX-Box'
-Bundle 'tpope/vim-fugitive'
+Bundle "gmarik/vundle"
+Bundle "LaTeX-Box-Team/LaTeX-Box"
+Bundle "tpope/vim-fugitive"
 Bundle "tpope/vim-unimpaired"
-Bundle 'scrooloose/nerdtree'
-Bundle 'taglist.vim'
+Bundle "scrooloose/nerdtree"
+Bundle "scrooloose/nerdcommenter"
+Bundle "scrooloose/syntastic"
+Bundle "ervandew/supertab"
+Bundle "majutsushi/tagbar"
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
 Bundle "honza/snipmate-snippets"
@@ -21,6 +24,7 @@ Bundle "garbas/vim-snipmate"
 Bundle "SpellCheck"
 Bundle "mattn/gist-vim"
 Bundle "mattn/webapi-vim"
+Bundle "kien/ctrlp.vim.git"
 
 filetype plugin indent on     " required!
 
@@ -32,6 +36,7 @@ set list
 set tabstop=4
 set shiftwidth=4
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+au FileType py set textwidth=79
 autocmd Filetype javascript set ts=4 sts=4 sw=4 expandtab smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 set expandtab
 set autoindent
@@ -52,23 +57,24 @@ set hlsearch
 let mapleader=","
 noremap \ ,
 
-" Commenting blocks of code.
-autocmd FileType c,cpp,java,scala,javascript let b:comment_leader = '// '
-autocmd FileType sh,ruby,python   let b:comment_leader = '# '
-autocmd FileType conf,fstab       let b:comment_leader = '# '
-autocmd FileType tex              let b:comment_leader = '% '
-autocmd FileType mail             let b:comment_leader = '> '
-autocmd FileType vim              let b:comment_leader = '" '
-noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
-
+" Commenting blocks of code. I don't need it with NerdCommenter
+" autocmd FileType c,cpp,java,scala,javascript let b:comment_leader = '// '
+" autocmd FileType sh,ruby,python   let b:comment_leader = '# '
+" autocmd FileType conf,fstab       let b:comment_leader = '# '
+" autocmd FileType tex              let b:comment_leader = '% '
+" autocmd FileType mail             let b:comment_leader = '> '
+" autocmd FileType vim              let b:comment_leader = '" '
+" noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+" noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+" 
 imap <C-v> <C-O>"+gP<CR>
 noremap <C-S>  :w<CR>
 imap <C-S>  <C-O>:w<CR>
 
 "Custom maps
 noremap <Leader>n :NERDTreeToggle<CR>
-noremap <Leader>t :TlistToggle<CR>
+noremap <Leader>t :TagbarToggle<CR>
+noremap <Leader>f :CtrlPMixed<CR>
 "Omni
 
 set completeopt=longest,menuone
@@ -132,7 +138,4 @@ call InsertStatuslineColor('')
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
 au InsertLeave * call InsertStatuslineColor('')
 
-
-" Encryption
-" set cm=blowfish
-" Transparent editing of gpg encrypted files.
+set guifont=DejaVu\ Sans\ Mono

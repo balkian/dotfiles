@@ -1,3 +1,4 @@
+export PATH="$PATH:$HOME/.bin"
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -173,8 +174,6 @@ PS0="$PS0 \\[\033[1;32m\]\$(parse_git_branch)\\[\033[0m\]\$ "
 #    export PROMPT_COMMAND="$PROMPT_COMMAND&&updateWindowTitle"
 #fi
 #[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-export PATH="$PATH:$HOME/.bin"
-export CDPATH="$CDPATH:/media/Data/"
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
