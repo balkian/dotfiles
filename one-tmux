@@ -1,0 +1,28 @@
+#!/bin/bash
+if [ "x$1" != "x" ]
+then
+  tab=1
+  pgrep -l -u "$USER" -f "$1" | egrep -v "/bin/zsh|/bin/bash|/bin/sh" | grep -vq "$$"
+  if [ $? != "0" ]
+  then
+    /usr/bin/$1 &
+    sleep 1
+    tab=0
+  fi
+    echo "Bring it on" >> /tmp/prueba.log
+    WID=`xdotool search --class $1 | tail -1`
+    wmctrl -i -a $WID
+    if [ "x$2" != "x" ]
+    then
+        shift
+        if [ $tab == 1 ]
+        then
+            eval "tmux neww"
+            sleep 0.2
+        fi
+        xdotool type "$*"
+        xdotool key Return
+    fi
+else
+  echo "Usage: $0 <terminal-emulator> [extra action]"
+fi

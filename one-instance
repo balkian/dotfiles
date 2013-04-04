@@ -4,7 +4,6 @@ then
   pgrep -l -u "$USER" -f "$1" | egrep -v "/bin/bash|/bin/sh" | grep -vq "$$"
   if [ $? == "0" ]
   then
-    ps aux | grep terminator > /home/balkian/LOG
     WID=`xdotool search --class $1 | head -1`
     wmctrl -i -a $WID
     if [ "x$2" != "x" ]
