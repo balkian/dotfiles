@@ -1,20 +1,21 @@
 #!/bin/bash
-if [ "x$1" != "x" ]
+TERMINAL_EMULATOR='xfce4-terminal'
+tab=1
+pgrep -l -u "$USER" -f "$TERMINAL_EMULATOR" | egrep -v "/bin/zsh|/bin/bash|/bin/sh" | grep -vq "$$"
+if [ $? != "0" ]
 then
-  tab=1
-  pgrep -l -u "$USER" -f "$1" | egrep -v "/bin/zsh|/bin/bash|/bin/sh" | grep -vq "$$"
-  if [ $? != "0" ]
-  then
-    /usr/bin/$1 &
+    /usr/bin/$TERMINAL_EMULATOR &
     sleep 1
     tab=0
-  fi
-    echo "Bring it on" >> /tmp/prueba.log
-    WID=`xdotool search --class $1 | tail -1`
-    wmctrl -i -a $WID
-    if [ "x$2" != "x" ]
+fi
+WID=`xdotool search --class $TERMINAL_EMULATOR | tail -1`
+wmctrl -i -a $WID
+if [ "x$1" != "x" ]
+then
+    if [ "x$1" == "xhelp" ]
     then
-        shift
+        echo "Usage: $0 [command-in-new-window]"
+    else
         if [ $tab == 1 ]
         then
             eval "tmux neww"
@@ -23,6 +24,4 @@ then
         xdotool type "$*"
         xdotool key Return
     fi
-else
-  echo "Usage: $0 <terminal-emulator> [extra action]"
 fi
