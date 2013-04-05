@@ -1,5 +1,5 @@
 #!/bin/bash
-TERMINAL_EMULATOR='xfce4-terminal'
+TERMINAL_EMULATOR='urxvt'
 tab=1
 pgrep -l -u "$USER" -f "$TERMINAL_EMULATOR" | egrep -v "/bin/zsh|/bin/bash|/bin/sh" | grep -vq "$$"
 if [ $? != "0" ]
