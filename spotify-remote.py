@@ -1,17 +1,18 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*- 
 
-# Spoify-remote
-# Modified version of Spotify-notify that runs once when invoked instead of looping.
-#
-# v0.6d (28th aug 11)
-# by JonW (jon.neverwinter@gmail.com)
-# patched 20110907 by Jansen Price (sumpygump@gmail.com)
-# patched 20120729 by Jansen Price (sumpygump@gmail.com) and brandl.matthaeus
-# modified 20130405 by Fernando Sánchez (balkian@gmail.com)
-#
-# Original by SveinT (sveint@gmail.com)
-# up to v0.5.2 (27th jan 11)
+'''
+ Spoify-remote
+ Modified version of Spotify-notify that runs once when invoked instead of looping.
+ v0.6d (28th aug 11)
+ by JonW (jon.neverwinter@gmail.com)
+ patched 20110907 by Jansen Price (sumpygump@gmail.com)
+ patched 20120729 by Jansen Price (sumpygump@gmail.com) and brandl.matthaeus
+ modified 20130405 by Fernando Sánchez (balkian@gmail.com)
 
+ Original by SveinT (sveint@gmail.com)
+ up to v0.5.2 (27th jan 11)
+'''
 
 import dbus
 
