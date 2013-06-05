@@ -19,12 +19,13 @@ Bundle "ervandew/supertab"
 Bundle "majutsushi/tagbar"
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
-Bundle "honza/snipmate-snippets"
+Bundle "honza/vim-snippets"
 Bundle "garbas/vim-snipmate"
 Bundle "SpellCheck"
 Bundle "mattn/gist-vim"
 Bundle "mattn/webapi-vim"
 Bundle "kien/ctrlp.vim.git"
+Bundle "klen/python-mode"
 
 filetype plugin indent on     " required!
 
@@ -67,7 +68,7 @@ noremap \ ,
 " noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 " noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 " 
-imap <C-v> <C-O>"+gP<CR>
+imap <C-v> <C-O>"+gP
 noremap <C-S>  :w<CR>
 imap <C-S>  <C-O>:w<CR>
 

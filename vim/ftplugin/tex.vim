@@ -1,7 +1,7 @@
 "setlocal formatoptions+=wa
 
 function! SyncTexForward()
-     let execstr = "silent !okular --unique ".LatexBox_GetOutputFile()."\\#src:".line(".")."%:p &"
+     let execstr = "silent !evince ".LatexBox_GetOutputFile()."\\#src:".line(".")."%:p &"
      exec execstr
 endfunction
 nmap <Leader>f :call SyncTexForward()<CR>
@@ -14,7 +14,7 @@ set suffixes+=.log,.aux,.bbl,.blg,.idx,.ilg,.ind,.out,.pdf
 let g:LatexBox_latexmk_options="-pvc"
 let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'
 let g:LatexBox_output_type="pdf"
-let g:LatexBox_viewer="okular --unique"
+let g:LatexBox_viewer="evince"
 
 
 let tlist_tex_settings = 'latex;l:labels;s:sections;t:subsections;u:subsubsections'
