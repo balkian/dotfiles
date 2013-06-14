@@ -10,8 +10,9 @@ call vundle#rc()
 " required! 
 Bundle "gmarik/vundle"
 Bundle "LaTeX-Box-Team/LaTeX-Box"
-Bundle "tpope/vim-fugitive"
+Bundle "tpope/vim-repeat"
 Bundle "tpope/vim-unimpaired"
+Bundle "tpope/vim-fugitive"
 Bundle "scrooloose/nerdtree"
 Bundle "scrooloose/nerdcommenter"
 Bundle "scrooloose/syntastic"
@@ -26,6 +27,8 @@ Bundle "mattn/gist-vim"
 Bundle "mattn/webapi-vim"
 Bundle "kien/ctrlp.vim.git"
 Bundle "klen/python-mode"
+Bundle "flazz/vim-colorschemes"
+Bundle "Lokaltog/vim-distinguished"
 
 filetype plugin indent on     " required!
 
@@ -40,6 +43,7 @@ autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,
 au FileType py set textwidth=79
 autocmd Filetype javascript set ts=4 sts=4 sw=4 expandtab smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 set expandtab
+set smarttab
 set autoindent
 set smartindent
 syntax on
@@ -54,6 +58,9 @@ set showmatch
 set incsearch
 set hlsearch 
 
+set ruler
+set wildmenu
+set autoread
 "Better Map Leader
 let mapleader=","
 noremap \ ,
@@ -75,7 +82,7 @@ imap <C-S>  <C-O>:w<CR>
 "Custom maps
 noremap <Leader>n :NERDTreeToggle<CR>
 noremap <Leader>t :TagbarToggle<CR>
-noremap <Leader>f :CtrlPMixed<CR>
+noremap <Leader>f :CtrlPBuffer<CR>
 "Omni
 
 set completeopt=longest,menuone
@@ -112,12 +119,12 @@ nmap SO :so ~/.vim/Session.vim<CR>
 
 "Make tabs and buffers work better
 :se switchbuf=usetab,newtab
-":tab sball
 
 " Color and shit
-colo vividchalk
+set t_Co=256
 set background=dark
-hi SpellBad ctermbg=Red ctermfg=White
+colo solarized
+"hi SpellBad ctermfg=Red
 
 "Statusline
 
@@ -126,11 +133,11 @@ set laststatus=2
 
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
-    hi statusline guibg=Red ctermfg=White guifg=White ctermbg=Red
+    hi statusline guibg=Red ctermbg=Red guifg=White ctermfg=White
   elseif a:mode == 'r'
     hi statusline guibg=Blue ctermfg=White guifg=White ctermbg=Blue
   else
-    hi statusline guibg=Yellow ctermfg=White guifg=Black ctermbg=Yellow
+    hi statusline ctermbg=Yellow guibg=Yellow ctermfg=Black guifg=Black
   endif
 endfunction
 
@@ -139,4 +146,13 @@ call InsertStatuslineColor('')
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
 au InsertLeave * call InsertStatuslineColor('')
 
+"Diff the buffer and the original
+command DiffOrig let g:diffline = line('.') | vert new | set bt=nofile | r # | 0d_ | diffthis | :exe "norm! ".g:diffline."G" | wincmd p | diffthis | wincmd p
+nnoremap <Leader>do :DiffOrig<cr>
+nnoremap <leader>dc :q<cr>:diffoff<cr>:exe "norm! ".g:diffline."G"<cr>
+
+let g:ctrlp_cmd = 'CtrlPBuffer'
+
 set guifont=DejaVu\ Sans\ Mono
+
+set foldmethod=syntax
