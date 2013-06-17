@@ -1,0 +1,3 @@
+[submodule "i3-wm-scripts"]
+	path = i3-wm-scripts
+	url = git://github.com/yiuin/i3-wm-scripts.git
