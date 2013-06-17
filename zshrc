@@ -1,4 +1,4 @@
-export PATH=$PATH:$HOME/.bin/
+export PATH=$PATH:$HOME/.bin/:$HOME/.bin/i3-wm-scripts
 
 # Only update the path if not running interactively
 [ -z "$PS1" ] && return
@@ -50,3 +50,6 @@ export PYTHONSTARTUP
 
 ### Added by the Heroku Toolbelt
 export PATH="$PATH:/usr/local/heroku/bin"
+
+### Get RVM to work with zsh
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 

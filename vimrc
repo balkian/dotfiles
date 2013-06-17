@@ -13,6 +13,7 @@ Bundle "LaTeX-Box-Team/LaTeX-Box"
 Bundle "tpope/vim-repeat"
 Bundle "tpope/vim-unimpaired"
 Bundle "tpope/vim-fugitive"
+Bundle "tpope/vim-surround.git"
 Bundle "scrooloose/nerdtree"
 Bundle "scrooloose/nerdcommenter"
 Bundle "scrooloose/syntastic"
@@ -75,7 +76,7 @@ noremap \ ,
 " noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 " noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 " 
-imap <C-v> <C-O>"+gP
+imap <C-v> <C-O>"+gp
 noremap <C-S>  :w<CR>
 imap <C-S>  <C-O>:w<CR>
 
@@ -114,6 +115,8 @@ endfunction
 nmap Sq <ESC>:mksession! ~/.vim/Session.vim<CR>:qa!<CR>
 nmap SQ <ESC>:mksession! ~/.vim/Session.vim<CR>:wqa<CR>
 nmap SO :so ~/.vim/Session.vim<CR>
+
+set sessionoptions+=resize,winpos
 
 "autocmd VimEnter * call RestoreSession()
 
