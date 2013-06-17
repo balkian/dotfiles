@@ -1,4 +1,4 @@
-export PATH=$PATH:$HOME/.bin/:$HOME/.bin/i3-wm-scripts
+export PATH="$PATH:$HOME/.bin/"
 
 # Only update the path if not running interactively
 [ -z "$PS1" ] && return
