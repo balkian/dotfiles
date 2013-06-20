@@ -83,7 +83,7 @@ imap <C-S>  <C-O>:w<CR>
 "Custom maps
 noremap <Leader>n :NERDTreeToggle<CR>
 noremap <Leader>t :TagbarToggle<CR>
-noremap <Leader>f :CtrlPBuffer<CR>
+noremap <Leader>f :CtrlP<CR>
 "Omni
 
 set completeopt=longest,menuone
@@ -154,7 +154,7 @@ command DiffOrig let g:diffline = line('.') | vert new | set bt=nofile | r # | 0
 nnoremap <Leader>do :DiffOrig<cr>
 nnoremap <leader>dc :q<cr>:diffoff<cr>:exe "norm! ".g:diffline."G"<cr>
 
-let g:ctrlp_cmd = 'CtrlPBuffer'
+let g:ctrlp_cmd = 'CtrlPMRU'
 
 set guifont=DejaVu\ Sans\ Mono
 
