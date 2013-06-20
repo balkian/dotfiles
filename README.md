@@ -15,7 +15,8 @@ curl -#L https://github.com/balkian/dotfiles/tarball/master | tar -xzv --strip-c
 
 Just run:
 ```bash
-source .make.sh
+git submodule update --init --recursive
+source make.sh
 ```
 
 ## How it works
