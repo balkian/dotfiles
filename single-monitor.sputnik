@@ -1,0 +1,1 @@
+ xrandr --auto --output eDP1 --primary --output DP1 --off
