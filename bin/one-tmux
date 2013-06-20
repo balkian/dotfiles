@@ -1,0 +1,27 @@
+#!/bin/bash
+TERMINAL_EMULATOR='urxvt'
+tab=1
+pgrep -l -u "$USER" -f "$TERMINAL_EMULATOR" | egrep -v "/bin/zsh|/bin/bash|/bin/sh" | grep -vq "$$"
+if [ $? != "0" ]
+then
+    /usr/bin/$TERMINAL_EMULATOR &
+    sleep 1
+    tab=0
+fi
+WID=`xdotool search --class $TERMINAL_EMULATOR | tail -1`
+wmctrl -i -a $WID
+if [ "x$1" != "x" ]
+then
+    if [ "x$1" == "xhelp" ]
+    then
+        echo "Usage: $0 [command-in-new-window]"
+    else
+        if [ $tab == 1 ]
+        then
+            eval "tmux neww"
+            sleep 0.2
+        fi
+        xdotool type "$*"
+        xdotool key Return
+    fi
+fi

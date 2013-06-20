@@ -1,0 +1,11 @@
+#!/bin/zsh
+python2 $HOME/.bin/i3-wm-scripts/nextmatch.py urxvt
+if [ $? -gt 0 ]; then
+    urxvt & sleep 0.1 && python2 $HOME/.bin/i3-wm-scripts/nextmatch.py urxvt
+fi
+if [ "$#" -gt 0 ]; then
+    eval "tmux neww"
+    sleep 0.2
+    xdotool type "$*"
+    xdotool key Return
+fi

@@ -1,0 +1,5 @@
+#!/bin/sh
+python2 $HOME/.bin/i3-wm-scripts/nextmatch.py $*
+if [ $? -gt 0 ]; then
+    $* & sleep 0.1 && python2 $HOME/.bin/i3-wm-scripts/nextmatch.py $*
+fi
