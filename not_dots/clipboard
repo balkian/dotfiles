@@ -1,0 +1,9 @@
+#! /usr/bin/perl
+# /usr/lib/urxvt/perl/clipboard
+ 
+sub on_sel_grab {
+    my $query=quotemeta $_[0]-&gt;selection;
+    $query=~ s/\n/\\n/g;
+    $query=~ s/\r/\\r/g;
+    system( &quot;echo &quot; . $query . &quot; | xsel -i -b -p&quot; );
+}

@@ -2,7 +2,7 @@ export PATH="$PATH:$HOME/.bin/"
 
 # Only update the path if not running interactively
 [ -z "$PS1" ] && return
- source ~/.starttmux
+#source ~/.starttmux
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 

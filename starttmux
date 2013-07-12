@@ -1,3 +1,4 @@
+#!/bin/zsh
 # TMUX
 # if [[ -z "$KONSOLE_DBUS_SERVICE" & `which tmux` ]]; then
 # if no session is started, start a new session

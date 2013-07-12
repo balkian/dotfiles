@@ -76,7 +76,7 @@ noremap \ ,
 " noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 " noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 " 
-imap <C-v> <C-O>"+gp
+imap <C-v> <C-O>"+gP
 noremap <C-S>  :w<CR>
 imap <C-S>  <C-O>:w<CR>
 
