@@ -2,7 +2,7 @@ export PATH="$PATH:$HOME/.bin"
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-source ~/.starttmux
+#source ~/.starttmux
 
 #osx color terminal
 export CLICOLOR=1
