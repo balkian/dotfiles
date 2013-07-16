@@ -41,6 +41,10 @@ bindsym XF86AudioRaiseVolume exec volume-up.sh
 bindsym XF86AudioLowerVolume exec volume-down.sh
 bindsym XF86AudioMute exec volume-toggle-mute.sh
 
+# Brightness
+#bindsym XF86MonBrightnessUp exec xbacklight +5
+#bindsym XF86MonBrightnessDown exec xbacklight -5
+
 # kill focused window
 bindsym $mod+q kill
 

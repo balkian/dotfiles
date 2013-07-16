@@ -47,6 +47,7 @@ source $ZSH/oh-my-zsh.sh
 
 PYTHONSTARTUP=~/.pythonrc.py
 export PYTHONSTARTUP
+ssh-add -l >/dev/null || alias ssh='ssh-add -l >/dev/null || ssh-add && unalias ssh; ssh'
 
 ### Added by the Heroku Toolbelt
 export PATH="$PATH:/usr/local/heroku/bin"
