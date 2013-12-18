@@ -30,6 +30,9 @@ Bundle "kien/ctrlp.vim.git"
 Bundle "klen/python-mode"
 Bundle "flazz/vim-colorschemes"
 Bundle "Lokaltog/vim-distinguished"
+Bundle "jamessan/vim-gnupg"
+Bundle "Lokaltog/vim-easymotion"
+"Bundle "fholgado/minibufexpl.vim"
 
 filetype plugin indent on     " required!
 
@@ -39,9 +42,11 @@ highlight SpecialKey ctermfg=DarkGray
 set listchars=tab:>-,trail:~
 set list
 set tabstop=4
+set softtabstop=4
 set shiftwidth=4
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 au FileType py set textwidth=79
+au FileType html set tabstop=2 shiftwidth=2
 autocmd Filetype javascript set ts=4 sts=4 sw=4 expandtab smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 set expandtab
 set smarttab
@@ -50,7 +55,6 @@ set smartindent
 syntax on
 set ignorecase
 set smartcase
-set softtabstop=4
 set number
 "set paste
 set mouse=a
@@ -126,7 +130,7 @@ set sessionoptions+=resize,winpos
 " Color and shit
 set t_Co=256
 set background=dark
-colo solarized
+colo solarized 
 "hi SpellBad ctermfg=Red
 
 "Statusline
@@ -159,3 +163,47 @@ let g:ctrlp_cmd = 'CtrlPMRU'
 set guifont=DejaVu\ Sans\ Mono
 
 set foldmethod=syntax
+
+" Matching for html
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
+
+""""""""""""""""""""
+" GnuPG Extensions "
+""""""""""""""""""""
+
+" Tell the GnuPG plugin to armor new files.
+let g:GPGPreferArmor=1
+
+" Tell the GnuPG plugin to sign new files.
+let g:GPGPreferSign=1
+
+augroup GnuPGExtra
+" Set extra file options.
+    autocmd BufReadCmd,FileReadCmd *.\(gpg\|asc\|pgp\) call SetGPGOptions()
+" Automatically close unmodified files after inactivity.
+    autocmd CursorHold *.\(gpg\|asc\|pgp\) quit
+augroup END
+
+" RDF Notation 3 Syntax
+augroup filetypedetect
+    au BufNewFile,BufRead *.n3  setfiletype n3
+    au BufNewFile,BufRead *.ttl  setfiletype n3
+augroup END
+
+
+function SetGPGOptions()
+" Set updatetime to 1 minute.
+    set updatetime=60000
+" Fold at markers.
+    "set foldmethod=marker
+    setlocal foldmethod=expr
+    setlocal foldexpr=(getline(v:lnum)=~'^$')?-1:((indent(v:lnum)<indent(v:lnum+1))?('>'.indent(v:lnum+1)):indent(v:lnum))
+    set foldtext=getline(v:foldstart)
+
+" Automatically close all folds.
+    set foldclose=all
+" Only open folds with insert commands.
+    set foldopen=insert
+endfunction

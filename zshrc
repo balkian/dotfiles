@@ -44,13 +44,17 @@ source $ZSH/oh-my-zsh.sh
 #bindkey "^R" history-incremental-search-backward
 
 # Customize to your needs...
+autoload -U zmv
+alias mmv='noglob zmv -W'
 
 PYTHONSTARTUP=~/.pythonrc.py
 export PYTHONSTARTUP
-ssh-add -l >/dev/null || alias ssh='ssh-add -l >/dev/null || ssh-add && unalias ssh; ssh'
+ssh-add -l >/dev/null || alias ssh='ssh-add -l >/dev/null || ssh-add && unalias ssh; ssh'; alias mosh='ssh-add -l >/dev/null || ssh-add && unalias mosh; mosh'
 
 ### Added by the Heroku Toolbelt
-export PATH="$PATH:/usr/local/heroku/bin"
+export PATH="$PATH:/usr/local/heroku/bin:$HOME/.cabal/bin"
+
+setopt extended_glob
 
 ### Get RVM to work with zsh
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 

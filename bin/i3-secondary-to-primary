@@ -1,0 +1,10 @@
+#!/bin/sh
+i3-msg 'workspace "1: Term" output eDP1'
+i3-msg 'workspace "2: Web" output eDP1'
+i3-msg 'workspace "3: Edit" output eDP1'
+i3-msg 'workspace "4: Viewer" output DP1'
+i3-msg 'workspace "5: Files" output DP1'
+i3-msg 'workspace "6: Music" output DP1'
+i3-msg 'workspace "7: Chat" output DP1'
+i3-msg 'workspace "8: Misc Big" output eDP1'
+i3-msg 'workspace "9: Misc Small" output DP1'

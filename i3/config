@@ -55,6 +55,11 @@ bindsym Mod1+F2 exec dmenu_run -fn  "-*-cure-medium-*-*-*-11-*-*-*-*-*-*-*" -nb 
 # Arandr magic
 bindsym Mod1+F5 exec dual-monitor
 bindsym Mod1+F6 exec single-monitor
+bindsym Mod1+F7 exec i3-secondary-to-primary
+
+# Move to displays
+bindsym $mod+Mod1+l move workspace to output right
+bindsym $mod+Mod1+h move workspace to output left
 
 # change focus
 bindsym $mod+h focus left
@@ -219,5 +224,6 @@ exec --no-startup-id nm-applet
 exec --no-startup-id dropbox start
 exec --no-startup-id volti
 exec --no-startup-id clipit
+exec --no-startup-id syndaemon -i 0.5 -d
 exec xautolock -time 10 -locker 'i3lock -t -c 000000 -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png' &
 exec urxvt -e tmux attach
