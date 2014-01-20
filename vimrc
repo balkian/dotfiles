@@ -207,3 +207,6 @@ function SetGPGOptions()
 " Only open folds with insert commands.
     set foldopen=insert
 endfunction
+
+" Do not clear the file cache on exit
+let g:ctrlp_clear_cache_on_exit = 0

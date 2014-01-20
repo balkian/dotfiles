@@ -184,6 +184,7 @@ bar {
     position top
     workspace_buttons yes
     status_command ~/.i3/conky.sh
+    tray_output primary
     colors {
         background #101010
         statusline #101010
