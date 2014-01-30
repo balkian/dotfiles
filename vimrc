@@ -32,7 +32,9 @@ Bundle "flazz/vim-colorschemes"
 Bundle "Lokaltog/vim-distinguished"
 Bundle "jamessan/vim-gnupg"
 Bundle "Lokaltog/vim-easymotion"
-"Bundle "fholgado/minibufexpl.vim"
+"Bundle 'chriskempson/base16-vim'
+Bundle "fholgado/minibufexpl.vim"
+Bundle "nanotech/jellybeans.vim"
 
 filetype plugin indent on     " required!
 
@@ -80,7 +82,8 @@ noremap \ ,
 " noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 " noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 " 
-imap <C-v> <C-O>"+gP
+map <leader>p "+gp
+map <leader>P "+gP
 noremap <C-S>  :w<CR>
 imap <C-S>  <C-O>:w<CR>
 
@@ -125,7 +128,7 @@ set sessionoptions+=resize,winpos
 "autocmd VimEnter * call RestoreSession()
 
 "Make tabs and buffers work better
-:se switchbuf=usetab,newtab
+":se switchbuf=usetab,newtab
 
 " Color and shit
 set t_Co=256
@@ -163,6 +166,9 @@ let g:ctrlp_cmd = 'CtrlPMRU'
 set guifont=DejaVu\ Sans\ Mono
 
 set foldmethod=syntax
+set foldclose=all
+set foldopen+=insert,jump
+set nofoldenable
 
 " Matching for html
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''

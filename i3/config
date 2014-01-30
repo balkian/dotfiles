@@ -86,10 +86,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+g split h
+bindsym $mod+Shift+g split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+Shift+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
@@ -98,12 +98,20 @@ bindsym $mod+f fullscreen
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout default
+bindsym $mod+g layout splith
+bindsym $mod+v layout splitv
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
+
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -143,6 +151,7 @@ bindsym $mod+Shift+C reload
 bindsym $mod+Shift+R restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+E exit
+bindsym $mod+Mod1+s exec gksudo pm-suspend
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -226,5 +235,6 @@ exec --no-startup-id dropbox start
 exec --no-startup-id volti
 exec --no-startup-id clipit
 exec --no-startup-id syndaemon -i 0.5 -d
+exec --no-startup-id synapse -s
 exec xautolock -time 10 -locker 'i3lock -t -c 000000 -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png' &
 exec urxvt -e tmux attach
