@@ -11,8 +11,10 @@ map <leader>ct yyp:s/begin/end/<CR>
 let g:tex_flavor = "latex"
 set suffixes+=.log,.aux,.bbl,.blg,.idx,.ilg,.ind,.out,.pdf
 
-let g:LatexBox_latexmk_options="-pvc"
-let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'
+"let g:LatexBox_latexmk_options="-pvc"
+let g:LatexBox_latexmk_async=1
+let g:LatexBox_latexmk_preview_continuously=1
+"let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'
 let g:LatexBox_output_type="pdf"
 let g:LatexBox_viewer="evince"
 let g:LatexBox_Folding=1

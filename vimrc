@@ -14,27 +14,37 @@ Bundle "tpope/vim-repeat"
 Bundle "tpope/vim-unimpaired"
 Bundle "tpope/vim-fugitive"
 Bundle "tpope/vim-surround.git"
+Bundle "tpope/vim-abolish.git"
 Bundle "scrooloose/nerdtree"
 Bundle "scrooloose/nerdcommenter"
 Bundle "scrooloose/syntastic"
 Bundle "ervandew/supertab"
 Bundle "majutsushi/tagbar"
 Bundle "MarcWeber/vim-addon-mw-utils"
+"" for vim-snippets
 Bundle "tomtom/tlib_vim"
 Bundle "honza/vim-snippets"
 Bundle "garbas/vim-snipmate"
-Bundle "SpellCheck"
-Bundle "mattn/gist-vim"
 Bundle "mattn/webapi-vim"
-Bundle "kien/ctrlp.vim.git"
+Bundle "mattn/gist-vim"
 Bundle "klen/python-mode"
-Bundle "flazz/vim-colorschemes"
-Bundle "Lokaltog/vim-distinguished"
+Bundle "ivanov/vim-ipython"
 Bundle "jamessan/vim-gnupg"
 Bundle "Lokaltog/vim-easymotion"
-"Bundle 'chriskempson/base16-vim'
-Bundle "fholgado/minibufexpl.vim"
-Bundle "nanotech/jellybeans.vim"
+Bundle "vim-scripts/YankRing.vim"
+Bundle "kien/ctrlp.vim.git"
+Bundle "sgur/ctrlp-extensions.vim"
+Bundle "sjl/gundo.vim"
+Bundle "bling/vim-airline"
+Bundle "xolox/vim-misc"
+Bundle "xolox/vim-notes"
+Bundle "beloglazov/vim-online-thesaurus"
+Bundle "vim-scripts/ShowMarks"
+Bundle "atweiden/vim-dragvisuals"
+Bundle "tomasr/molokai"
+Bundle "elzr/vim-json"
+Bundle "niklasl/vim-rdf"
+
 
 filetype plugin indent on     " required!
 
@@ -68,7 +78,10 @@ set hlsearch
 set ruler
 set wildmenu
 set autoread
-"Better Map Leader
+
+" faster commands
+noremap <space> :
+" Better Map Leader
 let mapleader=","
 noremap \ ,
 
@@ -89,8 +102,10 @@ imap <C-S>  <C-O>:w<CR>
 
 "Custom maps
 noremap <Leader>n :NERDTreeToggle<CR>
-noremap <Leader>t :TagbarToggle<CR>
-noremap <Leader>f :CtrlP<CR>
+noremap <Leader>t :TagbarOpen fj<CR>
+noremap <Leader>f :CtrlPMixed<CR>
+noremap <Leader>b :CtrlPBookmarkDir<CR>
+noremap <Leader>l :CtrlPLine<CR>
 "Omni
 
 set completeopt=longest,menuone
@@ -110,6 +125,7 @@ nnoremap <C-t>     :tabnew<CR>
 inoremap <C-S-tab> <Esc>:tabprevious<CR>i
 inoremap <C-tab>   <Esc>:tabnext<CR>i
 "inoremap <C-t>     <Esc>:tabnew<CR>
+nnoremap <leader>dd :bd<CR>
 
 
 " Save sessions
@@ -141,27 +157,27 @@ colo solarized
 set statusline=%t%h%m%r%y%{fugitive#statusline()}\%=[%{strlen(&fenc)?&fenc:'none'},%{&ff}]\ \ %c,%l/%L\ %P
 set laststatus=2
 
-function! InsertStatuslineColor(mode)
-  if a:mode == 'i'
-    hi statusline guibg=Red ctermbg=Red guifg=White ctermfg=White
-  elseif a:mode == 'r'
-    hi statusline guibg=Blue ctermfg=White guifg=White ctermbg=Blue
-  else
-    hi statusline ctermbg=Yellow guibg=Yellow ctermfg=Black guifg=Black
-  endif
-endfunction
+" Now that I use Airline, there is no need for this :)
+"function! InsertStatuslineColor(mode)
+  "if a:mode == 'i'
+    "hi statusline guibg=Red ctermbg=Red guifg=White ctermfg=White
+  "elseif a:mode == 'r'
+    "hi statusline guibg=Blue ctermfg=White guifg=White ctermbg=Blue
+  "else
+    "hi statusline ctermbg=Yellow guibg=Yellow ctermfg=Black guifg=Black
+  "endif
+"endfunction
 
-call InsertStatuslineColor('')
+"call InsertStatuslineColor('')
+"au InsertEnter * call InsertStatuslineColor(v:insertmode)
+"au InsertLeave * call InsertStatuslineColor('')
 
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * call InsertStatuslineColor('')
+au BufRead,BufNewFile *.md set filetype=markdown
 
 "Diff the buffer and the original
 command DiffOrig let g:diffline = line('.') | vert new | set bt=nofile | r # | 0d_ | diffthis | :exe "norm! ".g:diffline."G" | wincmd p | diffthis | wincmd p
 nnoremap <Leader>do :DiffOrig<cr>
 nnoremap <leader>dc :q<cr>:diffoff<cr>:exe "norm! ".g:diffline."G"<cr>
-
-let g:ctrlp_cmd = 'CtrlPMRU'
 
 set guifont=DejaVu\ Sans\ Mono
 
@@ -192,13 +208,6 @@ augroup GnuPGExtra
     autocmd CursorHold *.\(gpg\|asc\|pgp\) quit
 augroup END
 
-" RDF Notation 3 Syntax
-augroup filetypedetect
-    au BufNewFile,BufRead *.n3  setfiletype n3
-    au BufNewFile,BufRead *.ttl  setfiletype n3
-augroup END
-
-
 function SetGPGOptions()
 " Set updatetime to 1 minute.
     set updatetime=60000
@@ -214,5 +223,67 @@ function SetGPGOptions()
     set foldopen=insert
 endfunction
 
+" CtrlP
 " Do not clear the file cache on exit
 let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_extensions = [ 'mixed' ]
+let g:ctrlp_regexp = 0
+let g:ctrlp_cmd = 'CtrlPMixed'
+
+" Git things
+nmap <leader>gs :Gstatus<cr>
+nmap <leader>gd :Gdiff<cr>
+nmap <leader>gl :Glog<cr>
+
+" Gundo magic
+nnoremap <leader>u :GundoToggle<CR>
+
+" YankRing+Ctrl-P
+map <leader>y :YRShow<CR>
+let g:yankring_replace_n_pkey = '<c-j>'
+let g:yankring_replace_n_nkey = '<c-k>'
+
+
+let g:airline_left_sep=''
+let g:airline_right_sep='|'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_theme='base16'
+
+" Notes
+:let g:notes_directories = ['~/Dropbox/Notes']
+
+" Block move
+vmap  <expr>  <LEFT>   DVB_Drag('left')
+vmap  <expr>  <RIGHT>  DVB_Drag('right')
+vmap  <expr>  <DOWN>   DVB_Drag('down')
+vmap  <expr>  <UP>     DVB_Drag('up')
+vmap  <expr>  D        DVB_Duplicate()
+
+function! s:get_visual_selection()
+  " Why is this not a built-in Vim script function?!
+  let [lnum1, col1] = getpos("'<")[1:2]
+  let [lnum2, col2] = getpos("'>")[1:2]
+  let lines = getline(lnum1, lnum2)
+  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][col1 - 1:]
+  return join(lines, "\n")
+endfunction
+
+" Thesaurus
+let g:online_thesaurus_map_keys = 0
+nnoremap <leader>k :OnlineThesaurusCurrentWord<CR>
+vnoremap <leader>k <Esc>:Thesaurus <C-R><C-R>=<SID>get_visual_selection()<CR><CR>
+
+" Resizing
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>> :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
+nnoremap <silent> <Leader>< :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
+
+" Clipboard magic
+if has('unnamedplus')
+  set clipboard=unnamed,unnamedplus
+endif
