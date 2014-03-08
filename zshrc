@@ -37,7 +37,7 @@ export UPDATE_ZSH_DAYS=13
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git colored-man virtualenvwrapper cp python wd systemadmin)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -53,6 +53,9 @@ ssh-add -l >/dev/null || alias ssh='ssh-add -l >/dev/null || ssh-add && unalias 
 
 ### Added by the Heroku Toolbelt
 export PATH="$PATH:/usr/local/heroku/bin:$HOME/.cabal/bin"
+
+### Virtualenvwrapper
+export WORKON_HOME=~/.virtualenvs
 
 setopt extended_glob
 

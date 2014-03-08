@@ -43,7 +43,7 @@ Bundle "vim-scripts/ShowMarks"
 Bundle "atweiden/vim-dragvisuals"
 Bundle "tomasr/molokai"
 Bundle "elzr/vim-json"
-Bundle "niklasl/vim-rdf"
+Bundle "balkian/vim-rdf"
 
 
 filetype plugin indent on     " required!
@@ -125,7 +125,7 @@ nnoremap <C-t>     :tabnew<CR>
 inoremap <C-S-tab> <Esc>:tabprevious<CR>i
 inoremap <C-tab>   <Esc>:tabnext<CR>i
 "inoremap <C-t>     <Esc>:tabnew<CR>
-nnoremap <leader>dd :bd<CR>
+nnoremap <Leader>dd :bd<CR>
 
 
 " Save sessions
