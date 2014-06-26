@@ -22,5 +22,5 @@ if [ -d "$HOME/.bin" ] ; then
 fi
 
 if [ -f $HOME/.Xmodmap ]; then
-    /usr/bin/xmodmap $HOME/.Xmodmap
+    /usr/bin/xmodmap $HOME/.Xmodmap 2>/dev/null &
 fi

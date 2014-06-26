@@ -128,9 +128,10 @@ class EditableBufferInteractiveConsole(InteractiveConsole):
 # clean up namespace
 del sys
 
-c = EditableBufferInteractiveConsole(locals=locals())
-c.interact(banner=WELCOME)
+if __name__ == "__main__":
+    c = EditableBufferInteractiveConsole(locals=locals())
+    c.interact(banner=WELCOME)
 
 # Exit the Python shell on exiting the InteractiveConsole
-import sys
-sys.exit()
+    import sys
+    sys.exit()

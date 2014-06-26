@@ -43,7 +43,9 @@ Bundle "vim-scripts/ShowMarks"
 Bundle "atweiden/vim-dragvisuals"
 Bundle "tomasr/molokai"
 Bundle "elzr/vim-json"
-Bundle "balkian/vim-rdf"
+Bundle 'Rykka/riv.vim'
+Bundle "niklasl/vim-rdf"
+
 
 
 filetype plugin indent on     " required!
@@ -149,7 +151,8 @@ set sessionoptions+=resize,winpos
 " Color and shit
 set t_Co=256
 set background=dark
-colo solarized 
+"colo solarized 
+colo molokai
 "hi SpellBad ctermfg=Red
 
 "Statusline
@@ -287,3 +290,11 @@ nnoremap <silent> <Leader>< :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
 if has('unnamedplus')
   set clipboard=unnamed,unnamedplus
 endif
+
+set cursorline
+
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar
+

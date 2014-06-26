@@ -97,7 +97,7 @@ esac
 if $TERM_IS_COLOR && ( dircolors --help && ls --color ) &> /dev/null; then
 # For some reason, the unixs machines need me to use $HOME instead of ~
 # List files from highest priority to lowest.  As soon as the loop finds one that works, it will exit.
-    export PROMPT_COMMAND='PS1="\\[\033[1;\`if [[ \$? = "0" ]]; then echo "32m\\]"; else echo "31m\\]"; fi\`☠ \\[\033[0m\]$PS0"'
+    export PROMPT_COMMAND='PS1="\\[\033[1;\`if [[ \$? = "0" ]]; then echo "32m\\]"; else echo "31m\\]"; fi\`â  \\[\033[0m\]$PS0"'
 for POSSIBLE_DIR_COLORS in "$HOME/.dir_colors" "/etc/DIR_COLORS"; do
     [[ -f "$POSSIBLE_DIR_COLORS" ]] && [[ -r "$POSSIBLE_DIR_COLORS" ]] && eval `dircolors -b "$POSSIBLE_DIR_COLORS"` && break
 done
@@ -179,3 +179,4 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 ### Added by the Heroku Toolbelt
 export PATH="$PATH:/usr/local/heroku/bin"
+export MSF_DATABASE_CONFIG=/usr/local/share/metasploit-framework/database.yml

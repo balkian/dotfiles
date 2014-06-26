@@ -20,7 +20,8 @@ font xft:Deja Vu Sans 8
 floating_modifier $mod
 #/exec
 # start a terminal
-bindsym $mod+Return exec i3-one-tmux
+#bindsym $mod+Return exec i3-one-tmux
+bindsym $mod+Return [instance="tmux"] scratchpad show
 bindsym Control+Mod1+t exec urxvt
 
 # start lock
@@ -53,11 +54,14 @@ bindsym $mod+q kill
 bindsym Mod1+F2 exec dmenu_run -fn  "-*-cure-medium-*-*-*-11-*-*-*-*-*-*-*" -nb "#101010" -nf "#5f5f5f" -sb "#191919" -sf "#b72f62" -b
 
 # Arandr magic
-bindsym Mod1+F5 exec dual-monitor
-bindsym Mod1+F6 exec single-monitor
-bindsym Mod1+F7 exec i3-secondary-to-primary
+bindsym Mod1+F5 exec monitors single
+bindsym Mod1+F6 exec monitors dual
+bindsym Mod1+F7 exec monitors dual home
+bindsym Mod1+F8 exec i3-secondary-to-primary
 
 # Move to displays
+bindsym $mod+Mod1+j move workspace to output down
+bindsym $mod+Mod1+k move workspace to output up
 bindsym $mod+Mod1+l move workspace to output right
 bindsym $mod+Mod1+h move workspace to output left
 
@@ -153,6 +157,8 @@ bindsym $mod+Shift+R restart
 bindsym $mod+Shift+E exec exit_i3.sh
 bindsym $mod+Mod1+s exec gksudo pm-suspend
 
+bindsym $mod+Shift+p exec passmenu
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -213,12 +219,12 @@ for_window [class="^Google-chrome$"] border none
 assign [class="Google-chrome" window_role="browser"] 2: Web
 for_window [class="^Firefox$"] border none
 assign [class="Firefox" window_role="browser"] 2: Web
+for_window [class="Xfce4-notifyd"] floating enable; border none; focus mode_toggle
 for_window [class="^URxvt$"] border 1px
-assign [title="^tmux$"] 1: Term
-assign [class="^Gvim$"] 3: Edit
-assign [class="^Evince$"] 4: Viewer
+for_window [title="^tmux$"] move to scratchpad;
+#assign [class="^Gvim$"] 3: Edit
+#assign [class="^Evince$"] 4: Viewer
 assign [class="^Spotify$"] 6: Music
-assign [class="^Audacious$"] 6: Music
 assign [class="^Audacious$"] 6: Music
 assign [class="^Xchat$"] 7: Chat
 
@@ -239,7 +245,7 @@ exec --no-startup-id clipit
 exec --no-startup-id syndaemon -i 0.5 -d
 exec --no-startup-id synapse -s
 exec xautolock -time 10 -locker 'i3lock -t -c 000000 -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png' &
-exec urxvt -e tmux attach
+exec urxvt -name tmux -e tmux attach
 
 #set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 #mode "$mode_system" {
@@ -255,5 +261,5 @@ exec urxvt -e tmux attach
         #bindsym Escape mode "default"
 #}
 #bindsym $mod+Pause mode "$mode_system"
-exec --no-startup-id feh --bg-scale Pictures/Wallpapers/little_big_planet.jpg
-exec --no-startup-id compton -b --config ~/.compton.conf 
+exec --no-startup-id nitrogen --restore & 
+#exec --no-startup-id compton -b --config ~/.compton.conf 
