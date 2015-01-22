@@ -222,11 +222,18 @@ assign [class="Firefox" window_role="browser"] 2: Web
 for_window [class="Xfce4-notifyd"] floating enable; border none; focus mode_toggle
 for_window [class="^URxvt$"] border 1px
 for_window [title="^tmux$"] move to scratchpad;
+#KDE
+for_window [class="Plasma-desktop"] border none
+for_window [class="krunner"] border none
+for_window [class="Kmix"] floating enable;
+for_window [class="Plasmoidviewer"] floating enable;
+for_window [class="Klipper"] floating enable; border none
 #assign [class="^Gvim$"] 3: Edit
 #assign [class="^Evince$"] 4: Viewer
 assign [class="^Spotify$"] 6: Music
 assign [class="^Audacious$"] 6: Music
 assign [class="^Xchat$"] 7: Chat
+#for_window [class="Pcmanfm"] floating enable
 
 workspace "1: Term" output DP1
 workspace "2: Web" output DP1
@@ -263,3 +270,4 @@ exec urxvt -name tmux -e tmux attach
 #bindsym $mod+Pause mode "$mode_system"
 exec --no-startup-id nitrogen --restore & 
 #exec --no-startup-id compton -b --config ~/.compton.conf 
+#

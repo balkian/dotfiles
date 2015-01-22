@@ -1,0 +1,19 @@
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
+
+" Pass through all keys (like CTRL-Z) on Gmail and Google Reader:
+"autocmd LocationChange .* :js modes.passAllKeys = /(docs|mail)\.google\.com|www\.google\.com\/reader\/view/.test(buffer.URL) 
+"autocmd LocationChange .* :js modes.passAllKeys = /(localhost|127.0.0.1)/.test(buffer.URL)
+
+autocmd LocationChange .*                   js modes.passAllKeys = false
+autocmd LocationChange mail\\.google\\.com  js modes.passAllKeys = true
+autocmd LocationChange docs\\.google\\.com  js modes.passAllKeys = true
+autocmd LocationChange duckduckgo\\.com  js modes.passAllKeys = true
+ 
+" Make Firefox run faster by using JIT
+set! javascript.options.jit.chrome=true 
+
+map <C-S-I> <S-Esc><C-S-i>
+map d <C-D>
+map u <C-U>
+map U :undo<CR>
+map x :tabclose<CR>

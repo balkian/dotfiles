@@ -16,8 +16,9 @@ let g:LatexBox_latexmk_async=1
 let g:LatexBox_latexmk_preview_continuously=1
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'
 let g:LatexBox_output_type="pdf"
-let g:LatexBox_viewer="evince"
+let g:LatexBox_viewer="xdg-open"
 let g:LatexBox_Folding=1
+let g:LatexBox_quickfix=2
 
 let tlist_tex_settings = 'latex;l:labels;s:sections;t:subsections;u:subsubsections'
 

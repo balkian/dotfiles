@@ -298,3 +298,27 @@ set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
 
+let g:pymode_rope_project_root = "~/.ropeprojects"
+
+" backup to ~/.tmp 
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp 
+set backupskip=/tmp/*,/private/tmp/* 
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp 
+set writebackup
+
+" Easymotion
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+" Bi-directional find motion
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap s <Plug>(easymotion-s)
+nmap <Leader>w <Plug>(easymotion-bd-w)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap s <Plug>(easymotion-s2)
+
+" Turn on case sensitive feature
+let g:EasyMotion_smartcase = 1
