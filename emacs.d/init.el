@@ -140,7 +140,6 @@
 ;; Disable splash screen
 (setq inhibit-splash-screen t)
 
-
 (set-default 'truncate-lines t)
 
 (savehist-mode 1)

@@ -201,7 +201,6 @@ bar {
     position top
     workspace_buttons yes
     status_command ~/.i3/conky.sh
-    tray_output primary
     colors {
         background #101010
         statusline #101010
@@ -271,6 +270,6 @@ exec urxvt -name tmux -e tmux attach
 #}
 #bindsym $mod+Pause mode "$mode_system"
 exec --no-startup-id nitrogen --restore & 
-exec --no-startup-id xfsettingsd
+exec --no-startup-id xfce4-power-manager
 #exec --no-startup-id compton -b --config ~/.compton.conf 
 #
