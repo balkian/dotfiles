@@ -46,6 +46,9 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 autoload -U zmv
 alias mmv='noglob zmv -W'
+alias e='emacsclient --alternate-editor="" -nw -c'
+alias ew='emacsclient --alternate-editor="" -c'
+export ALTERNATE_EDITOR=/usr/bin/emacs EDITOR="emacsclient -nw" VISUAL=emacsclient
 
 PYTHONSTARTUP=~/.pythonrc.py
 export PYTHONSTARTUP

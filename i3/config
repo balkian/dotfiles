@@ -25,10 +25,12 @@ bindsym $mod+Return [instance="tmux"] scratchpad show
 bindsym Control+Mod1+t exec urxvt
 
 # start lock
-bindsym Control+Mod1+l exec i3lock -c 000000 -t -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png
+#bindsym Control+Mod1+l exec i3lock -c 000000 -t -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png # Generic
+bindsym Control+Mod1+l exec dm-tool lock # Lightdm
 
 bindsym Control+Mod1+w exec i3-one-instance firefox
 bindsym Control+Mod1+g exec i3-one-instance gvim
+bindsym Control+Mod1+e exec myemacs
 bindsym $mod+o exec i3-winmenu.py
 bindsym Control+Mod1+f exec pcmanfm
 
@@ -251,7 +253,7 @@ exec --no-startup-id volti
 exec --no-startup-id clipit
 exec --no-startup-id syndaemon -i 0.5 -d
 exec --no-startup-id synapse -s
-exec xautolock -time 10 -locker 'i3lock -t -c 000000 -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png' &
+#exec xautolock -time 10 -locker 'i3lock -t -c 000000 -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png' &
 exec urxvt -name tmux -e tmux attach
 
 #set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
@@ -269,5 +271,6 @@ exec urxvt -name tmux -e tmux attach
 #}
 #bindsym $mod+Pause mode "$mode_system"
 exec --no-startup-id nitrogen --restore & 
+exec --no-startup-id xfsettingsd
 #exec --no-startup-id compton -b --config ~/.compton.conf 
 #
