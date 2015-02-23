@@ -48,7 +48,7 @@ autoload -U zmv
 alias mmv='noglob zmv -W'
 alias e='myemacs -nw'
 alias ew='myemacs'
-export ALTERNATE_EDITOR=/usr/bin/emacs EDITOR="emacsclient -nw" VISUAL=emacsclient
+export ALTERNATE_EDITOR=/usr/bin/emacs EDITOR="myemacs -nw" VISUAL="myemacs -nw"
 
 PYTHONSTARTUP=~/.pythonrc.py
 export PYTHONSTARTUP
