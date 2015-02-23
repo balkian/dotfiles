@@ -25,8 +25,7 @@ bindsym $mod+Return [instance="tmux"] scratchpad show
 bindsym Control+Mod1+t exec urxvt
 
 # start lock
-#bindsym Control+Mod1+l exec i3lock -c 000000 -t -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png # Generic
-bindsym Control+Mod1+l exec dm-tool lock # Lightdm
+bindsym Control+Mod1+l exec i3-exit.sh lock
 
 bindsym Control+Mod1+w exec i3-one-instance firefox
 bindsym Control+Mod1+g exec i3-one-instance gvim
@@ -156,8 +155,8 @@ bindsym $mod+Shift+C reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+R restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+E exec exit_i3.sh
-bindsym $mod+Mod1+s exec gksudo pm-suspend
+bindsym $mod+Shift+E exec i3-exit.sh logout
+bindsym $mod+Mod1+s exec i3-exit.sh suspend
 
 bindsym $mod+Shift+p exec passmenu
 
@@ -252,23 +251,24 @@ exec --no-startup-id volti
 exec --no-startup-id clipit
 exec --no-startup-id syndaemon -i 0.5 -d
 exec --no-startup-id synapse -s
-#exec xautolock -time 10 -locker 'i3lock -t -c 000000 -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png' &
+exec xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png' &
+#exec --no-startup-id xautolock -corners '----' -time 10 -locker 'dm-tool lock' # lightdm
 exec urxvt -name tmux -e tmux attach
 
-#set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
-#mode "$mode_system" {
-    #bindsym l exec --no-startup-id i3exit lock, mode "default"
-        #bindsym e exec --no-startup-id i3exit logout, mode "default"e
-        #bindsym s exec --no-startup-id i3exit suspend, mode "default"
-        #bindsym h exec --no-startup-id i3exit hibernate, mode "default"
-        #bindsym r exec --no-startup-id i3exit reboot, mode "default"
-        #bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+        bindsym l exec --no-startup-id i3-exit.sh lock, mode "default"
+        bindsym e exec --no-startup-id i3-exit.sh logout #, mode "default"
+        bindsym s exec --no-startup-id i3-exit.sh suspend #, mode "default"
+        bindsym h exec --no-startup-id i3-exit.sh hibernate, mode "default"
+        bindsym r exec --no-startup-id i3-exit.sh reboot, mode "default"
+        bindsym Shift+s exec --no-startup-id i3-exit.sh shutdown, mode "default"
 
-## back to normal: Enter or Escape
-        #bindsym Return mode "default"
-        #bindsym Escape mode "default"
-#}
-#bindsym $mod+Pause mode "$mode_system"
+# back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+Delete mode "$mode_system"
 exec --no-startup-id nitrogen --restore & 
 exec --no-startup-id xfce4-power-manager
 #exec --no-startup-id compton -b --config ~/.compton.conf 

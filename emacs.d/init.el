@@ -4,8 +4,6 @@
 ;;; Code:
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
 
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
@@ -32,29 +30,35 @@
  my:el-get-packages
  '(el-get				; el-get is self-hosting
    ace-jump-mode
-  ; escreen            			; screen for emacs, C-\ C-h
-   switch-window			; takes over C-x o
+   auctex
+   auctex-latexmk
    auto-complete			; complete as you type with overlays
-  ; zencoding-mode			; http://www.emacswiki.org/emacs/ZenCoding
+   ein
    emmet-mode
-   pretty-mode
+  ; escreen            			; screen for emacs, C-\ C-h
    evil
-   fill-column-indicator
    evil-jumper
    evil-matchit
    evil-nerd-commenter
    evil-surround
-   jedi
+   fill-column-indicator
    flycheck
-   powerline
-   ein
-   ;; smex
-   helm
-   projectile
-   helm-projectile
-   auctex
    gist
+   helm
+   helm-ag
+   helm-projectile
+   jedi
+   magit
    markdown-mode
+   nxhtml
+   pivotal-tracker
+   powerline
+   pretty-mode
+   projectile
+   ;; smex
+   switch-window			; takes over C-x o
+   yasnippet
+  ; zencoding-mode			; http://www.emacswiki.org/emacs/ZenCoding
    ;; color-theme-solarized
    ;; color-theme-tango))	                ; check out color-theme-olarized
 
@@ -122,6 +126,22 @@
 (setq linum-format " %d ")
 (set-face-background 'hl-line-face "gray18")
 
+(setq linum-mode-inhibit-modes-list '(eshell-mode
+                                      shell-mode
+                                      ein:notebook-bg-mode
+                                      ein:bg/ein:notebook
+                                      ein:bg
+                                      ein:notebook
+                                      )
+)
+
+(defadvice linum-on (around linum-on-inhibit-for-modes)
+  "Stop the load of linum-mode for some major modes."
+    (unless (member major-mode linum-mode-inhibit-modes-list)
+      ad-do-it))
+
+(ad-activate 'linum-on)
+
 (require 'evil-matchit)
 (global-evil-matchit-mode 1)
 
@@ -151,6 +171,8 @@
 (eval-after-load 'ein-notebooklist
                  '(require 'config-ein))
 
+;; Latex
+(require 'config-latex)
 ;; Cool surrounding
 
 (require 'evil-surround)
@@ -220,6 +242,40 @@
 (setq fci-rule-column 79)
 (fringe-mode '(1 . 1))
 
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+
+(setq org-directory "~/Dropbox/org")
+(setq org-mobile-inbox-for-pull "~/Dropbox/org/inbox.org")
+(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+(setq org-mobile-files '("~/Dropbox/org"))
+(setq org-default-notes-file (concat org-directory "/notes.org"))
+(setq org-agenda-files (list org-directory))
+
+(define-key global-map "\C-cc" 'org-capture)
+
+(setq org-clock-persist 'history)
+(org-clock-persistence-insinuate)
+
+
+(yas-global-mode 1)
+
+(require 'config-secret)
+
+(eval-after-load 'magit
+  '(progn
+     (set-face-foreground 'magit-diff-add "green3")
+     (set-face-foreground 'magit-diff-del "red3")
+     (set-face-background 'magit-item-highlight "black")))
+
+;; Preven #file#.txt files
+(setq create-lockfiles nil)
+
+;; Better helm fonts
+(set-face-attribute 'helm-selection nil :background "yellow" :foreground "black")
+
 ;;; .emacs ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -232,4 +288,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ein:cell-input-area ((t nil)) t))
+ '(ein:cell-input-area ((t nil)))
+ '(ein:cell-input-prompt ((t (:inherit header-line :background "firebrick")))))
