@@ -1,4 +1,4 @@
-;; BalkEmacs --- My emacs configuration
+; BalkEmacs --- My emacs configuration
 ;;; Commentary:
 
 ;;; Code:
@@ -51,6 +51,7 @@
    magit
    markdown-mode
    nxhtml
+   nose
    pivotal-tracker
    powerline
    pretty-mode
@@ -86,6 +87,7 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 (add-hook 'python-mode-hook 'auto-complete-mode)
+(add-hook 'python-mode-hook '(lambda () (require 'nose)))
 (add-hook 'python-mode-hook 'jedi:ac-setup)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
@@ -160,7 +162,9 @@
 ;; Disable splash screen
 (setq inhibit-splash-screen t)
 
-(set-default 'truncate-lines t)
+(set-default 'truncate-lines nil)
+(setq truncate-partial-width-windows nil)
+
 
 (savehist-mode 1)
 
@@ -173,6 +177,9 @@
 
 ;; Latex
 (require 'config-latex)
+
+;; Latex
+(require 'config-python)
 ;; Cool surrounding
 
 (require 'evil-surround)
@@ -206,6 +213,8 @@
 
 ;; cool jumping
 (define-key evil-normal-state-map (kbd "SPC") 'helm-M-x)
+(define-key evil-normal-state-map (kbd "[b") 'evil-next-buffer)
+(define-key evil-normal-state-map (kbd "]b") 'evil-prev-buffer)
 (define-key evil-normal-state-map (kbd ",,") 'evil-ace-jump-char-mode)
 
 
@@ -223,8 +232,6 @@
 (setq auto-save-file-name-transforms
       `((".*" , temporary-file-directory t)))
 
-;; Scrolling in tmux
-(xterm-mouse-mode)
 
 (global-hl-line-mode)
 
@@ -276,17 +283,42 @@
 ;; Better helm fonts
 (set-face-attribute 'helm-selection nil :background "yellow" :foreground "black")
 
+;; Scrolling in tmux
+(defun my-terminal-config (&optional frame)
+  "Establish settings for the current terminal."
+  (if (not frame) ;; The initial call.
+      (xterm-mouse-mode 1)
+    ;; Otherwise called via after-make-frame-functions.
+    (if xterm-mouse-mode
+        ;; Re-initialise the mode in case of a new terminal.
+        (xterm-mouse-mode 1))))
+;; Evaluate both now (for non-daemon emacs) and upon frame creation
+;; (for new terminals via emacsclient).
+(my-terminal-config)
+
+(add-hook 'after-make-frame-functions 'my-terminal-config)
+
+;; Don't use evil mode in magit
+
+(add-to-list 'evil-emacs-state-modes 'git-rebase-mode)
+
+;; Disable copying to the clipboard
+;; (setq x-select-enable-clipboard nil)
+;; (setq x-select-enable-primary t)
+
 ;;; .emacs ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("c3c0a3702e1d6c0373a0f6a557788dfd49ec9e66e753fb24493579859c8e95ab" "9b41f298ad28dc56765b227e4b9ed38f98a236706a3a26b148491a0dade90568" "0eebf69ceadbbcdd747713f2f3f839fe0d4a45bd0d4d9f46145e40878fc9b098" "1297a022df4228b81bc0436230f211bad168a117282c20ddcba2db8c6a200743" "146d24de1bb61ddfa64062c29b5ff57065552a7c4019bee5d869e938782dfc2a" default))))
+ '(custom-safe-themes (quote ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "c3c0a3702e1d6c0373a0f6a557788dfd49ec9e66e753fb24493579859c8e95ab" "9b41f298ad28dc56765b227e4b9ed38f98a236706a3a26b148491a0dade90568" "0eebf69ceadbbcdd747713f2f3f839fe0d4a45bd0d4d9f46145e40878fc9b098" "1297a022df4228b81bc0436230f211bad168a117282c20ddcba2db8c6a200743" "146d24de1bb61ddfa64062c29b5ff57065552a7c4019bee5d869e938782dfc2a" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ein:cell-input-area ((t nil)))
- '(ein:cell-input-prompt ((t (:inherit header-line :background "firebrick")))))
+ ;; '(default ((t (:inherit nil :stipple nil :background "#1b1d1e" :foreground "#f8f8f0" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight semi-light :height 113 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
+ ;; '(ein:cell-input-area ((t nil)))
+ '(ein:cell-input-prompt ((t (:inherit header-line :background "firebrick"))))
+)

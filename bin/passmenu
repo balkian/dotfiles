@@ -8,4 +8,4 @@ password_files=( "${password_files[@]%.gpg}" )
 
 password=$(printf '%s\n' "${password_files[@]}" | dmenu "$@")
 
-pass "$password" | xsel
+pass show -c "$password"
