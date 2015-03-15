@@ -5,8 +5,9 @@
 	tool = vimdiff
 [alias]
 	d = difftool
-[github]
-	user = balkian
+[include]
+ 	path = ~/.gitconfig_secret
+
 [color]
 	ui = true
 
@@ -16,3 +17,6 @@ lg2 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan
 lg = !"git lg1"
 [core]
 	excludesfile = /home/jfernando/.gitignore_global
+
+[include]
+        path = ~/.gitconfig_secret

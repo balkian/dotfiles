@@ -306,6 +306,8 @@
 ;; (setq x-select-enable-clipboard nil)
 ;; (setq x-select-enable-primary t)
 
+(setq flycheck-temp-prefix ".flycheck")
+
 ;;; .emacs ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
