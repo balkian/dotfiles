@@ -25,6 +25,7 @@
 *.log
 *.sql
 *.sqlite
+*.db
  
 # OS generated files #
 ######################
@@ -44,6 +45,7 @@ Thumbs.db
 # Python
 ######
 *.pyc
+*.egg-info
 
 # VIM
 ######

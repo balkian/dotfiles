@@ -47,6 +47,7 @@
    helm
    helm-ag
    helm-projectile
+   helm-pydoc
    jedi
    magit
    markdown-mode
@@ -86,9 +87,6 @@
 
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
-(add-hook 'python-mode-hook 'auto-complete-mode)
-(add-hook 'python-mode-hook '(lambda () (require 'nose)))
-(add-hook 'python-mode-hook 'jedi:ac-setup)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
 (require 'ido)
@@ -157,6 +155,7 @@
 ;; No tabs, only 4 spaces, as default
 (setq-default indent-tabs-mode nil)
 (setq tab-width 4)
+(setq default-tab-width 4); 
 
 
 ;; Disable splash screen
