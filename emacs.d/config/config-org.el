@@ -1,6 +1,9 @@
 (require 'org)
+(require 'evil-org)
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
+(evil-leader/set-key "a" 'org-agenda)
+
 (setq org-log-done t)
 
 (setq org-directory "~/Dropbox/org")
@@ -13,6 +16,5 @@
 (define-key global-map "\C-cc" 'org-capture)
 
 (setq org-clock-persist 'history)
-(org-clock-persistence-insinuate)
 
 (provide 'config-org)
