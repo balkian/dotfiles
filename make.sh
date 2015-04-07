@@ -6,10 +6,15 @@
 
 ########## Variables
 
-dir=$(pwd)                    # dotfiles directory
+# dotfiles directory
+dir=`dirname $0`
+
+########## Don't forget the submodules
+git submodule init
+git submodule update --recursive
 
 olddir=~/dotfiles$(date +%Y-%m-%d_%H:%M:%S) # old dotfiles backup directory
-files=$(ls --ignore="not_dots" --ignore="README.md" --ignore="make.sh" $dir)  # list of files/folders to symlink in homedir
+files=$(ls --ignore="not_dots" --ignore="README.md" --ignore="make.sh" --ignore="DevDockerfile" $dir)  # list of files/folders to symlink in homedir
 
 ##########
 

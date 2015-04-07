@@ -1,0 +1,42 @@
+FROM ubuntu:14.04
+
+RUN apt-get update -y
+RUN apt-get install -y curl
+RUN apt-get install -y diffstat
+RUN apt-get install -y git
+RUN apt-get install -y python
+RUN apt-get install -y python3
+RUN apt-get install -y tmux
+RUN apt-get install -y vim
+RUN apt-get install -y zsh
+
+RUN curl -SL 'https://bootstrap.pypa.io/get-pip.py' | python2
+RUN pip install virtualenv
+RUN pip install virtualenvwrapper
+
+# Setup home environment
+RUN useradd dev
+RUN mkdir /home/dev && chown -R dev: /home/dev
+ENV PATH /home/dev/bin:$PATH
+
+# Create a shared data volume
+# We need to create an empty file, otherwise the volume will
+# belong to root.
+# This is probably a Docker bug.
+RUN mkdir /var/shared/
+RUN touch /var/shared/placeholder
+RUN chown -R dev:dev /var/shared
+VOLUME /var/shared
+
+WORKDIR /home/dev
+ENV HOME /home/dev
+ADD . /home/dev/dotfiles
+RUN sh /home/dev/dotfiles/make.sh
+
+# Link in shared parts of the home directory
+RUN ln -s /var/shared/.ssh
+RUN chsh dev -s /usr/bin/zsh
+
+RUN chown -R dev: /home/dev
+ENTRYPOINT ["/usr/bin/zsh", "-i"]
+USER dev
