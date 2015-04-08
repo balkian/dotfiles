@@ -30,19 +30,25 @@ ENV PATH /home/dev/bin:$PATH
 RUN mkdir /var/shared/
 RUN touch /var/shared/placeholder
 RUN chown -R dev:dev /var/shared
-VOLUME /var/shared
+RUN mkdir -p /usr/src/app/
+RUN touch /usr/src/app/nocode
+RUN chown -R dev:dev /usr/src/app
+
+VOLUME /usr/src/app
 
 WORKDIR /home/dev
 ENV HOME /home/dev
-ADD . /home/dev/dotfiles
+RUN git clone https://github.com/balkian/dotfiles /home/dev/dotfiles
 RUN sh /home/dev/dotfiles/make.sh
 
 # Link in shared parts of the home directory
 RUN ln -s /var/shared/.ssh
-RUN ln -s /var/shared/src
+RUN ln -s /usr/src/app
 RUN chsh dev -s /usr/bin/zsh
 
 RUN chown -R dev: /home/dev
 RUN chown -R dev: /usr/local/
-ENTRYPOINT ["/usr/bin/zsh", "-i"]
+
+WORKDIR /home/dev/app
+ENTRYPOINT ["zsh"]
 USER dev

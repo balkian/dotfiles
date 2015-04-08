@@ -50,6 +50,24 @@ alias e='myemacs -nw'
 alias ew='myemacs -n'
 export ALTERNATE_EDITOR=/usr/bin/vim EDITOR="vim" VISUAL="vim"
 
+# Docker goodies
+alias drm="docker rm"
+alias drmi="docker rmi"
+alias dps="docker ps"
+alias dpi="docker images"
+function da () {
+    docker start $1 && docker attach $1
+}
+function drmia () {
+    docker rmi $(docker images | grep "^<none>" | awk '{print $3}')
+}
+function drma () {
+    docker rm $(docker ps -q $*)
+}
+function newdev () {
+    docker run -v $PWD:/usr/src/app -t -i --name $1 -h $1 balkian/devmachine
+}
+
 PYTHONSTARTUP=~/.pythonrc.py
 export PYTHONSTARTUP
 ssh-add -l >/dev/null || alias ssh='ssh-add -l >/dev/null || ssh-add && unalias ssh; ssh'; alias mosh='ssh-add -l >/dev/null || ssh-add && unalias mosh; mosh'
