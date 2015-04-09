@@ -37,9 +37,7 @@ export UPDATE_ZSH_DAYS=13
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git colored-man virtualenvwrapper cp python wd systemadmin pass ssh-agent)
-
-zstyle :omz:plugins:ssh-agent agent-forwarding on
+plugins=(git colored-man virtualenvwrapper cp python wd systemadmin pass)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -72,7 +70,7 @@ function newdev () {
 
 PYTHONSTARTUP=~/.pythonrc.py
 export PYTHONSTARTUP
-ssh-add -l >/dev/null || alias ssh='ssh-add -l >/dev/null || ssh-add && unalias ssh; ssh'; alias mosh='ssh-add -l >/dev/null || ssh-add && unalias mosh; mosh'
+ssh-add -l 2>&1 > /dev/null || alias ssh='ssh-add -l >/dev/null || ssh-add && unalias ssh; ssh'; alias mosh='ssh-add -l >/dev/null || ssh-add && unalias mosh; mosh'
 
 ### Added by the Heroku Toolbelt
 export PATH="$PATH:/usr/local/heroku/bin:$HOME/.cabal/bin"
@@ -84,3 +82,10 @@ setopt extended_glob
 
 ### Get RVM to work with zsh
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
+
+### Agent forwarding in tmux too
+if [ ! -z "$SSH_AUTH_SOCK" -a "$SSH_AUTH_SOCK" != "$HOME/.ssh/ssh_auth_sock" ] ; then
+    unlink "$HOME/.ssh/ssh_auth_sock" 2>/dev/null
+    ln -s "$SSH_AUTH_SOCK" "$HOME/.ssh/ssh_auth_sock"
+    export SSH_AUTH_SOCK="$HOME/.ssh/ssh_auth_sock"
+fi
