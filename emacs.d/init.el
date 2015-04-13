@@ -200,6 +200,7 @@
 (show-paren-mode t)
 (yas-global-mode 1)
 (guide-key-mode 1)
+(scroll-bar-mode 0)
 
 ;;; Specific modes
 ;; (autoload 'markdown-mode "markdown-mode"

@@ -17,7 +17,7 @@ ZSH_THEME="balkian"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
+CASE_SENSITIVE="true"
 
 # Comment this out to disable weekly auto-update checks
 # DISABLE_AUTO_UPDATE="true"
@@ -32,12 +32,12 @@ export UPDATE_ZSH_DAYS=13
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git colored-man virtualenvwrapper cp python wd systemadmin pass)
+plugins=(git gitfast colored-man virtualenvwrapper cp python wd systemadmin pass)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -52,6 +52,7 @@ export ALTERNATE_EDITOR=/usr/bin/vim EDITOR="vim" VISUAL="vim"
 
 # Docker goodies
 alias drm="docker rm"
+alias drun="docker run"
 alias drmi="docker rmi"
 alias dps="docker ps"
 alias dpi="docker images"
@@ -68,20 +69,17 @@ function newdev () {
     docker run -v $PWD:/usr/src/app -t -i --name $1 -h $1 balkian/devmachine
 }
 
+_docker # Force the load of autocompletion for docker
+compdef __docker_containers da
+compdef __ps drma
+
 PYTHONSTARTUP=~/.pythonrc.py
 export PYTHONSTARTUP
-ssh-add -l 2>&1 > /dev/null || alias ssh='ssh-add -l >/dev/null || ssh-add && unalias ssh; ssh'; alias mosh='ssh-add -l >/dev/null || ssh-add && unalias mosh; mosh'
 
-### Added by the Heroku Toolbelt
-export PATH="$PATH:/usr/local/heroku/bin:$HOME/.cabal/bin"
-
-### Virtualenvwrapper
-export WORKON_HOME=~/.virtualenvs
+ssh-add -l > /dev/null 2>&1 || alias ssh='ssh-add -l >/dev/null || ssh-add && unalias ssh; ssh'; alias mosh='ssh-add -l >/dev/null || ssh-add && unalias mosh; mosh'
 
 setopt extended_glob
-
-### Get RVM to work with zsh
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
+setopt menu_complete
 
 ### Agent forwarding in tmux too
 if [ ! -z "$SSH_AUTH_SOCK" -a "$SSH_AUTH_SOCK" != "$HOME/.ssh/ssh_auth_sock" ] ; then

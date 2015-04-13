@@ -49,6 +49,8 @@ RUN chsh dev -s /usr/bin/zsh
 RUN chown -R dev: /home/dev
 RUN chown -R dev: /usr/local/
 
+RUN echo "dev    ALL = NOPASSWD: ALL" >> /etc/sudoers
+
+USER dev
 WORKDIR /home/dev/app
 ENTRYPOINT ["zsh"]
-USER dev
