@@ -47,6 +47,8 @@
 ;; Evil keys 
 (evil-leader/set-leader "<SPC>")
 
+(define-key evil-normal-state-map (kbd "[q") 'previous-error)
+(define-key evil-normal-state-map (kbd "]q") 'next-error)
 (define-key evil-normal-state-map (kbd "[b") 'previous-code-buffer)
 (define-key evil-normal-state-map (kbd "]b") 'next-code-buffer)
 (define-key evil-normal-state-map (kbd "s") 'evil-ace-jump-char-mode)

@@ -38,7 +38,7 @@ URxvt*font: xft:DejaVu\ Sans\ Mono:pixelsize=14
 URxvt*boldFont: xft:DejaVu\ Sans\ Mono:pixelsize=14:style=bold
  
 ! Fix font space
-URxvt*letterSpace: -2
+URxvt*letterSpace: -1
  
 ! Scrollbar
 URxvt.scrollStyle:          rxvt

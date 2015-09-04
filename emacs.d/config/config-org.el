@@ -17,4 +17,24 @@
 
 (setq org-clock-persist 'history)
 
+;; Set syntax highlight in org-mode babel
+(setq org-src-fontify-natively t)
+
+;don't prompt me to confirm everytime I want to evaluate a block
+(setq org-confirm-babel-evaluate nil) 
+
+;;; display/update images in the buffer after I evaluate
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+
+;;; 
+(setq org-tag-alist '(
+                      (:startgroup . nil)
+                      ("@phd" . ?p) ("@home" . ?h)
+                      (:endgroup . nil)
+                      (:startgroup . nil)
+                      ("reading" . ?r) ("coding" . ?c) ("writing" . "w")
+                      (:endgroup . nil)
+                      )
+      )
+
 (provide 'config-org)

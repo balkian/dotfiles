@@ -2,6 +2,13 @@
 ;;; Commentary:
 
 ;;; Config that needs to be loaded before require
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -59,6 +66,7 @@
    evil-org-mode
    evil-surround
    exec-path-from-shell
+   f
    fill-column-indicator
    flycheck
    gist
@@ -75,11 +83,14 @@
    neotree
    nxhtml
    nose
+   ob-ipython
    pivotal-tracker
    popwin
    pretty-mode
    projectile
    ;; smex
+   s
+   session
    smart-mode-line
    switch-window			; takes over C-x o
    undo-tree
@@ -114,14 +125,16 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 ;;(setq completion-cycle-threshold t)
 
+(add-hook 'after-init-hook 'session-initialize)
+
 ;;; Neotree
 (require 'neotree)
-(setq projectile-switch-project-action 'neotree-projectile-action)
 (when neo-persist-show
   (add-hook 'popwin:before-popup-hook
             (lambda () (setq neo-persist-show nil)))
   (add-hook 'popwin:after-popup-hook
             (lambda () (setq neo-persist-show t))))
+(setq projectile-switch-project-action 'neotree-projectile-action)
 
 ;;; Popwin
 (require 'popwin)
@@ -201,6 +214,7 @@
 (yas-global-mode 1)
 (guide-key-mode 1)
 (scroll-bar-mode 0)
+(projectile-global-mode)
 
 ;;; Specific modes
 ;; (autoload 'markdown-mode "markdown-mode"
@@ -329,4 +343,6 @@
 (setq recentf-max-menu-items 20)
 
 
+(eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
+(setq tramp-default-method "ssh")
 (provide '.emacs)

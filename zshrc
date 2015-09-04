@@ -20,7 +20,7 @@ ZSH_THEME="balkian"
 CASE_SENSITIVE="true"
 
 # Comment this out to disable weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Change this value to set how frequently ZSH updates¬
 export UPDATE_ZSH_DAYS=13

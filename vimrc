@@ -45,6 +45,7 @@ Bundle "tomasr/molokai"
 Bundle "elzr/vim-json"
 Bundle 'Rykka/riv.vim'
 Bundle "niklasl/vim-rdf"
+Bundle "lepture/vim-jinja"
 
 
 

@@ -5,10 +5,13 @@ then
   if [ $? == "0" ]
   then
     WID=`xdotool search --class $1 | head -1`
-    wmctrl -i -a $WID
-    if [ "x$2" != "x" ]
+    CWID=`xdotool getactivewindow`
+    if [ "x$WID" != "x$CWID" ];
     then
-      eval "$2"
+        xdotool windowactivate $WID
+        #wmctrl -i -R $WID
+    else
+        xdotool windowminimize $WID
     fi
   else
     if [ "x$3" == "x" ]
