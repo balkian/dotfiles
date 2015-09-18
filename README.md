@@ -12,12 +12,16 @@ The fast way:
 curl -#L https://github.com/balkian/dotfiles/tarball/master | tar -xzv --strip-components 1 --exclude={README.md}
 ```
 ### Install
+Each folder contains the configuration files for a specific program, as they would appear under "$HOME" (~).
+To install them, first initialize the submodules:
 
-Just run:
-```bash
+```
 git submodule update --init --recursive
-source make.sh
 ```
 
-## How it works
-So far, this is the simplest way of keeping your dotfiles in a repository. The installation script will just back-up your files in a folder in your ~/ with the timestamp, so running it twice won't destroy your original files.
+Then, you can use the [GNU Stow](https://www.gnu.org/software/stow/) utility to link the files to the appropriate folder:
+```bash
+stow <modules that you want to install>
+```
+
+Alternatively, you may simply copy the files to your $HOME folder.
