@@ -1,2 +1,0 @@
-#!/bin/sh
-emacsclient --alternate-editor="" -s "$HOME/.emacs.d/HIGHLANDER" -c "$@"

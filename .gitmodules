@@ -1,10 +1,7 @@
-[submodule "vim/bundle/vundle"]
-	path = vim/bundle/vundle
+[submodule "vim/.vim/bundle/vundle"]
+	path = vim/.vim/bundle/vundle
 	url = https://github.com/gmarik/vundle.git
     ignore = dirty
 [submodule "oh-my-zsh"]
-	path = oh-my-zsh
+	path = zsh/.oh-my-zsh
 	url = https://github.com/balkian/oh-my-zsh.git
-[submodule "i3-wm-scripts"]
-    path = bin/i3-wm-scripts
-    url = https://github.com/yiuin/i3-wm-scripts.git
