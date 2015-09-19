@@ -121,7 +121,11 @@
             (guide-key-mode 1)
             ))
 
-(use-package projectile :ensure)
+(use-package projectile
+  :ensure
+  :config (progn
+            (projectile-mode)
+            ))
 
 (use-package helm
   :ensure t

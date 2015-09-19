@@ -56,9 +56,10 @@ bindsym $mod+space exec --no-startup-id dmenu_run -fn  "-*-cure-medium-*-*-*-11-
 
 # Arandr magic
 bindsym Mod1+F5 exec --no-startup-id monitors single
-bindsym Mod1+F6 exec --no-startup-id monitors dual
-bindsym Mod1+F7 exec --no-startup-id monitors dual home
-bindsym Mod1+F8 exec --no-startup-id i3-secondary-to-primary
+bindsym Mod1+F6 exec --no-startup-id monitors single HDMI
+bindsym Mod1+F7 exec --no-startup-id monitors dual mirror
+bindsym Mod1+F8 exec --no-startup-id monitors dual home
+bindsym Mod1+F9 exec --no-startup-id monitors dual
 
 # Move to displays
 bindsym $mod+Mod1+j move workspace to output down
