@@ -18,7 +18,7 @@ fi
 #
 
 export EDITOR='vi'
-export VISUAL="myemcs"
+export VISUAL="myemacs"
 export ALTERNATE_EDITOR=""
 export PAGER='less'
 
@@ -72,8 +72,6 @@ if [[ ! -d "$TMPDIR" ]]; then
   export TMPDIR="/tmp/$LOGNAME"
   mkdir -p -m 700 "$TMPDIR"
 fi
-
-alias sudo="sudo "
 
 # Docker goodies
 alias drm="docker rm"

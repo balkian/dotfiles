@@ -371,13 +371,31 @@
 
 (setq revert-buffer-function 'revert-buffer-keep-history)
 
-(require 'recentf)
-(recentf-mode 1)
-(setq recentf-max-saved-items 300)
-(setq recentf-max-menu-items 20)
-
+(use-package recentf
+  :config (progn
+            (recentf-mode 1)
+            (setq recentf-max-saved-items 300)
+            (setq recentf-max-menu-items 20)
+            )
+  )
 
 (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
 (setq tramp-default-method "ssh")
+
+;; Don't clover my folders
+(setq
+   backup-by-copying t      ; don't clobber symlinks
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   version-control t)       ; use versioned backups
+
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" , temporary-file-directory t)))
+;; Preven #file#.txt files
+(setq create-lockfiles nil)
+
 
 (provide '.emacs)
