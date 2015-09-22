@@ -79,6 +79,8 @@ alias drun="docker run"
 alias drmi="docker rmi"
 alias dps="docker ps"
 alias dpi="docker images"
+alias dc="docker-compose"
+alias dcr="compose-run"
 function da () {
     docker start $1 && docker attach $1
 }
@@ -93,5 +95,6 @@ function dca () {
 function newdev () {
     docker run -v $PWD:/usr/src/app -t -i --name $1 -h $1 balkian/devmachine
 }
+
 
 TMPPREFIX="${TMPDIR%/}/zsh"

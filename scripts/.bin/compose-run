@@ -1,0 +1,21 @@
+#!/bin/sh
+
+CWD=$PWD
+if [ -z "$CONTAINER" ];
+then
+    CONTAINER=main
+fi
+
+while [ -e "$PWD" -a "$PWD" != "/" ]
+do
+    if [ -e "$PWD/docker-compose.yml" ]; then
+      docker-compose run --rm main $* 
+      exit $?
+    else
+      cd `dirname $PWD`
+    fi
+done
+
+cd $CWD
+
+eval $*
