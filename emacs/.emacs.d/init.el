@@ -124,7 +124,7 @@
 (use-package projectile
   :ensure
   :config (progn
-            (projectile-mode)
+            (projectile-global-mode)
             ))
 
 (use-package helm
@@ -134,7 +134,11 @@
             (use-package helm-grep)
             (use-package helm-locate)
             (use-package helm-misc)
-            (use-package helm-projectile :ensure)
+            (use-package helm-projectile :ensure
+              :config (progn
+                        (setq projectile-completion-system 'helm)
+                        (helm-projectile-on)
+                        ))
             (use-package helm-ag :ensure)
 
             (setq helm-quick-update t)
@@ -148,24 +152,37 @@
             (set-face-attribute 'helm-selection nil :background "gold" :foreground "black")
 
         ;;; Keyboard mappings 
-            (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebihnd tab to do persistent action
-            (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-            (define-key helm-map (kbd "C-z") 'helm-select-action) ; list actions using C-z
-            (define-key helm-grep-mode-map (kbd "<return>") 'helm-grep-mode-jump-other-window)
-            (define-key helm-grep-mode-map (kbd "n") 'helm-grep-mode-jump-other-window-forward)
-            (define-key helm-grep-mode-map (kbd "p") 'helm-grep-mode-jump-other-window-backward)
             (global-set-key (kbd "M-y") 'helm-show-kill-ring)
             (global-set-key (kbd "C-x b") 'helm-mini)
             (global-set-key (kbd "C-x C-f") 'helm-find-files)
             (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
             (global-set-key (kbd "C-c h o") 'helm-occur)
 
+            (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebihnd tab to do persistent action
+            (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+            (define-key helm-map (kbd "C-z") 'helm-select-action) ; list actions using C-z
             (define-key helm-grep-mode-map (kbd "<return>") 'helm-grep-mode-jump-other-window)
             (define-key helm-grep-mode-map (kbd "n") 'helm-grep-mode-jump-other-window-forward)
             (define-key helm-grep-mode-map (kbd "p") 'helm-grep-mode-jump-other-window-backward)
 
+            (define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
+            (define-key evil-insert-state-map "\C-e" 'end-of-line)
+            (define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
+            (define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
+            (define-key evil-normal-state-map "\C-n" 'evil-next-line)
+            (define-key evil-insert-state-map "\C-n" 'evil-next-line)
+            (define-key evil-visual-state-map "\C-n" 'evil-next-line)
+            (define-key evil-normal-state-map "\C-p" 'evil-previous-line)
+            (define-key evil-insert-state-map "\C-p" 'evil-previous-line)
+            (define-key evil-visual-state-map "\C-p" 'evil-previous-line)
+            (define-key evil-normal-state-map "\C-k" 'kill-line)
+            (define-key evil-insert-state-map "\C-k" 'kill-line)
+            (define-key evil-visual-state-map "\C-k" 'kill-line)
+            (define-key evil-normal-state-map "Q" 'call-last-kbd-macro)
+            (define-key evil-visual-state-map "Q" 'call-last-kbd-macro)
         ;;; Evil helm
-            (define-key evil-normal-state-map (kbd "C-p") 'helm-mini)
+            ;; (define-key evil-normal-state-map (kbd "C-p") 'helm-mini)
+            (evil-leader/set-key "p" 'helm-mini)
             (evil-leader/set-key "<SPC>" 'helm-M-x)
             (define-key evil-normal-state-map (kbd ",f") 'helm-swoop)
             (define-key evil-normal-state-map (kbd ",a") 'helm-ag)
@@ -244,7 +261,14 @@
 
 (use-package python
   :config (progn
+
+            (use-package ob-ipython
+              :config (progn
+                        )
+              )
             (setq
+         ;;     python-shell-interpreter "compose-run"
+	     ;; python-shell-interpreter-args "python ")
              python-shell-interpreter "ipython"
              python-shell-interpreter-args "--pylab"
              python-shell-prompt-regexp "In \\[[0-9]+\\]: "
@@ -257,7 +281,7 @@
              "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
 
             (add-hook 'python-mode-hook 'auto-complete-mode)
-            (add-hook 'python-mode-hook '(lambda () (require 'nose)))
+            ;; (add-hook 'python-mode-hook '(lambda () (require 'nose)))
 
             (eval-after-load "python"
               '(progn
@@ -266,6 +290,7 @@
             (use-package jedi
               :config (progn
                         (setq jedi:complete-on-dot t)
+                        (setq jedi:get-in-function-call-delay 500)
                         (add-hook 'python-mode-hook 'jedi:setup)
                         )
 
@@ -298,13 +323,13 @@
             ;; Set syntax highlight in org-mode babel
             (setq org-src-fontify-natively t)
 
-                                        ;don't prompt me to confirm everytime I want to evaluate a block
+            ;;;don't prompt me to confirm everytime I want to evaluate a block
             (setq org-confirm-babel-evaluate nil) 
 
             ;;; display/update images in the buffer after I evaluate
             (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
-            ;;; 
+            ;; 
             (setq org-tag-alist '(
                                   (:startgroup . nil)
                                   ("@phd" . ?p) ("@home" . ?h)
@@ -323,6 +348,30 @@
             )
   )
 
+
+(use-package yaml-mode
+  :config (progn
+        (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+        (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
+            )
+  )
+
+(use-package gist
+  :config (progn
+            (use-package gist-helm :ensure t)
+            )
+  )
+
+(use-package n3-mode
+  :mode ("\\.ttl" "\\.n3")
+  )
+
+(use-package yasnippet
+  :diminish yas-minor-mode
+  :config (progn
+            (yas-global-mode 1)
+            )
+  )
 
 ;;; Global emacs settings
 ;; disable splash screen
@@ -394,8 +443,10 @@
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
       `((".*" , temporary-file-directory t)))
-;; Preven #file#.txt files
+;; Prevent #file#.txt files
 (setq create-lockfiles nil)
 
-
+;; Path
+(setenv "PATH" (concat (getenv "PATH") ":" (getenv "HOME") "/.bin" ":" (getenv "HOME") "/.local/bin"))
+(setq exec-path (append exec-path (list (concat (getenv "HOME") "/.bin") (concat (getenv "HOME") ".local/bin"))))
 (provide '.emacs)

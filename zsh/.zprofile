@@ -18,7 +18,7 @@ fi
 #
 
 export EDITOR='vi'
-export VISUAL="myemacs"
+export VISUAL="myemacs -t"
 export ALTERNATE_EDITOR=""
 export PAGER='less'
 
@@ -46,6 +46,7 @@ typeset -gU cdpath fpath mailpath path
 path=(
   /usr/local/{bin,sbin}
   ~/.bin
+  ~/.local/{bin,sbin}
   $path
 )
 
@@ -96,5 +97,6 @@ function newdev () {
     docker run -v $PWD:/usr/src/app -t -i --name $1 -h $1 balkian/devmachine
 }
 
+alias gsicluster='ssh balkian@shannon.gsi.dit.upm.es -p 1337'      
 
 TMPPREFIX="${TMPDIR%/}/zsh"
