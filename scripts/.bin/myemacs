@@ -1,2 +1,2 @@
 #!/bin/sh
-emacsclient --alternate-editor="" -s "$HOME/.emacs.d/HIGHLANDER" $@
+emacsclient --alternate-editor="" -s "$HOME/.emacs.d/HIGHLANDER" "$@"

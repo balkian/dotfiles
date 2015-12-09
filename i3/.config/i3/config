@@ -32,6 +32,9 @@ bindsym Control+Mod1+g exec --no-startup-id i3-one-instance gvim
 bindsym Control+Mod1+e exec --no-startup-id myemacs -c
 bindsym $mod+o exec --no-startup-id i3-winmenu.py
 bindsym $mod+p [instance="pcmanfm"] scratchpad show
+bindsym $mod+period [instance="emacs" title="^(?!myagenda$)"] scratchpad show
+bindsym $mod+shift+comma exec --no-startup-id myemacs -nc --eval '(progn (find-file "~/Dropbox/Todo/org/rules.org") (org-agenda-list) (set-window-dedicated-p (selected-window) 1) (set-frame-name "myagenda"))'
+bindsym $mod+comma [title="^myagenda"] scratchpad show
 
 # Spotify
 bindsym XF86AudioPlay exec --no-startup-id spotify-remote.py -a playPause
@@ -119,7 +122,7 @@ bindsym $mod+i focus mode_toggle
 bindsym $mod+Shift+minus move scratchpad
 
 # Show the first scratchpad window
-bindsym $mod+minus scratchpad show
+bindsym $mod+minus [instance="*"] scratchpad show
 
 # focus the parent container
 bindsym $mod+u focus parent
@@ -235,13 +238,14 @@ client.urgent           #2f343a #101010 #93a1a1 #900000
 
 new_window 1pixel
 
+for_window [title="^myagenda"] move to scratchpad
 for_window [class="^Google-chrome$"] border none
 assign [class="Google-chrome" window_role="browser"] 2: Web
 for_window [class="^Firefox$"] border none
 assign [class="Firefox" window_role="browser"] 2: Web
 for_window [class="^Xfce4-notifyd$"] floating enable; border none; focus mode_toggle 
 for_window [class="^URxvt$"] border 1px
-for_window [title="^tmux$"] move to scratchpad;
+for_window [title="^tmux$"] move to scratchpad
 for_window [title="^pcmanfm$"] move to scratchpad;
 #KDE
 for_window [class="Plasma-desktop"] border none
@@ -297,6 +301,7 @@ bindsym $mod+Escape exec xfce4-session-logout
 exec --no-startup-id dunst -conf ~/.config/dunst/dunst.conf
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pasystray 
+exec --no-startup-id syncthing-gtk 
 exec --no-startup-id dropbox start
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id compton -b --config ~/.compton.conf 

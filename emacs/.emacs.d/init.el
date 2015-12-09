@@ -134,6 +134,11 @@
             (use-package helm-grep)
             (use-package helm-locate)
             (use-package helm-misc)
+            (use-package helm-descbinds
+              :config (progn
+                        (helm-descbinds-mode)
+                        )
+              )
             (use-package helm-projectile :ensure
               :config (progn
                         (setq projectile-completion-system 'helm)
@@ -358,7 +363,6 @@
 
 (use-package gist
   :config (progn
-            (use-package gist-helm :ensure t)
             )
   )
 
@@ -373,9 +377,49 @@
             )
   )
 
+(use-package paredit
+  :diminish paredit-mode
+  :init
+  :config (progn
+            (use-package evil-paredit
+              (add-hook 'clojure-mode-hook 'enable-paredit-mode)
+              (add-hook 'cider-repl-mode-hook 'enable-paredit-mode)
+              (add-hook 'lisp-mode-hook 'enable-paredit-mode)
+              (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+              (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+              (add-hook 'ielm-mode-hook 'enable-paredit-mode)
+              (add-hook 'json-mode-hook 'enable-paredit-mode)
+              :ensure
+              )
+            )
+  )
+
 ;;; Global emacs settings
 ;; disable splash screen
 (setq inhibit-splash-screen t)
+(setq initial-scratch-message "\
+;;
+;;                   _.--.    .--._
+;;                 .\"  .\"      \".  \".
+;;                ;  .\"    /\\    \".  ;
+;;                ;  '._,-/  \\-,_.`  ;
+;;                \\  ,`  / /\\ \\  `,  /
+;;                 \\/    \\/  \\/    \\/
+;;                 ,=_    \\/\\/    _=,
+;;                 |  \"_   \\/   _\"  |
+;;                 |_   '\"-..-\"'   _|
+;;                 | \"-.        .-\" |
+;;                 |    \"\\    /\"    |
+;;                 |      |  |      |
+;;         ___     |      |  |      |     ___
+;;     _,-\",  \",   '_     |  |     _'   ,\"  ,\"-,_
+;;   _(  \\  \\   \\\"=--\"-.  |  |  .-\"--=\"/   /  /  )_
+;; ,\"  \\  \\  \\   \\      \"-'--'-\"      /   /  /  /  \".
+;;!     \\  \\  \\   \\                  /   /  /  /     !
+;;:      \\  \\  \\   \\                /   /  /  /      TK
+;;
+;;                 'TIS BUT A SCRATCH!!
+")
 (setq truncate-partial-width-windows nil)
 (set-default 'truncate-lines nil)
 ;;; Highlight line
@@ -384,6 +428,7 @@
 (setq-default indent-tabs-mode nil)
 (setq tab-width 4)
 (setq default-tab-width 4); 
+(setq js-indent-level 2)
 
 (toggle-indicate-empty-lines)
 

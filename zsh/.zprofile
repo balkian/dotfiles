@@ -74,6 +74,9 @@ if [[ ! -d "$TMPDIR" ]]; then
   mkdir -p -m 700 "$TMPDIR"
 fi
 
+# Handy aliases
+alias fail="less +F"
+
 # Docker goodies
 alias drm="docker rm"
 alias drun="docker run"
