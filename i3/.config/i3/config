@@ -22,7 +22,7 @@ floating_modifier $mod
 # start a terminal
 #bindsym $mod+Return exec --no-startup-id i3-one-tmux
 bindsym $mod+Return [title="^tmux$"] scratchpad show
-bindsym Control+Mod1+t exec --no-startup-id urxvt
+bindsym Control+Mod1+t exec --no-startup-id termite
 
 # start lock
 bindsym Control+Mod1+l exec --no-startup-id i3-exit.sh lock
@@ -33,7 +33,7 @@ bindsym Control+Mod1+e exec --no-startup-id myemacs -c
 bindsym $mod+o exec --no-startup-id i3-winmenu.py
 bindsym $mod+p [instance="pcmanfm"] scratchpad show
 bindsym $mod+period [instance="emacs" title="^(?!myagenda$)"] scratchpad show
-bindsym $mod+shift+comma exec --no-startup-id myemacs -nc --eval '(progn (find-file "~/Dropbox/Todo/org/rules.org") (org-agenda-list) (set-window-dedicated-p (selected-window) 1) (set-frame-name "myagenda"))'
+bindsym $mod+shift+comma exec --no-startup-id myemacs -nc --eval '(progn (find-file "~/Dropbox/Todo/org/rules.org") (org-agenda-list) (set-frame-name "myagenda"))'
 bindsym $mod+comma [title="^myagenda"] scratchpad show
 
 # Spotify
@@ -244,7 +244,7 @@ assign [class="Google-chrome" window_role="browser"] 2: Web
 for_window [class="^Firefox$"] border none
 assign [class="Firefox" window_role="browser"] 2: Web
 for_window [class="^Xfce4-notifyd$"] floating enable; border none; focus mode_toggle 
-for_window [class="^URxvt$"] border 1px
+for_window [class="^termite"] border 1px
 for_window [title="^tmux$"] move to scratchpad
 for_window [title="^pcmanfm$"] move to scratchpad;
 #KDE
@@ -281,7 +281,7 @@ exec --no-startup-id xautolock -time 10 -corners "----" -locker 'dm-tool lock'
 #exec xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png' &
 #exec --no-startup-id xautolock -corners '----' -time 10 -locker 'dm-tool lock' # lightdm
 exec --no-startup-id pcmanfm
-exec --no-startup-id  urxvt -name tmux -e tmux attach
+exec --no-startup-id  termite -name tmux -e tmux attach
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {

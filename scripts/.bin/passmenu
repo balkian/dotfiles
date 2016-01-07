@@ -2,10 +2,18 @@
 
 shopt -s nullglob globstar
 
+
+if command -v rofi >/dev/null 2>&1;
+then
+    program="rofi -dmenu"
+else
+    program="dmenu"
+fi
+
 password_files=( ~/.password-store/**/*.gpg )
 password_files=( "${password_files[@]##*/.password-store/}" )
 password_files=( "${password_files[@]%.gpg}" )
 
-password=$(printf '%s\n' "${password_files[@]}" | dmenu "$@")
+password=$(printf '%s\n' "${password_files[@]}" | $program "$@")
 
 pass show -c "$password"
