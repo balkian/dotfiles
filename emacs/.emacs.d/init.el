@@ -125,6 +125,7 @@
   :ensure
   :config (progn
             (projectile-global-mode)
+            (setq projectile-switch-project-action 'projectile-dired)
             ))
 
 (use-package helm
@@ -149,6 +150,12 @@
             (setq helm-quick-update t)
             (setq helm-bookmark-show-location t)
             (setq helm-buffers-fuzzy-matching t)
+            (defun smart-for-files ()
+              "Call `helm-projectile' if `projectile-project-p', otherwise fallback to `helm-for-files'."
+              (interactive)
+              (if (projectile-project-p)
+                  (helm-projectile)
+                (helm-for-files)))
 
         ;;; Save current position to mark ring
             (add-hook 'helm-goto-line-before-hook 'helm-save-current-pos-to-mark-ring)
@@ -159,6 +166,7 @@
         ;;; Keyboard mappings 
             (global-set-key (kbd "M-y") 'helm-show-kill-ring)
             (global-set-key (kbd "C-x b") 'helm-mini)
+            (global-set-key (kbd "C-x p") 'smart-for-files)
             (global-set-key (kbd "C-x C-f") 'helm-find-files)
             (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
             (global-set-key (kbd "C-c h o") 'helm-occur)
@@ -187,9 +195,9 @@
             (define-key evil-visual-state-map "Q" 'call-last-kbd-macro)
         ;;; Evil helm
             ;; (define-key evil-normal-state-map (kbd "C-p") 'helm-mini)
-            (evil-leader/set-key "p" 'helm-mini)
+            (evil-leader/set-key "p" 'smart-for-files)
             (evil-leader/set-key "<SPC>" 'helm-M-x)
-            (define-key evil-normal-state-map (kbd ",f") 'helm-swoop)
+            (define-key evil-normal-state-map (kbd ",s") 'helm-swoop)
             (define-key evil-normal-state-map (kbd ",a") 'helm-ag)
             (define-key evil-normal-state-map (kbd ",y") 'helm-show-kill-ring)
 
@@ -286,7 +294,7 @@
              "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
 
             (add-hook 'python-mode-hook 'auto-complete-mode)
-            ;; (add-hook 'python-mode-hook '(lambda () (require 'nose)))
+            (add-hook 'python-mode-hook '(lambda () (require 'nose)))
 
             (eval-after-load "python"
               '(progn
@@ -306,11 +314,11 @@
 (use-package org
   :ensure t
   :config (progn
-            (use-package evil-org :ensure t)
+            ;; (use-package evil-org :ensure t)
             (define-key global-map "\C-cl" 'org-store-link)
             (define-key global-map "\C-ca" 'org-agenda)
             (evil-leader/set-key "a" 'org-agenda)
-            (evil-org-mode)
+            ;; (evil-org-mode)
 
             (setq org-log-done t)
 
@@ -377,18 +385,19 @@
             )
   )
 
-(use-package paredit
-  :diminish paredit-mode
+(use-package smartparens
+  :diminish smartparens-mode
   :init
   :config (progn
             (use-package evil-paredit
-              (add-hook 'clojure-mode-hook 'enable-paredit-mode)
-              (add-hook 'cider-repl-mode-hook 'enable-paredit-mode)
-              (add-hook 'lisp-mode-hook 'enable-paredit-mode)
-              (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-              (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
-              (add-hook 'ielm-mode-hook 'enable-paredit-mode)
-              (add-hook 'json-mode-hook 'enable-paredit-mode)
+              (use-package evil-smartparens
+                :ensure)
+              (add-hook 'clojure-mode-hook 'smartparens-mode)
+              (add-hook 'cider-repl-mode-hook 'evil-smartparens-mode-mode)
+              (add-hook 'lisp-mode-hook 'evil-smartparens-mode-mode)
+              (add-hook 'emacs-lisp-mode-hook 'evil-smartparens-mode-mode)
+              (add-hook 'lisp-interaction-mode-hook 'evil-smartparens-mode-mode)
+              (add-hook 'ielm-mode-hook 'evil-smartparens-mode-mode)
               :ensure
               )
             )
@@ -438,7 +447,14 @@
 (savehist-mode 1)
 (show-paren-mode t)
 (column-number-mode)
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
 
+
+;;; Other key bindings
+(define-key global-map "\C-ch" 'winner-undo)
+(define-key global-map "\C-cl" 'winner-redo)
+ 
 
 ;; set a default font
 (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
