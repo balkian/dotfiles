@@ -30,8 +30,8 @@ bindsym Control+Mod1+l exec --no-startup-id i3-exit.sh lock
 bindsym Control+Mod1+w exec --no-startup-id i3-one-instance firefox
 bindsym Control+Mod1+g exec --no-startup-id i3-one-instance gvim
 bindsym Control+Mod1+e exec --no-startup-id myemacs -c
-bindsym $mod+o exec --no-startup-id i3-winmenu.py
-bindsym $mod+p [instance="pcmanfm"] scratchpad show
+bindsym $mod+o exec --no-startup-id winmenu.sh
+bindsym $mod+p [class="Nemo"] scratchpad show
 bindsym $mod+period [instance="emacs" title="^(?!myagenda$)"] scratchpad show
 bindsym $mod+shift+comma exec --no-startup-id myemacs -nc --eval '(progn (find-file "~/Dropbox/Todo/org/rules.org") (org-agenda-list) (set-frame-name "myagenda"))'
 bindsym $mod+comma [title="^myagenda"] scratchpad show
@@ -55,7 +55,7 @@ bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 #bindsym $mod+Space exec --no-startup-id dmenu_run
-bindsym $mod+space exec --no-startup-id dmenu_run -fn  "-*-cure-medium-*-*-*-11-*-*-*-*-*-*-*" -nb "#101010" -nf "#5f5f5f" -sb "#191919" -sf "#b72f62" -b
+bindsym $mod+space exec --no-startup-id runmenu
 
 # Arandr magic
 bindsym Mod1+F5 exec --no-startup-id monitors single
@@ -246,7 +246,7 @@ assign [class="Firefox" window_role="browser"] 2: Web
 for_window [class="^Xfce4-notifyd$"] floating enable; border none; focus mode_toggle 
 for_window [class="^termite"] border 1px
 for_window [title="^tmux$"] move to scratchpad
-for_window [title="^pcmanfm$"] move to scratchpad;
+for_window [class="^Nemo" title="Home"] move to scratchpad;
 #KDE
 for_window [class="Plasma-desktop"] border none
 for_window [class="krunner"] border none
@@ -280,7 +280,7 @@ exec --no-startup-id synapse -s
 exec --no-startup-id xautolock -time 10 -corners "----" -locker 'dm-tool lock'
 #exec xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png' &
 #exec --no-startup-id xautolock -corners '----' -time 10 -locker 'dm-tool lock' # lightdm
-exec --no-startup-id pcmanfm
+exec --no-startup-id nemo --no-desktop
 exec --no-startup-id  termite -name tmux -e tmux attach
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
