@@ -63,6 +63,7 @@ bindsym Mod1+F6 exec --no-startup-id monitors single HDMI
 bindsym Mod1+F7 exec --no-startup-id monitors dual mirror
 bindsym Mod1+F8 exec --no-startup-id monitors dual home
 bindsym Mod1+F9 exec --no-startup-id monitors dual
+bindsym Mod1+F10 exec --no-startup-id xrandr --auto
 
 # Move to displays
 bindsym $mod+Mod1+j move workspace to output down
@@ -277,11 +278,11 @@ exec --no-startup-id volti
 exec --no-startup-id clipit
 exec --no-startup-id syndaemon -i 0.5 -d
 exec --no-startup-id synapse -s
-exec --no-startup-id xautolock -time 10 -corners "----" -locker 'dm-tool lock'
+exec --no-startup-id xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Images/fightclub.jpg'
 #exec xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png' &
 #exec --no-startup-id xautolock -corners '----' -time 10 -locker 'dm-tool lock' # lightdm
 exec --no-startup-id nemo --no-desktop
-exec --no-startup-id  termite -name tmux -e tmux attach
+exec --no-startup-id  termite --title tmux -e tmux attach
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {

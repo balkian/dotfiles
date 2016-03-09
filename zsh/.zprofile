@@ -103,3 +103,8 @@ function newdev () {
 alias gsicluster='ssh balkian@shannon.gsi.dit.upm.es -p 1337'      
 
 TMPPREFIX="${TMPDIR%/}/zsh"
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+pyenv virtualenvwrapper

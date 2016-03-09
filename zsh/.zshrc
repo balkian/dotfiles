@@ -13,3 +13,7 @@ fi
 # Customize to your needs...
 
 eval $(dircolors ~/.dircolors)
+
+if which pyenv >/dev/null ; then
+    eval "$(pyenv virtualenv-init -)"
+fi

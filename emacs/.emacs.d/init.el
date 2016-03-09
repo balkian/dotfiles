@@ -403,6 +403,17 @@
             )
   )
 
+(use-package markdown-mode
+  :init
+  :config (progn
+            )
+  )
+
+(use-package go-mode
+  :init
+  :config (progn
+            )
+  )
 ;;; Global emacs settings
 ;; disable splash screen
 (setq inhibit-splash-screen t)
