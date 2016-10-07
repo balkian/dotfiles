@@ -102,9 +102,20 @@ function newdev () {
 
 alias gsicluster='ssh balkian@shannon.gsi.dit.upm.es -p 1337'      
 
+function gsiclustercopy(){
+  scp -P 1337 $1 balkian@shannon.gsi.dit.upm.es:/shared/balkian/$2
+}
+
 TMPPREFIX="${TMPDIR%/}/zsh"
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-pyenv virtualenvwrapper
+if command -v foo >/dev/null 2>&1 ; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+    pyenv virtualenvwrapper
+fi
+
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin/
+
+setopt interactivecomments
