@@ -34,6 +34,7 @@ bindsym $mod+o exec --no-startup-id winmenu.sh
 bindsym $mod+p [class="Nemo"] scratchpad show
 bindsym $mod+period [instance="emacs" title="^(?!myagenda$)"] scratchpad show
 bindsym $mod+shift+comma exec --no-startup-id myemacs -nc --eval '(progn (find-file "~/Dropbox/Todo/org/rules.org") (org-agenda-list) (set-frame-name "myagenda"))'
+bindsym $mod+c exec myemacs -n -e '(make-capture-frame)' 
 bindsym $mod+comma [title="^myagenda"] scratchpad show
 
 # Spotify
@@ -239,6 +240,7 @@ client.urgent           #2f343a #101010 #93a1a1 #900000
 
 new_window 1pixel
 
+for_window [title="^capture"] floating enable; 
 for_window [title="^myagenda"] move to scratchpad
 for_window [class="^Google-chrome$"] border none
 assign [class="Google-chrome" window_role="browser"] 2: Web
@@ -271,18 +273,8 @@ workspace "7: Chat" output eDP1
 workspace "8: Misc Big" output DP1
 workspace "9: Misc Small" output eDP1
 
-exec --no-startup-id nm-applet
-exec --no-startup-id dropbox start
-exec --no-startup-id xfce4-power-manager
-exec --no-startup-id volti
-exec --no-startup-id clipit
-exec --no-startup-id syndaemon -i 0.5 -d
-exec --no-startup-id synapse -s
-exec --no-startup-id xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Images/fightclub.jpg'
-#exec xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png' &
-#exec --no-startup-id xautolock -corners '----' -time 10 -locker 'dm-tool lock' # lightdm
-exec --no-startup-id nemo --no-desktop
-exec --no-startup-id  termite --title tmux -e tmux attach
+gaps inner 10
+gaps outer 5
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -299,10 +291,19 @@ mode "$mode_system" {
 }
 bindsym $mod+Delete mode "$mode_system"
 bindsym $mod+Escape exec xfce4-session-logout
+#exec --no-startup-id xautolock -corners '----' -time 10 -locker 'dm-tool lock' # lightdm
+#exec xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png' &
+exec --no-startup-id compton -b --config ~/.compton.conf 
+exec --no-startup-id dropbox start
 exec --no-startup-id dunst -conf ~/.config/dunst/dunst.conf
-exec --no-startup-id xfce4-power-manager
+exec --no-startup-id nemo --no-desktop
+exec --no-startup-id nitrogen --restore
+exec --no-startup-id nm-applet
 exec --no-startup-id pasystray 
 exec --no-startup-id syncthing-gtk 
-exec --no-startup-id dropbox start
-exec --no-startup-id nitrogen --restore
-exec --no-startup-id compton -b --config ~/.compton.conf 
+exec --no-startup-id syndaemon -i 0.5 -d
+exec --no-startup-id termite --title tmux -e tmux attach
+exec --no-startup-id volti
+exec --no-startup-id xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Images/screenlock'
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id clipit
