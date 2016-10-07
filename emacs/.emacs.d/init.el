@@ -268,7 +268,15 @@
 (use-package monokai-theme
   :ensure t
   :config (progn
-            (load-theme 'monokai)            
+            (load-theme 'base16-default-dark)
+            )
+  )
+
+(use-package slime
+  :config (progn
+            (setq inferior-lisp "/usr/bin/sbcl")
+            (setq inferior-lisp-program (executable-find "sbcl"))
+            (setq slime-contribs '(slime-fancy))
             )
   )
 
@@ -311,14 +319,48 @@
             )
   )
 
+(use-package go-mode
+  :init (progn
+          (use-package go-autocomplete :ensure
+            :config (progn
+                      (use-package auto-complete-config)
+                      (ac-config-default)
+                      )
+            )
+          (defun my-go-mode-hook ()
+                                        ; Use goimports instead of go-fmt
+            (setq gofmt-command "goimports")
+                                        ; Call Gofmt before saving
+            (add-hook 'before-save-hook 'gofmt-before-save)
+                                        ; Customize compile command to run go build
+            (if (not (string-match "go" compile-command))
+                (set (make-local-variable 'compile-command)
+                     "go build -v && go test -v && go vet"))
+                                        ; Godef jump key binding
+            (local-set-key (kbd "M-.") 'godef-jump))
+          (add-hook 'go-mode-hook 'my-go-mode-hook)
+          )
+  )
+
+(use-package flymake-go
+  :ensure
+  :init (progn
+          )
+  )
+
 (use-package org
   :ensure t
   :config (progn
-            ;; (use-package evil-org :ensure t)
+            (use-package evil-org :ensure t)
             (define-key global-map "\C-cl" 'org-store-link)
             (define-key global-map "\C-ca" 'org-agenda)
             (evil-leader/set-key "a" 'org-agenda)
-            ;; (evil-org-mode)
+            (evil-org-mode)
+
+
+            (add-hook 'org-capture-mode-hook 'evil-insert-state)
+
+
 
             (setq org-log-done t)
 
@@ -352,6 +394,54 @@
                                   (:endgroup . nil)
                                   )
                   )
+
+            (defun org-archive-done-tasks ()
+              (interactive)
+              (org-map-entries
+               (lambda ()
+                 (org-archive-subtree)
+                 (setq org-map-continue-from (outline-previous-heading)))
+               "/DONE" 'file))
+            (define-key org-mode-map "\C-cd" 'org-archive-done-tasks)
+
+            (setq org-capture-templates
+                  (quote
+                   (("i" "Ideas" entry
+                     (file "ideas.org")
+                     "* %?" nil nil)
+                    ("t" "Tasks" entry
+                     (file "tasks.org")
+                     "* TODO %?\n\t%i"))))
+
+            (defadvice org-capture-finalize 
+                (after delete-capture-frame activate)  
+              "Advise capture-finalize to close the frame"  
+              (if (equal "capture" (frame-parameter nil 'name))  
+                  (delete-frame)))  
+            
+            (defadvice org-capture-destroy 
+                (after delete-capture-frame activate)  
+              "Advise capture-destroy to close the frame"  
+              (if (equal "capture" (frame-parameter nil 'name))  
+                  (delete-frame)))  
+            
+            ;; make the frame contain a single window. by default org-capture  
+            ;; splits the window.  
+            (add-hook 'org-capture-mode-hook  
+                      'delete-other-windows)  
+            
+            (defun make-capture-frame ()  
+              "Create a new frame and run org-capture."  
+              (interactive)  
+              (make-frame '((name . "capture") 
+                            (width . 120) 
+                            (height . 15)))  
+              (select-frame-by-name "capture") 
+              (setq word-wrap 1)
+              (setq truncate-lines nil)
+              (org-capture)
+              (delete-other-windows)
+              )
             )
   )
 
@@ -390,15 +480,16 @@
   :init
   :config (progn
             (use-package evil-paredit
-              (use-package evil-smartparens
-                :ensure)
-              (add-hook 'clojure-mode-hook 'smartparens-mode)
-              (add-hook 'cider-repl-mode-hook 'evil-smartparens-mode-mode)
-              (add-hook 'lisp-mode-hook 'evil-smartparens-mode-mode)
-              (add-hook 'emacs-lisp-mode-hook 'evil-smartparens-mode-mode)
-              (add-hook 'lisp-interaction-mode-hook 'evil-smartparens-mode-mode)
-              (add-hook 'ielm-mode-hook 'evil-smartparens-mode-mode)
               :ensure
+              :config (progn
+                        (use-package evil-smartparens :ensure)
+                        (add-hook 'clojure-mode-hook 'smartparens-mode)
+                        (add-hook 'cider-repl-mode-hook 'evil-smartparens-mode)
+                        (add-hook 'lisp-mode-hook 'evil-smartparens-mode)
+                        (add-hook 'emacs-lisp-mode-hook 'evil-smartparens-mode)
+                        (add-hook 'lisp-interaction-mode-hook 'evil-smartparens-mode)
+                        (add-hook 'ielm-mode-hook 'evil-smartparens-mode)
+                        )
               )
             )
   )
@@ -414,37 +505,111 @@
   :config (progn
             )
   )
+
+(use-package mu4e
+  :init
+  :config (progn
+            (use-package smtpmail
+              :ensure)
+
+            (setq mu4e-contexts
+                  `( ,(make-mu4e-context
+                       :name "Private"
+                       :enter-func (lambda () (mu4e-message "Switch to the GMAIL context"))
+                       ;; leave-func not defined
+                       :match-func (lambda (msg)
+                                     (when msg 
+                                       (mu4e-message-contact-field-matches msg 
+                                                                           :to "jfsanchezrada@gmail.com")))
+                       :vars '(
+                               (smtpmail-starttls-credentials '("smtp.gmail.com" 587 nil nil))
+                               (smtpmail-auth-credentials '(("smtp.gmail.com" 587 "jfsanchezrada@gmail.com" nil)))
+                               (smtpmail-default-smtp-server "smtp.gmail.com")
+                               (smtpmail-smtp-server "smtp.gmail.com")
+                               (smtpmail-smtp-service 587)
+                               (smtpmail-debug-info t)
+                               ( user-mail-address	     . "jfsanchezrada@gmail.com"  )
+                                 ( user-full-name	    . "J. Fernando Sánchez Rada" )
+                                 ( mu4e-compose-signature . "J. Fernando Sánchez\n")))
+                     ,(make-mu4e-context
+                       :name "Sinpapel"
+                       :enter-func (lambda () (mu4e-message "Switch to the Personal context"))
+                       ;; leave-fun not defined
+                       :match-func (lambda (msg)
+                                     (when msg 
+                                       (mu4e-message-contact-field-matches msg 
+                                                                           :to "j@sinpapel.es")))
+                       :vars '(
+                               (smtpmail-starttls-credentials '(("smtp.sinpapel.es" 587 nil nil)))
+                               (smtpmail-auth-credentials '(("smtp.sinpapel.es" 587 "j@sinpapel.es" nil)))
+                               (smtpmail-default-smtp-server "smtp.sinpapel.es")
+                               (smtpmail-smtp-server "smtp.sinpapel.es")
+                               (smtpmail-smtp-service 587)
+                               (smtpmail-debug-info t)
+                               ( user-mail-address	     . "j@sinpapel.es"  )
+                               ( user-full-name	    . "J. Fernando Sánchez Rada" )
+                               ( mu4e-compose-signature . 
+                                                        "J. Fernando Sánchez\n"))))
+                  )
+
+
+            (setq message-send-mail-function 'smtpmail-send-it
+                  starttls-use-gnutls t
+                  smtpmail-debug-info t)
+
+            (setq mu4e-maildir (expand-file-name "~/.mail/"))
+            (setq mu4e-drafts-folder "/Drafts")
+            (setq mu4e-sent-folder   "/Sent Items")
+            (setq mu4e-trash-folder  "/Trash")
+            (setq message-signature-file "~/.emacs.d/.signature") ; put your signature in this file
+            (setq mu4e-get-mail-command "mbsync gmail-inbox balkian"
+                  mu4e-html2text-command "w3m -T text/html"
+                  mu4e-update-interval 300
+                  mu4e-headers-auto-update t
+                  mu4e-compose-signature-auto-include nil)
+            (add-to-list 'mu4e-view-actions
+                         '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+            (setq mu4e-maildir-shortcuts
+                  '( ("/gmail/INBOX"               . ?i)
+                     ("/Sent Items"   . ?s)
+                     ("/Trash"       . ?t)
+                     ("/Drafts"    . ?d)))
+
+            ;; use imagemagick if available
+            (when (fboundp 'imagemagick-register-types)
+              (imagemagick-register-types))
+
+            ;; general emacs mail settings; used when composing e-mail
+            ;; the non-mu4e-* stuff is inherited from emacs/message-mode
+            (setq mu4e-reply-to-address "jfsanchezrada@gmail.com"
+                  user-mail-address "jfsanchezrada@gmail.com"
+                  user-full-name  "J. Fernando Sánchez")
+            ;; show images
+            (setq mu4e-show-images t
+                  mu4e-show-addresses t)
+
+            ;; don't save message to Sent Messages, IMAP takes care of this
+            (setq mu4e-sent-messages-behavior 'delete)
+
+            (add-hook 'mu4e-compose-mode-hook
+                      (defun my-do-compose-stuff ()
+                        "My settings for message composition."
+                        (set-fill-column 72)
+                        (flyspell-mode)))
+            )
+  )
+
 ;;; Global emacs settings
 ;; disable splash screen
 (setq inhibit-splash-screen t)
 (setq initial-scratch-message "\
-;;
-;;                   _.--.    .--._
-;;                 .\"  .\"      \".  \".
-;;                ;  .\"    /\\    \".  ;
-;;                ;  '._,-/  \\-,_.`  ;
-;;                \\  ,`  / /\\ \\  `,  /
-;;                 \\/    \\/  \\/    \\/
-;;                 ,=_    \\/\\/    _=,
-;;                 |  \"_   \\/   _\"  |
-;;                 |_   '\"-..-\"'   _|
-;;                 | \"-.        .-\" |
-;;                 |    \"\\    /\"    |
-;;                 |      |  |      |
-;;         ___     |      |  |      |     ___
-;;     _,-\",  \",   '_     |  |     _'   ,\"  ,\"-,_
-;;   _(  \\  \\   \\\"=--\"-.  |  |  .-\"--=\"/   /  /  )_
-;; ,\"  \\  \\  \\   \\      \"-'--'-\"      /   /  /  /  \".
-;;!     \\  \\  \\   \\                  /   /  /  /     !
-;;:      \\  \\  \\   \\                /   /  /  /      TK
-;;
-;;                 'TIS BUT A SCRATCH!!
+;; SCRATCHPAD
 ")
 (setq truncate-partial-width-windows nil)
 (set-default 'truncate-lines nil)
 ;;; Highlight line
 (global-hl-line-mode)
-                                        ;(set-face-background 'hl-line 'highlight-color)
+                                        ;; (set-face-background 'hl-line 'highlight-color)
 (setq-default indent-tabs-mode nil)
 (setq tab-width 4)
 (setq default-tab-width 4); 
@@ -468,7 +633,7 @@
  
 
 ;; set a default font
-(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
+(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-12"))
 ;; emacs doesn't actually save undo history with revert-buffer
 ;; see http://lists.gnu.org/archive/html/bug-gnu-emacs/2011-04/msg00151.html
 ;; fix that.
@@ -497,6 +662,13 @@
             (recentf-mode 1)
             (setq recentf-max-saved-items 300)
             (setq recentf-max-menu-items 20)
+            )
+  )
+
+(use-package exec-path-from-shell
+  :ensure
+  :config (progn
+            (exec-path-from-shell-initialize)
             )
   )
 
