@@ -7,7 +7,8 @@
 (package-initialize)
 
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
 (unless (require 'quelpa nil t)
@@ -347,6 +348,20 @@
   :init (progn
           )
   )
+
+(use-package scala-mode
+  :interpreter
+  ("scala" . scala-mode))
+
+(use-package ensime
+  :pin melpa-stable
+  :config (progn
+            (setq ensime-startup-snapshot-notification nil)
+            (use-package flycheck-cask
+              :ensure t
+              :commands flycheck-cask-setup
+              :config (add-hook 'emacs-lisp-mode-hook (flycheck-cask-setup)))
+            ))
 
 (use-package org
   :ensure t
@@ -692,5 +707,7 @@
 
 ;; Path
 (setenv "PATH" (concat (getenv "PATH") ":" (getenv "HOME") "/.bin" ":" (getenv "HOME") "/.local/bin"))
-(setq exec-path (append exec-path (list (concat (getenv "HOME") "/.bin") (concat (getenv "HOME") ".local/bin"))))
-(provide '.emacs)
+(setq exec-path (append exec-path (list (concat (getenv "HOME") "/.bin") (concat (getenv "HOME") ".local/bin") "/usr/bin")))
+
+(provide '.init)
+;;; init.el ends here
