@@ -1,0 +1,32 @@
+#!/bin/sh
+
+if [ "$#" -le 0 ]; then
+    echo "Usage: $0 <FOLDER>"
+    exit 1
+else
+    input="$@"
+fi
+
+echo "Input: "$input
+
+if [ -f "$input" ]; then
+    xdg-open "$input"
+    exit $?
+else
+    if [ -d "$input" ]; then
+        echo "This is a folder" $input
+    else
+        >&2 echo 'Invalid argument:"'$input'"'
+        exit 1
+    fi
+fi
+
+if command -v rofi >/dev/null 2>&1;
+then
+    launcher="rofi -dmenu -i -mesg '""$input""'"
+else
+    launcher="dmenu -fn  "-*-cure-medium-*-*-*-11-*-*-*-*-*-*-*" -nb "#101010" -nf "#5f5f5f" -sb "#191
+fi
+
+ # find "$input" -maxdepth 1 ! -path "$input" -print | sh -c "$launcher" | xargs $0
+ls -t1 "$input" | sh -c "$launcher" | xargs -I '{}' $0 "$input/{}"

@@ -30,7 +30,7 @@ bindsym Control+Mod1+l exec --no-startup-id i3-exit.sh lock
 bindsym Control+Mod1+w exec --no-startup-id i3-one-instance firefox
 bindsym Control+Mod1+g exec --no-startup-id i3-one-instance gvim
 bindsym Control+Mod1+e exec --no-startup-id myemacs -c
-bindsym $mod+o exec --no-startup-id winmenu.sh
+bindsym $mod+Tab exec --no-startup-id winmenu.sh
 bindsym $mod+p [class="Nemo"] scratchpad show
 bindsym $mod+period [instance="emacs" title="^(?!myagenda$)"] scratchpad show
 bindsym $mod+shift+comma exec --no-startup-id myemacs -nc --eval '(progn (find-file "~/Dropbox/Todo/org/rules.org") (org-agenda-list) (set-frame-name "myagenda"))'
@@ -57,6 +57,7 @@ bindsym $mod+q kill
 # start dmenu (a program launcher)
 #bindsym $mod+Space exec --no-startup-id dmenu_run
 bindsym $mod+space exec --no-startup-id runmenu
+bindsym $mod+o exec --no-startup-id filemenu $HOME
 
 # Arandr magic
 bindsym Mod1+F5 exec --no-startup-id monitors single
