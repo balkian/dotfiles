@@ -21,7 +21,12 @@ _prompt_balkian_current_bg='NONE'
 _prompt_balkian_segment_separator=' '
 _prompt_balkian_start_time=$SECONDS
 
-hostnamecolor=$(hostname | od | tr ' ' '\n' | awk '{total = total + $1}END{print 30 + (total % 6)}')
+#hostnamecolor=$(hostname | od | tr ' ' '\n' | awk '{total = total + $1}END{print 30 + (total % 6)}')
+if [[ $TERM =~ "256color" ]]; then
+    hostnamecolor="$((16 + $(hostname | cksum | cut -c1-3) % 256))";
+else
+    hostnamecolor="$((31 + $(hostname | cksum | cut -c1-3) % 6))";
+fi
 
 function prompt_balkian_start_segment {
   local bg fg
