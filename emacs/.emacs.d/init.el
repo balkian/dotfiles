@@ -687,6 +687,7 @@
             )
   )
 
+(setq PREVSHELL (getenv "SHELL")) ;; Workaround for tramp
 (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
 (setq tramp-default-method "ssh")
 
@@ -708,6 +709,15 @@
 ;; Path
 (setenv "PATH" (concat (getenv "PATH") ":" (getenv "HOME") "/.bin" ":" (getenv "HOME") "/.local/bin"))
 (setq exec-path (append exec-path (list (concat (getenv "HOME") "/.bin") (concat (getenv "HOME") ".local/bin") "/usr/bin")))
+
+;; Launch terminal
+
+(defun open-terminal ()
+  (interactive)
+  (call-process (or (getenv "XTERMINAL") "xterm") nil 0 nil "-e" PREVSHELL))
+;; This does not work: (concat "echo -c 'cd " default-directory "'"))
+
+(global-set-key (kbd "C-c t") 'open-terminal)
 
 (provide '.init)
 ;;; init.el ends here
