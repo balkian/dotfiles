@@ -59,6 +59,8 @@ bindsym $mod+q kill
 bindsym $mod+space exec --no-startup-id runmenu
 bindsym $mod+o exec --no-startup-id filemenu $HOME
 
+#
+
 # Arandr magic
 bindsym Mod1+F5 exec --no-startup-id monitors single
 bindsym Mod1+F6 exec --no-startup-id monitors single HDMI
@@ -168,6 +170,7 @@ bindsym $mod+Shift+E exec --no-startup-id i3-exit.sh logout
 bindsym $mod+Mod1+s exec --no-startup-id i3-exit.sh suspend
 
 bindsym $mod+Shift+p exec passmenu
+bindsym $mod+Shift+n exec netmenu
 
 # move with finer grain
 mode "move" {
