@@ -78,6 +78,7 @@ fi
 alias fail="less +F"
 
 # Docker goodies
+alias da="docker_start_attach"
 alias drm="docker rm"
 alias drun="docker run"
 alias drmi="docker rmi"
@@ -85,19 +86,50 @@ alias dps="docker ps"
 alias dpi="docker images"
 alias dc="docker-compose"
 alias dcr="compose-run"
-function da () {
+alias da="docker_start_attach"
+alias daa="docker_apply_all_containers"
+alias dci="docker_clean_images"
+alias dcc="docker_clean_containers"
+alias dac="docker_apply_containers"
+
+function docker_start_attach () {
     docker start $1 && docker attach $1
 }
+
 function drmia () {
     docker rmi $(docker images | grep "^<none>" | awk '{print $3}')
 }
-function dca () {
-    cmd=$1
-    shift
-    docker $cmd $(docker ps -q $*)
-}
+
 function newdev () {
     docker run -v $PWD:/usr/src/app -t -i --name $1 -h $1 balkian/devmachine
+}
+
+function docker_apply_containers () {
+    if [[ "$#" -lt 1 ]];
+    then
+        echo "Usage: $0 <filter> <action>"
+        exit 1
+    fi
+    containers=$(docker ps -a | grep -v 'CONTAINER' | awk "/$1/{ print \$0}")
+    echo -n $containers
+    if [[ "$#" -gt 1 ]];
+       then
+           shift;
+           echo $containers | awk '{print $1}' | xargs docker "$@"
+    fi
+    #| xargs docker rmi "$@"
+}
+
+function docker_clean_containers () {
+    docker rm $(docker ps -q --filter=status=exited)
+}
+
+function docker_clean_images () {
+    docker rmi $(docker images -a --filter=dangling=true -q)
+}
+
+function docker_nuke () {
+    docker rmi $(docker images -q)
 }
 
 alias gsicluster='ssh balkian@shannon.gsi.dit.upm.es -p 1337'      

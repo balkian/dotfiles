@@ -22,7 +22,7 @@ floating_modifier $mod
 # start a terminal
 #bindsym $mod+Return exec --no-startup-id i3-one-tmux
 bindsym $mod+Return [title="^tmux$"] scratchpad show
-bindsym Control+Mod1+t exec --no-startup-id termite
+bindsym Control+Mod1+t exec --no-startup-id i3-sensible-terminal
 
 # start lock
 bindsym Control+Mod1+l exec --no-startup-id i3-exit.sh lock
@@ -244,6 +244,7 @@ client.urgent           #2f343a #101010 #93a1a1 #900000
 
 new_window 1pixel
 
+for_window [title="^floatingwin"] floating enable; 
 for_window [title="^capture"] floating enable; 
 for_window [title="^myagenda"] move to scratchpad
 for_window [class="^Google-chrome$"] border none
@@ -252,6 +253,8 @@ for_window [class="^Firefox$"] border none
 assign [class="Firefox" window_role="browser"] 2: Web
 for_window [class="^Xfce4-notifyd$"] floating enable; border none; focus mode_toggle 
 for_window [class="^termite"] border 1px
+for_window [class="^lxterminal"] border 1px
+for_window [class="^xfce4-terminal"] border 1px
 for_window [title="^tmux$"] move to scratchpad
 for_window [class="^Nemo" title="Home"] move to scratchpad;
 #KDE
@@ -306,7 +309,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id pasystray 
 exec --no-startup-id syncthing-gtk 
 exec --no-startup-id syndaemon -i 0.5 -d
-exec --no-startup-id termite --title tmux -e tmux attach
+exec --no-startup-id i3-sensible-terminal --title=tmux -e 'tmux attach'
 exec --no-startup-id volti
 exec --no-startup-id xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Images/screenlock'
 exec --no-startup-id xfce4-power-manager

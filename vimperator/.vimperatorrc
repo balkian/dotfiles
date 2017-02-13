@@ -6,9 +6,10 @@ set hintchars=hjklasdfgyuiopqwertnmzxcvb
 
 autocmd LocationChange .*                   js modes.passAllKeys = false
 autocmd LocationChange mail\\.google\\.com  js modes.passAllKeys = true
+autocmd LocationChange talks\\.golang\\.org  js modes.passAllKeys = true
 autocmd LocationChange docs\\.google\\.com  js modes.passAllKeys = true
 autocmd LocationChange duckduckgo\\.com  js modes.passAllKeys = true
-autocmd LocationChange .*.gsi\\.dit\\.upm\\.es  js modes.passAllKeys = true
+autocmd LocationChange jupyter\\.cluster\\.gsi\\.dit\\.upm\\.es  js modes.passAllKeys = true
 autocmd LocationChange 127.0.0.1|localhost  js modes.passAllKeys = true
  
 " Make Firefox run faster by using JIT

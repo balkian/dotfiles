@@ -37,6 +37,7 @@
             (evil-mode)
             (use-package evil-leader :ensure)
             (use-package evil-matchit :ensure)
+            (use-package evil-magit :ensure)
             (use-package evil-nerd-commenter
               :ensure
               :config (progn
@@ -44,7 +45,6 @@
                         )
               )
             (use-package evil-surround :ensure)
-            (use-package evil-jumper :ensure)
             (use-package ace-jump-mode :ensure
               :config (progn
                         (eval-after-load "ace-jump-mode"
@@ -57,8 +57,8 @@
             (setq evil-default-cursor t)
 
             ;; Evil global modes 
+            (global-evil-jumper-mode 1)
             (global-evil-surround-mode 1)
-            (global-evil-jumper-mode)
             (global-evil-leader-mode)
             (global-evil-matchit-mode 1)
 
@@ -88,7 +88,19 @@
                      (string-match-p "^\*" (buffer-name))
                      (not ( equal bread-crumb (buffer-name) )) )
                   (previous-buffer))))
-            ;;
+
+            ;; change mode-line color by evil state
+            (lexical-let ((default-color (cons (face-background 'mode-line)
+                                               (face-foreground 'mode-line))))
+              (add-hook 'post-command-hook
+                        (lambda ()
+                          (let ((color (cond ((minibufferp) default-color)
+                                             ((evil-insert-state-p) (cons (cdr default-color) (car default-color)))
+                                             ((evil-emacs-state-p) default-color)
+                                             ((buffer-modified-p)   '("#ff0000" . "#ffffff"))
+                                             (t default-color))))
+                            (set-face-background 'mode-line (car color))
+                            (set-face-foreground 'mode-line (cdr color))))))
             ;; Evil keys 
             (evil-leader/set-leader "<SPC>")
 
@@ -269,7 +281,7 @@
 (use-package monokai-theme
   :ensure t
   :config (progn
-            (load-theme 'base16-default-dark)
+            (load-theme 'monokai)
             )
   )
 
@@ -463,6 +475,7 @@
 (use-package magit
   :ensure
   :config (progn
+            (add-hook 'after-save-hook 'magit-after-save-refresh-status)
             )
   )
 
@@ -512,6 +525,7 @@
 (use-package markdown-mode
   :init
   :config (progn
+            (setq markdown-command "pandoc -f markdown -t html -s")
             )
   )
 
@@ -568,6 +582,8 @@
                   )
 
 
+            (setq mu4e-compose-context-policy nil)
+
             (setq message-send-mail-function 'smtpmail-send-it
                   starttls-use-gnutls t
                   smtpmail-debug-info t)
@@ -603,6 +619,8 @@
             (setq mu4e-show-images t
                   mu4e-show-addresses t)
 
+            ;; By default, mu4e only shows contact names
+            (setq mu4e-view-show-addresses t)
             ;; don't save message to Sent Messages, IMAP takes care of this
             (setq mu4e-sent-messages-behavior 'delete)
 
@@ -684,6 +702,23 @@
   :ensure
   :config (progn
             (exec-path-from-shell-initialize)
+            )
+  )
+
+(use-package password-store
+  :config (progn
+            )
+  )
+(use-package gitlab
+  :config (progn
+            (setq gitlab-host "https://lab.cluster.gsi.dit.upm.es"
+                  gitlab-username "balkian"
+                  )
+            )
+  )
+
+(use-package docker
+  :config (progn
             )
   )
 
