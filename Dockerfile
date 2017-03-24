@@ -1,22 +1,25 @@
 FROM ubuntu:16.04
 
-RUN apt-get update -y
-RUN apt-get install -y build-essential
-RUN apt-get install -y cmake
-RUN apt-get install -y curl
-RUN apt-get install -y diffstat
-RUN apt-get install -y git
-RUN apt-get install -y pkg-config
-RUN apt-get install -y python
-RUN apt-get install -y python-dev
-RUN apt-get install -y python3
-RUN apt-get install -y tmux
-RUN apt-get install -y vim
-RUN apt-get install -y zsh
+RUN apt-get update -y && \
+    apt-get install -y build-essential \
+    cmake \
+    curl \
+    diffstat \
+    git \
+    pkg-config \
+    python \
+    python-dev \
+    python \
+    python3 \
+    tmux \
+    stow \
+    sudo \
+    vim \
+    zsh && \
+    apt clean
 
-RUN curl -SL 'https://bootstrap.pypa.io/get-pip.py' | python2
-RUN pip install virtualenv
-RUN pip install virtualenvwrapper
+RUN curl -SL 'https://bootstrap.pypa.io/get-pip.py' | python3
+RUN pip install virtualenv virtualenvwrapper
 
 # Setup home environment
 RUN useradd dev
@@ -38,16 +41,14 @@ VOLUME /usr/src/app
 
 WORKDIR /home/dev
 ENV HOME /home/dev
-RUN git clone https://github.com/balkian/dotfiles /home/dev/dotfiles
+RUN mkdir /home/dev/dotfiles/
+RUN ls /home/dev/dotfiles
+COPY . /home/dev/dotfiles
 RUN sh /home/dev/dotfiles/make.sh
 
 # Link in shared parts of the home directory
-RUN ln -s /var/shared/.ssh
-RUN ln -s /usr/src/app
+RUN ln -s /var/shared/.ssh && ln -s /usr/src/app
 RUN chsh dev -s /usr/bin/zsh
-
-RUN chown -R dev: /home/dev
-RUN chown -R dev: /usr/local/
 
 RUN echo "dev    ALL = NOPASSWD: ALL" >> /etc/sudoers
 
