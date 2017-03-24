@@ -2,5 +2,5 @@
 setxkbmap us altgr-intl -option ctrl:nocaps
 #xmodmap ~/.Xmodmap
 #source ~/.xinitrc
-export XTERMINAL=xfce4-terminal
-export TERMINAL=xfce4-terminal
+export XTERMINAL=termite
+export TERMINAL=termite

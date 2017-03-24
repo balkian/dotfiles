@@ -31,6 +31,7 @@ bindsym Control+Mod1+w exec --no-startup-id i3-one-instance firefox
 bindsym Control+Mod1+g exec --no-startup-id i3-one-instance gvim
 bindsym Control+Mod1+e exec --no-startup-id myemacs -c
 bindsym $mod+Tab exec --no-startup-id winmenu.sh
+bindsym Mod1+Tab exec --no-startup-id winmenu.sh
 bindsym $mod+p [class="Nemo"] scratchpad show
 bindsym $mod+period [instance="emacs" title="^(?!myagenda$)"] scratchpad show
 bindsym $mod+shift+comma exec --no-startup-id myemacs -nc --eval '(progn (find-file "~/Dropbox/Todo/org/rules.org") (org-agenda-list) (set-frame-name "myagenda"))'
@@ -302,7 +303,6 @@ bindsym $mod+Escape exec xfce4-session-logout
 #exec xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png' &
 exec --no-startup-id compton -b --config ~/.compton.conf 
 exec --no-startup-id dropbox start
-exec --no-startup-id dunst -conf ~/.config/dunst/dunst.conf
 exec --no-startup-id nemo --no-desktop
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id nm-applet

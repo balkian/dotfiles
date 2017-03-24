@@ -37,7 +37,7 @@
             (evil-mode)
             (use-package evil-leader :ensure)
             (use-package evil-matchit :ensure)
-            (use-package evil-magit :ensure)
+            (use-package neotree :ensure)
             (use-package evil-nerd-commenter
               :ensure
               :config (progn
@@ -66,6 +66,28 @@
             (add-to-list 'evil-emacs-state-modes 'git-rebase-mode)
             (add-to-list 'evil-emacs-state-modes 'undo-tree-visualizer-mode)
             (add-to-list 'evil-emacs-state-modes 'dired-mode)
+
+
+            ;; Neo
+            (defun neotree-project-dir-toggle ()
+              "Open NeoTree using the project root, using find-file-in-project,
+or the current buffer directory."
+              (interactive)
+              (let ((project-dir
+                     (ignore-errors
+                       (projectile-project-root)
+                       ))
+                    (file-name (buffer-file-name))
+                    (neo-smart-open t))
+                (if (and (fboundp 'neo-global--window-exists-p)
+                         (neo-global--window-exists-p))
+                    (neotree-hide)
+                  (progn
+                    (neotree-show)
+                    (if project-dir
+                        (neotree-dir project-dir))
+                    (if file-name
+                        (neotree-find file-name))))))
 
             (defun next-code-buffer ()
                   ;;; Avoid special buffers when cycling through windows
@@ -96,7 +118,6 @@
                         (lambda ()
                           (let ((color (cond ((minibufferp) default-color)
                                              ((evil-insert-state-p) (cons (cdr default-color) (car default-color)))
-                                             ((evil-emacs-state-p) default-color)
                                              ((buffer-modified-p)   '("#ff0000" . "#ffffff"))
                                              (t default-color))))
                             (set-face-background 'mode-line (car color))
@@ -110,7 +131,7 @@
             (define-key evil-normal-state-map (kbd "]b") 'next-code-buffer)
             (define-key evil-normal-state-map (kbd "s") 'evil-ace-jump-char-mode)
             (define-key evil-normal-state-map (kbd "S") 'evil-ace-jump-word-mode)
-            (define-key evil-normal-state-map (kbd ",d") 'neotree-toggle)
+            (define-key evil-normal-state-map (kbd ",d") 'neotree-project-dir-toggle)
             (define-key evil-normal-state-map (kbd ",u") 'undo-tree-visualize)
 
             (define-key evil-normal-state-map (kbd "C-c +") 'evil-numbers/inc-at-pt)
@@ -272,16 +293,18 @@
             ))
 
 
-(use-package linum
+(use-package hlinum
+  :ensure
   :config (progn
+            (hlinum-activate)
             (add-hook 'prog-mode-hook 'linum-mode)
             )
   )
 
-(use-package monokai-theme
-  :ensure t
+(use-package base16-theme
+  :ensure
   :config (progn
-            (load-theme 'monokai)
+            (load-theme 'base16-tomorrow-night)
             )
   )
 
@@ -309,10 +332,8 @@
              python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
              python-shell-completion-setup-code
              "from IPython.core.completerlib import module_completion"
-             python-shell-completion-module-string-code
-             "';'.join(module_completion('''%s'''))\n"
-             python-shell-completion-string-code
-             "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+             python-shell-completion-module-string-code "';'.join(module_completion('''%s'''))\n"
+             python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
 
             (add-hook 'python-mode-hook 'auto-complete-mode)
             (add-hook 'python-mode-hook '(lambda () (require 'nose)))
@@ -342,6 +363,7 @@
             )
           (defun my-go-mode-hook ()
                                         ; Use goimports instead of go-fmt
+            ;; You need to do: go get golang.org/x/tools/cmd/goimports
             (setq gofmt-command "goimports")
                                         ; Call Gofmt before saving
             (add-hook 'before-save-hook 'gofmt-before-save)
@@ -350,7 +372,11 @@
                 (set (make-local-variable 'compile-command)
                      "go build -v && go test -v && go vet"))
                                         ; Godef jump key binding
-            (local-set-key (kbd "M-.") 'godef-jump))
+            (local-set-key (kbd "M-.") 'godef-jump)
+            (auto-complete-for-go)
+            )
+          (defun auto-complete-for-go ()
+            (auto-complete-mode 1))
           (add-hook 'go-mode-hook 'my-go-mode-hook)
           )
   )
@@ -366,7 +392,6 @@
   ("scala" . scala-mode))
 
 (use-package ensime
-  :pin melpa-stable
   :config (progn
             (setq ensime-startup-snapshot-notification nil)
             (use-package flycheck-cask
@@ -422,6 +447,13 @@
                                   )
                   )
 
+            (org-babel-do-load-languages
+             'org-babel-load-languages
+             '(
+               (sh . t)
+               (python . t)
+               ))
+
             (defun org-archive-done-tasks ()
               (interactive)
               (org-map-entries
@@ -475,8 +507,10 @@
 (use-package magit
   :ensure
   :config (progn
-            (add-hook 'after-save-hook 'magit-after-save-refresh-status)
-            )
+	    (add-hook 'after-save-hook 'magit-after-save-refresh-status)
+	    (define-key evil-normal-state-map (kbd ",g") 'magit-status)
+	    (define-key evil-normal-state-map (kbd "C-c g") 'magit-status)
+	    )
   )
 
 
@@ -642,6 +676,19 @@
 (set-default 'truncate-lines nil)
 ;;; Highlight line
 (global-hl-line-mode)
+(require 'color)
+
+(defun set-hl-line-color-based-on-theme ()
+"Set the hl-line face to have no foregorund and a background that is 10% darker than the default face's background."
+(let ((background-color (color-darken-name (face-background 'default) 20)))
+  (set-face-attribute 'hl-line nil
+                      :foreground nil
+                      :background background-color)
+  (set-face-attribute 'linum-highlight-face nil
+                      :foreground nil
+                      :background background-color)))
+
+(add-hook 'global-hl-line-mode-hook 'set-hl-line-color-based-on-theme)
                                         ;; (set-face-background 'hl-line 'highlight-color)
 (setq-default indent-tabs-mode nil)
 (setq tab-width 4)
@@ -709,16 +756,16 @@
   :config (progn
             )
   )
-(use-package gitlab
-  :config (progn
-            (setq gitlab-host "https://lab.cluster.gsi.dit.upm.es"
-                  gitlab-username "balkian"
-                  )
-            )
-  )
 
 (use-package docker
   :config (progn
+            )
+  )
+
+(use-package glab
+  :config (progn
+            (defconst glab--domain ".lab.cluster.gsi.dit.upm.es")
+            (defconst glab--root-endpoint "https://lab.cluster.gsi.dit.upm.es/api/v3")
             )
   )
 
@@ -748,6 +795,7 @@
 ;; Launch terminal
 
 (defun open-terminal ()
+  "Open a terminal in the current working directory."
   (interactive)
   (call-process (or (getenv "XTERMINAL") "xterm") nil 0 nil "-e" PREVSHELL))
 ;; This does not work: (concat "echo -c 'cd " default-directory "'"))
