@@ -281,8 +281,8 @@ workspace "7: Chat" output eDP1
 workspace "8: Misc Big" output DP1
 workspace "9: Misc Small" output eDP1
 
-gaps inner 10
-gaps outer 5
+#gaps inner 10
+#gaps outer 5
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
