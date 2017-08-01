@@ -9,4 +9,4 @@ fi
 
  # find "$input" -maxdepth 1 ! -path "$input" -print | sh -c "$launcher" | xargs $0
 conname=$(nmcli -t -f NAME con | sh -c "$launcher")
-nmcli conn up $conname || nmcli conn down $conname
+nmcli conn up "$conname" || nmcli conn down $conname
