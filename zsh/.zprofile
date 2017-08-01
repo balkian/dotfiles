@@ -83,6 +83,20 @@ alias drm="docker rm"
 alias drun="docker run"
 alias drmi="docker rmi"
 
+alias kg='kubectl --context="kubernetes-admin@kubernetes"'
+
+kube(){
+    if [ "$#" -lt 1 ]; then
+        echo "Wrapper for kubectl"
+        echo ""
+        echo "Usage: $0 <namespace> ... kubectl args"
+        return 1
+    fi
+    context=$1
+    shift
+    kubectl --context="$context" "$@"
+}
+
 TMPPREFIX="${TMPDIR%/}/zsh"
 
 if command -v foo >/dev/null 2>&1 ; then
