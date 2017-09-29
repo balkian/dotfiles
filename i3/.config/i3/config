@@ -21,14 +21,15 @@ floating_modifier $mod
 #/exec
 # start a terminal
 #bindsym $mod+Return exec --no-startup-id i3-one-tmux
-bindsym $mod+Return [title="^tmux$"] scratchpad show
+bindsym $mod+Return [title="^scratch"] scratchpad show
 bindsym Control+Mod1+t exec --no-startup-id i3-sensible-terminal
 
 # start lock
 bindsym Control+Mod1+l exec --no-startup-id i3-exit.sh lock
 
-bindsym Control+Mod1+w exec --no-startup-id i3-one-instance firefox
-bindsym Control+Mod1+g exec --no-startup-id i3-one-instance gvim
+bindsym Control+Mod1+w exec --no-startup-id chromium || chromium-browser
+bindsym Control+Mod1+Shift+w exec --no-startup-id firefox
+bindsym Control+Mod1+g exec --no-startup-id gvim
 bindsym Control+Mod1+e exec --no-startup-id myemacs -c
 bindsym $mod+Tab exec --no-startup-id winmenu.sh
 bindsym Mod1+Tab exec --no-startup-id winmenu.sh
@@ -249,14 +250,16 @@ for_window [title="^floatingwin"] floating enable;
 for_window [title="^capture"] floating enable; 
 for_window [title="^myagenda"] move to scratchpad
 for_window [class="^Google-chrome$"] border none
+for_window [class="^Chromium"] border none
 assign [class="Google-chrome" window_role="browser"] 2: Web
+assign [class="Chromium" window_role="browser"] 2: Web
 for_window [class="^Firefox$"] border none
 assign [class="Firefox" window_role="browser"] 2: Web
 for_window [class="^Xfce4-notifyd$"] floating enable; border none; focus mode_toggle 
 for_window [class="^termite"] border 1px
 for_window [class="^lxterminal"] border 1px
 for_window [class="^xfce4-terminal"] border 1px
-for_window [title="^tmux$"] move to scratchpad
+for_window [title="^scratch"] move to scratchpad
 for_window [class="^Nemo" title="Home"] move to scratchpad;
 #KDE
 for_window [class="Plasma-desktop"] border none
@@ -309,8 +312,8 @@ exec --no-startup-id nm-applet
 exec --no-startup-id pasystray 
 exec --no-startup-id syncthing-gtk 
 exec --no-startup-id syndaemon -i 0.5 -d
-exec --no-startup-id i3-sensible-terminal --title=tmux -e 'tmux attach'
+exec --no-startup-id i3-sensible-terminal --title=scratch -e 'tmux attach'
 exec --no-startup-id volti
-exec --no-startup-id xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Images/screenlock'
+exec --no-startup-id xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Images/Wallpapers/wallpaper.png'
 exec --no-startup-id xfce4-power-manager
-exec --no-startup-id clipit
+exec --no-startup-id clipit -n
