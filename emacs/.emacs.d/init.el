@@ -11,10 +11,12 @@
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
+(setq quelpa-checkout-melpa-p nil)
+
 (unless (require 'quelpa nil t)
   (with-temp-buffer
     (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
-    (eval-buffer)))
+	    (eval-buffer)))
 
 (quelpa 'use-package)
                                         ;'(use-package
@@ -26,6 +28,8 @@
    :fetcher github
    :repo "quelpa/quelpa-use-package"))
 (require 'quelpa-use-package)
+
+(eval-when-compile (require 'cl))
 
 (use-package evil
   :ensure
@@ -45,12 +49,7 @@
                         )
               )
             (use-package evil-surround :ensure)
-            (use-package ace-jump-mode :ensure
-              :config (progn
-                        (eval-after-load "ace-jump-mode"
-                          '(ace-jump-mode-enable-mark-sync))
-                        (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
-                        ))
+            (use-package avy :ensure)
 
             ;; Evil global modes config
             (evilnc-default-hotkeys)
@@ -129,8 +128,8 @@ or the current buffer directory."
             (define-key evil-normal-state-map (kbd "]q") 'next-error)
             (define-key evil-normal-state-map (kbd "[b") 'previous-code-buffer)
             (define-key evil-normal-state-map (kbd "]b") 'next-code-buffer)
-            (define-key evil-normal-state-map (kbd "s") 'evil-ace-jump-char-mode)
-            (define-key evil-normal-state-map (kbd "S") 'evil-ace-jump-word-mode)
+            (define-key evil-normal-state-map (kbd "s") 'avy-goto-char-timer)
+            (define-key evil-normal-state-map (kbd "S") 'avy-goto-word-0)
             (define-key evil-normal-state-map (kbd ",d") 'neotree-project-dir-toggle)
             (define-key evil-normal-state-map (kbd ",u") 'undo-tree-visualize)
 
@@ -191,6 +190,13 @@ or the current buffer directory."
                   (helm-projectile)
                 (helm-for-files)))
 
+            (defun smart-for-buffers ()
+              "Call `helm-projectile' if `projectile-project-p', otherwise fallback to `helm-for-files'."
+              (interactive)
+              (if (projectile-project-p)
+                  (helm-projectile-switch-to-buffer)
+                (switch-to-buffer)))
+
         ;;; Save current position to mark ring
             (add-hook 'helm-goto-line-before-hook 'helm-save-current-pos-to-mark-ring)
 
@@ -230,6 +236,7 @@ or the current buffer directory."
         ;;; Evil helm
             ;; (define-key evil-normal-state-map (kbd "C-p") 'helm-mini)
             (evil-leader/set-key "p" 'smart-for-files)
+            (evil-leader/set-key "b" 'smart-for-buffers)
             (evil-leader/set-key "<SPC>" 'helm-M-x)
             (define-key evil-normal-state-map (kbd ",s") 'helm-swoop)
             (define-key evil-normal-state-map (kbd ",a") 'helm-ag)
@@ -361,6 +368,8 @@ or the current buffer directory."
                       (ac-config-default)
                       )
             )
+          (use-package go-dlv :ensure
+	    )
           (defun my-go-mode-hook ()
                                         ; Use goimports instead of go-fmt
             ;; You need to do: go get golang.org/x/tools/cmd/goimports
@@ -680,13 +689,13 @@ or the current buffer directory."
 
 (defun set-hl-line-color-based-on-theme ()
 "Set the hl-line face to have no foregorund and a background that is 10% darker than the default face's background."
-(let ((background-color (color-darken-name (face-background 'default) 20)))
+(let ((background-color (color-lighten-name (face-background 'default) 10)))
   (set-face-attribute 'hl-line nil
                       :foreground nil
                       :background background-color)
   (set-face-attribute 'linum-highlight-face nil
-                      :foreground nil
-                      :background background-color)))
+                      :background (face-foreground 'default)
+                      :foreground (face-background 'default))))
 
 (add-hook 'global-hl-line-mode-hook 'set-hl-line-color-based-on-theme)
                                         ;; (set-face-background 'hl-line 'highlight-color)
@@ -758,7 +767,13 @@ or the current buffer directory."
   )
 
 (use-package docker
+  :ensure
   :config (progn
+            (use-package docker-tramp
+              :ensure
+              :config (progn
+                        )
+              )
             )
   )
 
@@ -768,6 +783,29 @@ or the current buffer directory."
             (defconst glab--root-endpoint "https://lab.cluster.gsi.dit.upm.es/api/v3")
             )
   )
+
+(use-package highlight-indent-guides 
+  :ensure
+  :config (progn
+            (setq highlight-indent-guides-method 'character)
+            (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+            )
+  )
+
+
+(add-hook 'prog-mode-hook 'hs-minor-mode)
+;;
+;; LATEX
+;;
+
+(add-hook 'LaTeX-mode-hook (lambda ()
+  (push
+    '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
+      :help "Run latexmk on file")
+    TeX-command-list)))
+(add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
+
+;; ENDLATEX
 
 (setq PREVSHELL (getenv "SHELL")) ;; Workaround for tramp
 (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
