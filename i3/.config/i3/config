@@ -40,7 +40,7 @@ bindsym $mod+c exec myemacs -n -e '(make-capture-frame)'
 bindsym $mod+comma [title="^myagenda"] scratchpad show
 
 # Spotify
-bindsym XF86AudioPlay exec --no-startup-id playerctl playPause
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
