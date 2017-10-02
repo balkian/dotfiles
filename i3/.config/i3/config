@@ -40,9 +40,9 @@ bindsym $mod+c exec myemacs -n -e '(make-capture-frame)'
 bindsym $mod+comma [title="^myagenda"] scratchpad show
 
 # Spotify
-bindsym XF86AudioPlay exec --no-startup-id spotify-remote.py -a playPause
-bindsym XF86AudioNext exec --no-startup-id spotify-remote.py -a next 
-bindsym XF86AudioPrev exec --no-startup-id spotify-remote.py -a previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl playPause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # Volume
 bindsym XF86AudioRaiseVolume exec --no-startup-id volume-up.sh
