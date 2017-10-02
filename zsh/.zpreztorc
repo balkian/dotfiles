@@ -37,9 +37,13 @@ zstyle ':prezto:load' pmodule \
   'fasd' \
   'pacman' \
   'git' \
+  'autosuggestions' \
   'syntax-highlighting' \
   'ssh' \
   'prompt'
+
+
+zstyle ':prezto:module:autosuggestions' color 'yes'
 
 
 #
