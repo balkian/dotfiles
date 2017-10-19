@@ -310,10 +310,9 @@ exec --no-startup-id nemo --no-desktop
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id nm-applet
 exec --no-startup-id pasystray 
-exec --no-startup-id syncthing-gtk 
 exec --no-startup-id syndaemon -i 0.5 -d
 exec --no-startup-id i3-sensible-terminal --title=scratch -e 'tmux attach'
-exec --no-startup-id volti
 exec --no-startup-id xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Images/Wallpapers/wallpaper.png'
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id clipit -n
+exec --no-startup-id owncloud
