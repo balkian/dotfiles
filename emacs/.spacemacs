@@ -55,6 +55,7 @@ values."
      ;; better-defaults
      emacs-lisp
      git
+     latex
      markdown
      org
      (shell :variables
