@@ -29,6 +29,7 @@ bindsym Control+Mod1+l exec --no-startup-id i3-exit.sh lock
 
 bindsym Control+Mod1+w exec --no-startup-id chromium || chromium-browser
 bindsym Control+Mod1+Shift+w exec --no-startup-id firefox
+bindsym Control+Mod1+v exec --no-startup-id pavucontrol
 bindsym Control+Mod1+g exec --no-startup-id gvim
 bindsym Control+Mod1+e exec --no-startup-id myemacs -c
 bindsym $mod+Tab exec --no-startup-id winmenu.sh
@@ -251,6 +252,7 @@ for_window [title="^capture"] floating enable;
 for_window [title="^myagenda"] move to scratchpad
 for_window [class="^Google-chrome$"] border none
 for_window [class="^Chromium"] border none
+for_window [class="^Pavucontrol"] floating enable
 assign [class="Google-chrome" window_role="browser"] 2: Web
 assign [class="Chromium" window_role="browser"] 2: Web
 for_window [class="^Firefox$"] border none
@@ -314,5 +316,6 @@ exec --no-startup-id syndaemon -i 0.5 -d
 exec --no-startup-id i3-sensible-terminal --title=scratch -e 'tmux attach'
 exec --no-startup-id xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Images/Wallpapers/wallpaper.png'
 exec --no-startup-id xfce4-power-manager
+exec --no-startup-id xfsettingsd --sm-client-disable &
 exec --no-startup-id clipit -n
 exec --no-startup-id owncloud
