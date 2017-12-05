@@ -34,7 +34,7 @@ bindsym Control+Mod1+g exec --no-startup-id gvim
 bindsym Control+Mod1+e exec --no-startup-id myemacs -c
 bindsym $mod+Tab exec --no-startup-id winmenu.sh
 bindsym Mod1+Tab exec --no-startup-id winmenu.sh
-bindsym $mod+p [class="Nemo"] scratchpad show
+bindsym $mod+p [class="Nemo|Thunar|Ranger"] scratchpad show
 bindsym $mod+period [instance="emacs" title="^(?!myagenda$)"] scratchpad show
 bindsym $mod+shift+comma exec --no-startup-id myemacs -nc --eval '(progn (find-file "~/Dropbox/Todo/org/rules.org") (org-agenda-list) (set-frame-name "myagenda"))'
 bindsym $mod+c exec myemacs -n -e '(make-capture-frame)' 
@@ -66,11 +66,12 @@ bindsym $mod+o exec --no-startup-id filemenu $HOME
 
 # Arandr magic
 bindsym Mod1+F5 exec --no-startup-id monitors single
-bindsym Mod1+F6 exec --no-startup-id monitors single HDMI
-bindsym Mod1+F7 exec --no-startup-id monitors dual mirror
-bindsym Mod1+F8 exec --no-startup-id monitors dual home
+bindsym Mod1+F6 exec --no-startup-id monitors single-hdmi
+bindsym Mod1+F7 exec --no-startup-id monitors dual-mirror
+bindsym Mod1+F8 exec --no-startup-id monitors dual-home
 bindsym Mod1+F9 exec --no-startup-id monitors dual
 bindsym Mod1+F10 exec --no-startup-id xrandr --auto
+bindsym Mod1+F11 exec --no-startup-id monitors # auto
 
 # Move to displays
 bindsym $mod+Mod1+j move workspace to output down
@@ -262,7 +263,7 @@ for_window [class="^termite"] border 1px
 for_window [class="^lxterminal"] border 1px
 for_window [class="^xfce4-terminal"] border 1px
 for_window [title="^scratch"] move to scratchpad
-for_window [class="^Nemo" title="Home"] move to scratchpad;
+for_window [class="^Nemo|Thunar|Ranger"] move to scratchpad;
 #KDE
 for_window [class="Plasma-desktop"] border none
 for_window [class="krunner"] border none
@@ -314,7 +315,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id pasystray 
 exec --no-startup-id syndaemon -i 0.5 -d
 exec --no-startup-id i3-sensible-terminal --title=scratch -e 'tmux attach'
-exec --no-startup-id xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Images/Wallpapers/wallpaper.png'
+exec --no-startup-id i3-exit.sh autolock
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id xfsettingsd --sm-client-disable &
 exec --no-startup-id clipit -n

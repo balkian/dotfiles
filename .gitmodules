@@ -8,3 +8,6 @@
 [submodule "prezto"]
 	path = zsh/.zprezto
 	url = https://github.com/sorin-ionescu/prezto.git
+[submodule "i3/.config/i3/i3blocks-contrib"]
+	path = i3/.config/i3/i3blocks-contrib
+	url = https://github.com/vivien/i3blocks-contrib.git

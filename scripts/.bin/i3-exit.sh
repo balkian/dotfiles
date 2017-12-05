@@ -1,6 +1,14 @@
 #!/bin/bash
 
 case "$1" in
+    locknow)
+        scrot /tmp/screen.png
+        convert /tmp/screen.png -scale 10% -scale 1000% /tmp/screen.png
+        i3lock -e -i /tmp/screen.png
+        ;;
+    autolock)
+        xautolock -time 10 -corners "----" -locker "$0 locknow"
+        ;;
     lock)
         xautolock -locknow
             ;;
