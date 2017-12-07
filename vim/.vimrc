@@ -36,6 +36,7 @@ Bundle "kien/ctrlp.vim.git"
 Bundle "sgur/ctrlp-extensions.vim"
 Bundle "sjl/gundo.vim"
 Bundle "bling/vim-airline"
+Bundle 'vim-airline/vim-airline-themes'
 Bundle "xolox/vim-misc"
 Bundle "xolox/vim-notes"
 Bundle "beloglazov/vim-online-thesaurus"

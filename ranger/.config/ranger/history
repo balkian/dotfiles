@@ -1,0 +1,50 @@
+set colorscheme snow
+set colorscheme solarized
+set colorscheme jungle
+set status_bar_on_top true
+set draw_borders true
+set line_numbers
+
+find Mu
+find 
+find Des
+find H
+find des
+find d
+find git
+find gi
+map f console scout -ftsea%space
+scout -ftsea mes
+scout -ftsea sf
+scout -ftsea s
+scout -ftsea test
+scout -ftsea 
+filter 
+scout -ftsea te
+scout -ftsea dot
+scout -ftsea i3
+map dC chain mark_files all=True val=True; get_cumulative_size
+delete
+find loc
+search loc
+find Pu
+scout -aefiklst
+scout -aefiklst 
+scout -ftse Docu
+scout -ftse Docum
+scout -ftse dotfi
+scout -ftse own
+scout -ftse ownclo
+scout -ftse sys
+scout -ftse Desk
+scout -ftse vid
+scout -ftse vi
+scout -fts id
+find
+shell y
+find dotfi
+find GSI
+find vid
+find Pic
+find musi
+find owncl

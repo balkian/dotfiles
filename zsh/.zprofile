@@ -6,51 +6,6 @@
 #
 
 #
-# Browser
-#
-
-if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER='open'
-fi
-
-#
-# Editors
-#
-
-export EDITOR='vi'
-export VISUAL="myemacs -c"
-export ALTERNATE_EDITOR=""
-export PAGER='less'
-
-#
-# Language
-#
-
-if [[ -z "$LANG" ]]; then
-  export LANG='en_US.UTF-8'
-fi
-
-#
-# Paths
-#
-
-# Ensure path arrays do not contain duplicates.
-typeset -gU cdpath fpath mailpath path
-
-# Set the the list of directories that cd searches.
-# cdpath=(
-#   $cdpath
-# )
-
-# Set the list of directories that Zsh searches for programs.
-path=(
-  /usr/local/{bin,sbin}
-  ~/.bin
-  ~/.local/{bin,sbin}
-  $path
-)
-
-#
 # Less
 #
 
@@ -99,14 +54,11 @@ kube(){
 
 TMPPREFIX="${TMPDIR%/}/zsh"
 
-if command -v foo >/dev/null 2>&1 ; then
+if command -v pyenv >/dev/null 2>&1 ; then
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
     pyenv virtualenvwrapper
 fi
-
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin/
 
 setopt interactivecomments
