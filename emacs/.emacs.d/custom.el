@@ -13,7 +13,7 @@
  '(global-hl-line-mode t)
  '(package-selected-packages
    (quote
-    (yafolding origami-mode highlight-indent-guides indent-guide go-dlv quelpa avy avy-mode github-theme base16-theme hlinum glab neotree evil-magit docker password-store gitlab flycheck-cask ensime scala-mode yasnippet yaml-mode slime quelpa-use-package ob-ipython nose n3-mode monokai-theme markdown-mode magit jedi helm-swoop helm-projectile helm-descbinds helm-ag guide-key go-mode go-autocomplete gist flymake-go flycheck exec-path-from-shell evil-surround evil-smartparens evil-paredit evil-org evil-nerd-commenter evil-mu4e evil-matchit evil-leader evil-jumper ein clojure-mode auctex ace-jump-mode)))
+    (package-build yafolding origami-mode highlight-indent-guides indent-guide go-dlv quelpa avy avy-mode github-theme base16-theme hlinum glab neotree evil-magit docker password-store gitlab flycheck-cask ensime scala-mode yasnippet yaml-mode slime quelpa-use-package ob-ipython nose n3-mode monokai-theme markdown-mode magit jedi helm-swoop helm-projectile helm-descbinds helm-ag guide-key go-mode go-autocomplete gist flymake-go flycheck exec-path-from-shell evil-surround evil-smartparens evil-paredit evil-org evil-nerd-commenter evil-mu4e evil-matchit evil-leader evil-jumper ein clojure-mode auctex ace-jump-mode)))
  '(safe-local-variable-values (quote ((TeX-command-extra-options . "-shell-escape")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

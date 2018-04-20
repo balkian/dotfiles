@@ -5,6 +5,11 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+
+if [[ -s "${ZDOTDIR:-$HOME}/.zshenv" ]]; then
+    source "${ZDOTDIR:-$HOME}/.zshenv"
+fi
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -12,21 +17,42 @@ fi
 
 # Customize to your needs...
 
-eval $(dircolors ~/.dircolors)
+#
+# Less
+#
+
+# Set the default Less options.
+# Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
+# Remove -X and -F (exit if the content fits on one screen) to enable it.
+export LESS='-F -g -i -M -R -S -w -X -z-4'
+
+# Handy alias
+alias fail="less +F"
+
+
+# Set the Less input preprocessor.
+# Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
+if (( $#commands[(i)lesspipe(|.sh)] )); then
+  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+fi
+
+#
+# Temporary Files
+#
+
+if [[ ! -d "$TMPDIR" ]]; then
+  export TMPDIR="/tmp/$LOGNAME"
+  mkdir -p -m 700 "$TMPDIR"
+fi
+
+TMPPREFIX="${TMPDIR%/}/zsh"
+
 
 if which pyenv >/dev/null ; then
     eval "$(pyenv virtualenv-init -)"
 fi
 
-alias dps="docker ps"
-alias dpi="docker images"
-alias dc="docker-compose"
-alias dcr="compose-run"
-alias da="docker_start_attach"
-alias daa="docker_apply_all_containers"
-alias dci="docker_clean_images"
-alias dcc="docker_clean_containers"
-alias dac="docker_apply_containers"
+# Docker goodies
 
 function docker_start_attach () {
     docker start $1 && docker attach $1
@@ -84,8 +110,47 @@ function docker_nuke () {
     docker rmi $(docker images -q)
 }
 
+alias da="docker_start_attach"
+alias daa="docker_apply_all_containers"
+alias dac="docker_apply_containers"
+alias dc="docker-compose"
+alias dcc="docker_clean_containers"
+alias dci="docker_clean_images"
+alias dcr="compose-run"
+alias dpi="docker images"
+alias dps="docker ps"
+alias drm="docker rm"
+alias drmi="docker rmi"
+alias drun="docker run"
+
+
+# GSI
 alias gsicluster='ssh balkian@shannon.gsi.dit.upm.es -p 1337'      
 
 function gsiclustercopy(){
-  scp -P 1337 $1 balkian@shannon.gsi.dit.upm.es:/shared/balkian/$2
+    scp -P 1337 $1 balkian@shannon.gsi.dit.upm.es:/shared/balkian/$2
 }
+
+# Kubernetes (k8s)
+
+alias kg='kubectl --context="kubernetes-admin@kubernetes"'
+
+function kube (){
+    if [ "$#" -lt 1 ]; then
+        echo "Wrapper for kubectl"
+        echo ""
+        echo "Usage: $0 <namespace> ... kubectl args"
+        return 1
+    fi
+    context=$1
+    shift
+    kubectl --context="$context" "$@"
+}
+
+# Dircolors for termite
+
+if [[ -s "$HOME/.dircolors" ]]; then
+    eval $(dircolors ~/.dircolors)
+fi
+
+setopt interactivecomments

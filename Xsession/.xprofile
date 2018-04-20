@@ -1,6 +1,7 @@
 # echo "pasado(xprofile)" $(date) >> /tmp/LOG
-setxkbmap us altgr-intl -option ctrl:nocaps
+setxkbmap "us,es" "altgr-intl," -option "ctrl:nocaps,grp:shift_toggle,terminate:ctrl_alt_bksp"
 #xmodmap ~/.Xmodmap
 #source ~/.xinitrc
 export XTERMINAL=termite
 export TERMINAL=termite
+export TERMCMD=termite

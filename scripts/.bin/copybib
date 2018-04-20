@@ -1,0 +1,4 @@
+#!/bin/sh
+cat ~/Exported\ Items.bib | sed -n 's/@.*{\(.*\),/\\cite{\1}/p' | xclip -selection clipboard
+sleep 1
+cat ~/Exported\ Items.bib | xclip -selection clipboard

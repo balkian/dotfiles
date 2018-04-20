@@ -17,6 +17,7 @@ export EDITOR='vim'
 export VISUAL="myemacs -c"
 export ALTERNATE_EDITOR=""
 export PAGER='less'
+export TERMCMD='i3-sensible-terminal'
 
 #
 # Language

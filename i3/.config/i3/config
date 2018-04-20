@@ -268,8 +268,8 @@ for_window [class="^termite"] border 1px
 for_window [class="^lxterminal"] border 1px
 for_window [class="^xfce4-terminal"] border 1px
 for_window [title="^scratch"] move to scratchpad
-for_window [class="^Nemo|Thunar|Ranger"] move to scratchpad;
-for_window [title="filemanager"] move to scratchpad;
+assign [class="^Nemo|Thunar|Ranger"] 5: Files
+for_window [title="^filemanager$"] move to scratchpad;
 #KDE
 for_window [class="Plasma-desktop"] border none
 for_window [class="krunner"] border none
@@ -323,6 +323,7 @@ exec --no-startup-id syndaemon -i 0.5 -d
 exec --no-startup-id i3-sensible-terminal --title=scratch -e 'tmux attach'
 exec --no-startup-id i3-exit.sh autolock
 exec --no-startup-id xfce4-power-manager
-exec --no-startup-id xfsettingsd --sm-client-disable &
+#exec --no-startup-id xfsettingsd --sm-client-disable &
 exec --no-startup-id clipit -n
 exec --no-startup-id owncloud
+exec --no-startup-id udiskie --no-notify --tray --use-udisks2  
