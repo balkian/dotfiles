@@ -32,7 +32,7 @@ bindsym Control+Mod1+f exec --no-startup-id i3-sensible-terminal --title=fileman
 bindsym Control+Mod1+l exec --no-startup-id i3-exit.sh lock
 
 bindsym Control+Mod1+Shift+w exec --no-startup-id chromium || chromium-browser
-bindsym Control+Mod1+w exec --no-startup-id firefox
+bindsym Control+Mod1+w exec --no-startup-id $BROWSER
 bindsym Control+Mod1+v exec --no-startup-id pavucontrol
 bindsym Control+Mod1+g exec --no-startup-id gvim
 bindsym Control+Mod1+e exec --no-startup-id myemacs -c
@@ -144,6 +144,7 @@ bindsym $mod+u focus parent
 bindsym $mod+d focus child
 
 # switch to workspace
+
 bindsym $mod+1 workspace 1: Term
 bindsym $mod+2 workspace 2: Web
 bindsym $mod+3 workspace 3: Edit
@@ -229,29 +230,30 @@ bindsym $mod+n exec i3-input -F 'rename workspace to %s' -P 'New name: '
 #status_command i3status
 #}
 
-bar {
-    mode dock
-    position top
-    font pango:DejaVu Sans 10
-    workspace_buttons yes
-    # status_command ~/.config/i3/status.sh
-    status_command i3status -c ~/.config/i3status/conf
-    colors {
-        background #101010
-        statusline #ffffff
-        focused_workspace #101010 #586e75 #fdf6e3
-        active_workspace #101010 #101010 #cb4b16
-        inactive_workspace #101010 #101010 #93a1a1
-        urgent_workspace #fdf6e3 #dc322f
-    }
-}
+# bar {
+#     mode dock
+#     position top
+#     font pango:DejaVu Sans 10
+#     workspace_buttons yes
+#     # status_command ~/.config/i3/status.sh
+#     status_command i3status -c ~/.config/i3status/conf
+#     colors {
+#         background #101010
+#         statusline #ffffff
+#         focused_workspace #101010 #586e75 #fdf6e3
+#         active_workspace #101010 #101010 #cb4b16
+#         inactive_workspace #101010 #101010 #93a1a1
+#         urgent_workspace #fdf6e3 #dc322f
+#     }
+# }
 # class                 border  backgr. text    indicator
-client.focused          #4c7899 #101010 #93a1a1 #2e9ef4
+client.focused          #4c7899 #4c7899 fefef #93a1a1 #2e9ef4
 client.focused_inactive #4c7899 #101010 #93a1a1 #484e50
-client.unfocused        #333333 #101010 #93a1a1 #292d2e
+client.unfocused        #ffffff #101010 #93a1a1 #292d2e
 client.urgent           #2f343a #101010 #93a1a1 #900000
 
-new_window 1pixel
+default_border pixel 5
+# smart_borders on
 
 for_window [title="^floatingwin"] floating enable; 
 for_window [title="^capture"] floating enable; 
@@ -262,6 +264,7 @@ for_window [class="^Pavucontrol"] floating enable
 assign [class="Google-chrome" window_role="browser"] 2: Web
 assign [class="Chromium" window_role="browser"] 2: Web
 for_window [class="^Firefox$"] border none
+for_window [class="^Polybar"] border none
 assign [class="Firefox" window_role="browser"] 2: Web
 for_window [class="^Xfce4-notifyd$"] floating enable; border none; focus mode_toggle 
 for_window [class="^termite"] border 1px
@@ -276,9 +279,9 @@ for_window [class="krunner"] border none
 for_window [class="Kmix"] floating enable;
 for_window [class="Plasmoidviewer"] floating enable;
 for_window [class="Klipper"] floating enable; border none
+for_window [class="Spotify"] move to workspace 6: Music
 #assign [class="^Gvim$"] 3: Edit
 #assign [class="^Evince$"] 4: Viewer
-assign [class="^Spotify$"] 6: Music
 assign [class="^Audacious$"] 6: Music
 assign [class="^Xchat$"] 7: Chat
 #for_window [class="Pcmanfm"] floating enable
@@ -293,8 +296,8 @@ workspace "7: Chat" output eDP1
 workspace "8: Misc Big" output DP1
 workspace "9: Misc Small" output eDP1
 
-#gaps inner 10
-#gaps outer 5
+gaps inner 8
+gaps outer 5
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -327,3 +330,4 @@ exec --no-startup-id xfce4-power-manager
 exec --no-startup-id clipit -n
 exec --no-startup-id owncloud
 exec --no-startup-id udiskie --no-notify --tray --use-udisks2  
+exec --no-startup-id polybar.sh
