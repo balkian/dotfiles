@@ -2,7 +2,7 @@
 
 if command -v rofi >/dev/null 2>&1;
 then
-    launcher="rofi -show drun"
+    launcher="rofi -show combi -combi-hide-mode-prefix -combi-modi drun,run"
 else
     launcher="dmenu_run -fn  "-*-cure-medium-*-*-*-11-*-*-*-*-*-*-*" -nb "#101010" -nf "#5f5f5f" -sb "#191919" -sf "#b72f62" -b"
 fi

@@ -1,0 +1,23 @@
+{
+    "diffEditor.ignoreTrimWhitespace": false,
+    "workbench.iconTheme": "vscode-icons",
+    "gitlens.advanced.messages": {
+        "suppressShowKeyBindingsNotice": true,
+        "suppressResultsExplorerNotice": true
+    },
+    "gitlens.keymap": "chorded",
+    "window.zoomLevel": 0,
+    "vim.handleKeys": {
+        "<C-K>": false,
+        "[q": false,
+        "]q": false
+    },
+    "editor.minimap.enabled": false,
+    "workbench.statusBar.visible": true,
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/**": true,
+        "**/vendor/**": true,
+    }
+}

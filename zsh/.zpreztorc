@@ -29,6 +29,7 @@ zstyle ':prezto:load' pmodule \
   'environment' \
   'terminal' \
   'editor' \
+  'fasd' \
   'history' \
   'directory' \
   'spectrum' \
