@@ -254,6 +254,7 @@ client.urgent           #2f343a #101010 #93a1a1 #900000
 
 default_border pixel 5
 # smart_borders on
+workspace_layout tabbed
 
 for_window [title="^floatingwin"] floating enable; 
 for_window [title="^capture"] floating enable; 
