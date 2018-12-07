@@ -1,0 +1,20 @@
+#!/bin/bash
+if [[ "$#" -lt 1 ]]; then
+    echo -e "Usage: $0 <date>"
+    echo -e ""
+    echo -e "\t<date> accepts the same formats as the date -d command"
+    echo -e ""
+    echo -e "Examples:"
+    echo -e "\t$0 -2hour"
+    echo -e "\t$0 -3day"
+    echo -e "\t$0 -2hour25min"
+    echo -e "\t$0 'today 3pm'"
+    echo -e "\t$0 'today 3pm'"
+    exit
+fi
+
+WHEN=$(date -d $1) || exit
+shift
+
+
+GIT_AUTHOR_DATE="$WHEN" GIT_COMMITTER_DATE="$WHEN" git commit --amend --no-edit --date="$WHEN"
