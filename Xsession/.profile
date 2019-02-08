@@ -24,3 +24,7 @@ fi
 if [ -f $HOME/.Xmodmap ]; then
     /usr/bin/xmodmap $HOME/.Xmodmap 2>/dev/null &
 fi
+
+if [ -f $HOME/.xsession ]; then
+   . $HOME/.xsession
+fi

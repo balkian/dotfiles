@@ -1,7 +1,12 @@
-# echo "pasado(xprofile)" $(date) >> /tmp/LOG
+#!/bin/sh
+touch /tmp/LOG
+echo "loaded(xprofile)" $(date) >> /tmp/LOG
 setxkbmap "us,es" "altgr-intl," -option "ctrl:nocaps,grp:shift_toggle,terminate:ctrl_alt_bksp"
 #xmodmap ~/.Xmodmap
 #source ~/.xinitrc
 export XTERMINAL=termite
 export TERMINAL=termite
 export TERMCMD=termite
+export BROWSER=chromium-browser
+export MOZ_USE_XINPUT2=1
+

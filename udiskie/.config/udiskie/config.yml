@@ -1,0 +1,4 @@
+---
+ignore_device:
+        - device_file: "/dev/loop*"
+          ignore: true

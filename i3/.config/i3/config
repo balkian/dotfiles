@@ -55,8 +55,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id volume-down.sh
 bindsym XF86AudioMute exec --no-startup-id volume-toggle-mute.sh
 
 # Brightness
-#bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight +5
-#bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -5
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set "5%+"
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set "5%-"
 
 # kill focused window
 bindsym $mod+q kill
@@ -230,29 +230,29 @@ bindsym $mod+n exec i3-input -F 'rename workspace to %s' -P 'New name: '
 #status_command i3status
 #}
 
-# bar {
-#     mode dock
-#     position top
-#     font pango:DejaVu Sans 10
-#     workspace_buttons yes
-#     # status_command ~/.config/i3/status.sh
-#     status_command i3status -c ~/.config/i3status/conf
-#     colors {
-#         background #101010
-#         statusline #ffffff
-#         focused_workspace #101010 #586e75 #fdf6e3
-#         active_workspace #101010 #101010 #cb4b16
-#         inactive_workspace #101010 #101010 #93a1a1
-#         urgent_workspace #fdf6e3 #dc322f
-#     }
-# }
+bar {
+    mode dock #hide
+    position bottom
+    font pango:DejaVu Sans 10
+    workspace_buttons yes
+    # status_command ~/.config/i3/status.sh
+    status_command i3blocks #i3status -c ~/.config/i3status/conf
+    colors {
+        background #101010
+        statusline #ffffff
+        focused_workspace #101010 #586e75 #fdf6e3
+        active_workspace #101010 #101010 #cb4b16
+        inactive_workspace #101010 #101010 #93a1a1
+        urgent_workspace #fdf6e3 #dc322f
+    }
+}
 # class                 border  backgr. text    indicator
 client.focused          #4c7899 #4c7899 fefef #93a1a1 #2e9ef4
 client.focused_inactive #4c7899 #101010 #93a1a1 #484e50
 client.unfocused        #ffffff #101010 #93a1a1 #292d2e
 client.urgent           #2f343a #101010 #93a1a1 #900000
 
-default_border pixel 5
+default_border pixel 1
 # smart_borders on
 workspace_layout tabbed
 
@@ -297,8 +297,8 @@ workspace "7: Chat" output eDP1
 workspace "8: Misc Big" output DP1
 workspace "9: Misc Small" output eDP1
 
-gaps inner 8
-gaps outer 5
+#gaps inner 8
+#gaps outer 5
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -317,8 +317,6 @@ bindsym $mod+Delete mode "$mode_system"
 bindsym $mod+Escape exec xfce4-session-logout
 #exec --no-startup-id xautolock -corners '----' -time 10 -locker 'dm-tool lock' # lightdm
 #exec xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png' &
-exec --no-startup-id compton -b --config ~/.compton.conf 
-exec --no-startup-id dropbox start
 exec --no-startup-id i3-sensible-terminal --title=filemanager -e 'ranger'
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id nm-applet
@@ -326,9 +324,12 @@ exec --no-startup-id pasystray
 exec --no-startup-id syndaemon -i 0.5 -d
 exec --no-startup-id i3-sensible-terminal --title=scratch -e 'tmux attach'
 exec --no-startup-id i3-exit.sh autolock
-exec --no-startup-id xfce4-power-manager
 #exec --no-startup-id xfsettingsd --sm-client-disable &
+#exec --no-startup-id polybar.sh
+exec --no-startup-id autorotate.py
+exec --no-startup-id touchegg
 exec --no-startup-id clipit -n
 exec --no-startup-id owncloud
 exec --no-startup-id udiskie --no-notify --tray --use-udisks2  
-exec --no-startup-id polybar.sh
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id compton -b --config ~/.compton.conf 
