@@ -328,7 +328,7 @@ exec --no-startup-id i3-exit.sh autolock
 #exec --no-startup-id polybar.sh
 exec --no-startup-id autorotate.py
 exec --no-startup-id touchegg
-exec --no-startup-id clipit -n
+exec --no-startup-id parcellite 
 exec --no-startup-id owncloud
 exec --no-startup-id udiskie --no-notify --tray --use-udisks2  
 exec --no-startup-id xfce4-power-manager
