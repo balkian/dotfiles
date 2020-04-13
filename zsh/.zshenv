@@ -49,4 +49,4 @@ path=(
 
 export PATH
 export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin/
+export PATH=$PATH:$GOPATH/bin/:$HOME/.npm/bin
