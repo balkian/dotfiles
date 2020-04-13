@@ -13,15 +13,25 @@
 
 (setq quelpa-checkout-melpa-p nil)
 
-(unless (require 'quelpa nil t)
-  (with-temp-buffer
-    (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
-	    (eval-buffer)))
+(unless (package-installed-p 'quelpa)
+    (with-temp-buffer
+      (url-insert-file-contents "https://github.com/quelpa/quelpa/raw/master/quelpa.el")
+      (eval-buffer)
+      (quelpa-self-upgrade)))
 
-(quelpa 'use-package)
-                                        ;'(use-package
-                                        ;:fetcher github
-                                        ;:repo "quelpa/quelpa-use-package"))
+(require 'quelpa nil t)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-when-compile
+  (require 'use-package))
+
+;;(quelpa 'use-package)
+;;                                        ;'(use-package
+;;                                        ;:fetcher github
+;;                                        ;:repo "quelpa/quelpa-use-package"))
 (require 'use-package)
 (quelpa
  '(quelpa-use-package
