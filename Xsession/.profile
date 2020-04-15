@@ -24,3 +24,5 @@ fi
 if [ -f $HOME/.Xmodmap ]; then
     /usr/bin/xmodmap $HOME/.Xmodmap 2>/dev/null &
 fi
+
+export PATH="$HOME/.cargo/bin:$PATH"
