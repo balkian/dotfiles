@@ -1,6 +1,8 @@
 [colors]
 # hard contrast:
-background = #1d2021
+#background = #1d2021
+background = rgba(29, 32, 33, 0.9)
+#background = rgba(63, 63, 63, 0.8)
 #background = #282828
 # soft contrast:
 #background = #32302f
@@ -45,7 +47,7 @@ allow_bold = true
 mouse_autohide = false
 dynamic_title = true
 urgent_on_bell = true
-browser = chromium
+browser = firefox
 clickable_url = true
 cursor_blink = system
 cursor_shape = block

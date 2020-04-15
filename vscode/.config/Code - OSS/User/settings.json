@@ -1,10 +1,9 @@
 {
-    "diffEditor.ignoreTrimWhitespace": false,
+    "diffEditor.ignoreTrimWhitespace": true,
     "gitlens.advanced.messages": {
         "suppressShowKeyBindingsNotice": true,
         "suppressResultsExplorerNotice": true
     },
-    "gitlens.keymap": "chorded",
     "vim.handleKeys": {
         "<C-K>": false,
         "[q": false,
@@ -20,12 +19,14 @@
     "window.titleBarStyle": "custom",
     "vim.hlsearch": true,
     "vim.statusBarColorControl": true,
-    "workbench.iconTheme": "vscode-icons",
     "workbench.colorCustomizations": {
-        "statusBar.background": "#005f5f",
-        "statusBar.noFolderBackground": "#005f5f",
-        "statusBar.debuggingBackground": "#005f5f"
+        "statusBar.background": "#5f0000",
+        "statusBar.noFolderBackground": "#5f0000",
+        "statusBar.debuggingBackground": "#5f0000"
     },
     "gitlab.instanceUrl": "https://lab.gsi.upm.es",
-    "editor.wordWrap": "on"
+    "editor.wordWrap": "on",
+    "window.zoomLevel": 1,
+    "explorer.confirmDragAndDrop": false,
+    "workbench.colorTheme": "Default Light+"
 }

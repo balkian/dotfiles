@@ -23,7 +23,7 @@ floating_modifier $mod
 #bindsym $mod+Return exec --no-startup-id i3-one-tmux
 bindsym $mod+Return [title="^scratch"] scratchpad show
 bindsym Control+Mod1+t exec --no-startup-id i3-sensible-terminal
-bindsym Control+Mod1+Shift+t exec --no-startup-id i3-sensible-terminal --title=scratch -e 'tmux attach'
+bindsym Control+Mod1+Shift+t exec --no-startup-id i3-sensible-terminal --title=scratch -e 'tmux new-session -A -s scratch'
 
 # File manager
 bindsym Control+Mod1+f exec --no-startup-id i3-sensible-terminal --title=filemanager -e 'zsh -c ranger'
@@ -31,7 +31,7 @@ bindsym Control+Mod1+f exec --no-startup-id i3-sensible-terminal --title=fileman
 # start lock
 bindsym Control+Mod1+l exec --no-startup-id i3-exit.sh lock
 
-bindsym Control+Mod1+Shift+w exec --no-startup-id chromium || chromium-browser
+bindsym Control+Mod1+Shift+w exec --no-startup-id $BROWSER2
 bindsym Control+Mod1+w exec --no-startup-id $BROWSER
 bindsym Control+Mod1+v exec --no-startup-id pavucontrol
 bindsym Control+Mod1+g exec --no-startup-id gvim
@@ -43,6 +43,7 @@ bindsym $mod+period [instance="emacs" title="^(?!myagenda$)"] scratchpad show
 bindsym $mod+shift+comma exec --no-startup-id myemacs -nc --eval '(progn (find-file "~/Dropbox/Todo/org/rules.org") (org-agenda-list) (set-frame-name "myagenda"))'
 bindsym $mod+c exec myemacs -n -e '(make-capture-frame)' 
 bindsym $mod+comma [title="^myagenda"] scratchpad show
+bindsym $mod+Control+s exec --no-startup-id flameshot gui
 
 # Spotify
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
@@ -145,6 +146,7 @@ bindsym $mod+d focus child
 
 # switch to workspace
 
+bindsym $mod+grave workspace 0: Personal
 bindsym $mod+1 workspace 1: Term
 bindsym $mod+2 workspace 2: Web
 bindsym $mod+3 workspace 3: Edit
@@ -159,6 +161,7 @@ bindsym $mod+Control+h workspace prev
 bindsym $mod+Control+l workspace next 
 
 # move focused container to workspace
+bindsym $mod+Shift+grave move container to workspace             0: Personal
 bindsym $mod+Shift+exclam move container to workspace            1: Term
 bindsym $mod+Shift+at move container to workspace                2: Web
 bindsym $mod+Shift+numbersign move container to workspace        3: Edit
@@ -247,12 +250,12 @@ bindsym $mod+n exec i3-input -F 'rename workspace to %s' -P 'New name: '
 #     }
 # }
 # class                 border  backgr. text    indicator
-client.focused          #4c7899 #4c7899 fefef #93a1a1 #2e9ef4
+client.focused          #4c7899 #4c7899 #fefef #93a1a1 #2e9ef4
 client.focused_inactive #4c7899 #101010 #93a1a1 #484e50
 client.unfocused        #ffffff #101010 #93a1a1 #292d2e
 client.urgent           #2f343a #101010 #93a1a1 #900000
 
-default_border pixel 5
+default_border pixel 3
 # smart_borders on
 workspace_layout tabbed
 
@@ -287,15 +290,16 @@ assign [class="^Audacious$"] 6: Music
 assign [class="^Xchat$"] 7: Chat
 #for_window [class="Pcmanfm"] floating enable
 
-workspace "1: Term" output DP1
-workspace "2: Web" output DP1
-workspace "3: Edit" output DP1
-workspace "4: Viewer" output eDP1
-workspace "5: Files" output eDP1
-workspace "6: Music" output eDP1
-workspace "7: Chat" output eDP1
-workspace "8: Misc Big" output DP1
-workspace "9: Misc Small" output eDP1
+workspace "0: Personal" output DP-2
+workspace "1: Term" output DP-1
+workspace "2: Web" output DP-1
+workspace "3: Edit" output DP-1
+workspace "4: Viewer" output eDP-1
+workspace "5: Files" output eDP-1
+workspace "6: Music" output eDP-1
+workspace "7: Chat" output eDP-1
+workspace "8: Misc Big" output DP-1
+workspace "9: Misc Small" output eDP-1
 
 gaps inner 8
 gaps outer 5
@@ -324,7 +328,7 @@ exec --no-startup-id nitrogen --restore
 exec --no-startup-id nm-applet
 exec --no-startup-id pasystray 
 exec --no-startup-id syndaemon -i 0.5 -d
-exec --no-startup-id i3-sensible-terminal --title=scratch -e 'tmux attach'
+exec --no-startup-id i3-sensible-terminal --title=scratch -e 'tmux new-session -A -s scratch'
 exec --no-startup-id i3-exit.sh autolock
 exec --no-startup-id xfce4-power-manager
 #exec --no-startup-id xfsettingsd --sm-client-disable &

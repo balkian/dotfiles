@@ -123,6 +123,8 @@ alias drm="docker rm"
 alias drmi="docker rmi"
 alias drun="docker run"
 
+alias t="tmux new-session -A -s "
+
 
 # GSI
 alias gsicluster='ssh balkian@shannon.gsi.dit.upm.es -p 1337'      
@@ -147,6 +149,15 @@ function kube (){
     kubectl --context="$context" "$@"
 }
 
+function ds () {
+    du -xsh "$@" | sort -h
+
+}
+
+function sag () {
+    ag -0 -l $1 | xargs -0 sed -ri.bak -e "s/$1/$2/g"
+}
+
 # Dircolors for termite
 
 if [[ -s "$HOME/.dircolors" ]]; then
@@ -154,3 +165,7 @@ if [[ -s "$HOME/.dircolors" ]]; then
 fi
 
 setopt interactivecomments
+
+export WASMTIME_HOME="$HOME/.wasmtime"
+
+export PATH="$WASMTIME_HOME/bin:$PATH"
