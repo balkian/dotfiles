@@ -1,2 +1,0 @@
-#!/bin/bash
-one-window 'gnome-terminal' 'xdotool windowfocus $WID & xdotool key ctrl+shift+t'

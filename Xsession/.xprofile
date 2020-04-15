@@ -5,3 +5,5 @@ setxkbmap "us,es" "altgr-intl," -option "ctrl:nocaps,grp:shift_toggle,terminate:
 export XTERMINAL=termite
 export TERMINAL=termite
 export TERMCMD=termite
+export BROWSER2=chromium
+export BROWSER="firefox --ProfileManager"
