@@ -14,6 +14,3 @@
 [submodule "zsh/.zprezto-contrib/fzf-z"]
 	path = zsh/.zprezto-contrib/fzf-z
 	url = git@github.com:andrewferrier/fzf-z.git
-[submodule "zsh/.zprezto-contrib/fzf-tab"]
-	path = zsh/.zprezto-contrib/fzf-tab
-	url = https://github.com/Aloxaf/fzf-tab

@@ -15,6 +15,27 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+if [[ -s "/usr/share/fzf/key-bindings.zsh" ]]; then
+    source "/usr/share/fzf/key-bindings.zsh"
+    source "/usr/share/fzf/completion.zsh"
+fi
+
+
+# Change find to fd in fzf
+
+if command -v fd  > /dev/null 2>&1; then
+
+_fzf_compgen_path() {
+    fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+    fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
+fi
+
 # Customize to your needs...
 
 #
