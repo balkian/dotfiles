@@ -23,6 +23,9 @@ zstyle ':prezto:*:*' color 'yes'
 # Set the Zsh functions to load (man zshcontrib).
 # zstyle ':prezto:load' zfunction 'zargs' 'zmv'
 
+
+zstyle ':prezto:load' pmodule-dirs $HOME/.zprezto-contrib
+
 # Set the Prezto modules to load (browse modules).
 # The order matters.
 zstyle ':prezto:load' pmodule \
@@ -35,13 +38,16 @@ zstyle ':prezto:load' pmodule \
   'spectrum' \
   'utility' \
   'completion' \
-  'fasd' \
+  'fzf-z' \
   'pacman' \
   'git' \
   'autosuggestions' \
-  'syntax-highlighting' \
   'ssh' \
-  'prompt'
+  'prompt' \
+  'syntax-highlighting'
+
+#  'fasd' \
+
 
 
 zstyle ':prezto:module:autosuggestions' color 'yes'

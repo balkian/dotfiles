@@ -11,3 +11,6 @@
 [submodule "i3/.config/i3/i3blocks-contrib"]
 	path = i3/.config/i3/i3blocks-contrib
 	url = https://github.com/vivien/i3blocks-contrib.git
+[submodule "zsh/.zprezto-contrib/fzf-z"]
+	path = zsh/.zprezto-contrib/fzf-z
+	url = git@github.com:andrewferrier/fzf-z.git

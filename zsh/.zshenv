@@ -18,6 +18,7 @@ export VISUAL="myemacs -c"
 export ALTERNATE_EDITOR=""
 export PAGER='less'
 export TERMCMD='i3-sensible-terminal'
+export FZFZ_RECENT_DIRS_TOOL=fasd
 
 #
 # Language
