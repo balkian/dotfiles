@@ -2,8 +2,8 @@
 setxkbmap "us,es" "altgr-intl," -option "ctrl:nocaps,grp:shift_toggle,terminate:ctrl_alt_bksp"
 #xmodmap ~/.Xmodmap
 #source ~/.xinitrc
-export XTERMINAL=termite
-export TERMINAL=termite
-export TERMCMD=termite
+export XTERMINAL=alacritty
+export TERMINAL=alacritty
+export TERMCMD=alacritty
 export BROWSER2=chromium
-export BROWSER="firefox --ProfileManager"
+export BROWSER=firefox
