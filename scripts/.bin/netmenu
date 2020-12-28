@@ -1,8 +1,8 @@
 #!/bin/sh
 
-if command -v rofi >/dev/null 2>&1;
+if command -v myrofi >/dev/null 2>&1;
 then
-    launcher="rofi -dmenu -i -mesg '""$input""'"
+    launcher="myrofi -dmenu -no-show-icons -i -mesg '""$input""'"
 else
     launcher="dmenu -fn  "-*-cure-medium-*-*-*-11-*-*-*-*-*-*-*" -nb "#101010" -nf "#5f5f5f" -sb "#191
 fi

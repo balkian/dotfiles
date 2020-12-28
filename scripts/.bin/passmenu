@@ -3,9 +3,9 @@
 shopt -s nullglob globstar
 
 
-if command -v rofi >/dev/null 2>&1;
+if command -v myrofi >/dev/null 2>&1;
 then
-    program="rofi -dmenu"
+    program="myrofi -no-show-icons -dmenu"
 else
     program="dmenu"
 fi

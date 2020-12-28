@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if command -v myrofi >/dev/null 2>&1;
+then
+    program="myrofi -no-show-icons -dmenu"
+else
+    program="dmenu"
+fi
+
+bluetoothctl power on
+bluetoothctl agent on
+bluetoothctl default-agent
+# bluetoothctl scan on
+list=$(bluetoothctl paired-devices);
+device=$(echo -ne "$list" | cut -d' ' -f 3- | $program "$@" )
+
+addr=$(echo "$list" | grep "$device" | cut -d' ' -f2)
+
+bluetoothctl connect "$addr"

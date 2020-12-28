@@ -1,0 +1,2 @@
+#1/bin/sh
+rofi -theme ~/.bin/rofi-slate-theme.rasi -i "$@"

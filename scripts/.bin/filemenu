@@ -21,12 +21,11 @@ else
     fi
 fi
 
-if command -v rofi >/dev/null 2>&1;
+if command -v myrofi >/dev/null 2>&1;
 then
-    launcher="rofi -dmenu -i -mesg '""$input""'"
+    myrofi -show file-browser $input
 else
     launcher="dmenu -fn  "-*-cure-medium-*-*-*-11-*-*-*-*-*-*-*" -nb "#101010" -nf "#5f5f5f" -sb "#191
+    # find "$input" -maxdepth 1 ! -path "$input" -print | sh -c "$launcher" | xargs $0
+    ls -t1 "$input" | sh -c "$launcher" | xargs -I '{}' $0 "$input/{}"
 fi
-
- # find "$input" -maxdepth 1 ! -path "$input" -print | sh -c "$launcher" | xargs $0
-ls -t1 "$input" | sh -c "$launcher" | xargs -I '{}' $0 "$input/{}"

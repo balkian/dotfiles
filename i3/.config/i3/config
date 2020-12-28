@@ -66,6 +66,7 @@ bindsym $mod+q kill
 #bindsym $mod+Space exec --no-startup-id dmenu_run
 bindsym $mod+space exec --no-startup-id runmenu
 bindsym $mod+o exec --no-startup-id filemenu $HOME
+bindsym $mod+b exec btmenu
 
 #
 
