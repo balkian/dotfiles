@@ -14,11 +14,11 @@ fi
 #
 
 export EDITOR='vim'
-export VISUAL="myemacs -c"
+export VISUAL="$(command -v myemacs) -t"
 export ALTERNATE_EDITOR=""
-export PAGER='less'
+
 export TERMCMD='i3-sensible-terminal'
-export FZFZ_RECENT_DIRS_TOOL=fasd
+
 
 #
 # Language
@@ -51,3 +51,6 @@ path=(
 export PATH
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin/:$HOME/.npm/bin
+
+export WASMTIME_HOME="$HOME/.wasmtime"
+export PATH="$WASMTIME_HOME/bin:$PATH"

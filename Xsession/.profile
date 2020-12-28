@@ -26,3 +26,7 @@ if [ -f $HOME/.Xmodmap ]; then
 fi
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+#https://superuser.com/questions/114895/improve-man-page-search/114903#114903
+# saner defaults for LESS (and bat)
+export LESS="-iMRj4a"
