@@ -321,7 +321,7 @@ bindsym $mod+Delete mode "$mode_system"
 bindsym $mod+Escape exec xfce4-session-logout
 #exec --no-startup-id xautolock -corners '----' -time 10 -locker 'dm-tool lock' # lightdm
 #exec xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i ~/Pictures/Wallpapers/Game\ Over\ Hacker.png' &
-exec --no-startup-id compton -b --config ~/.compton.conf 
+exec --no-startup-id picom -b --config ~/.picom.conf 
 exec --no-startup-id dropbox start
 exec --no-startup-id i3-sensible-terminal --title=filemanager -e 'ranger'
 exec --no-startup-id nitrogen --restore
