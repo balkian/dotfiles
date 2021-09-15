@@ -25,8 +25,8 @@ if [ -f $HOME/.Xmodmap ]; then
     /usr/bin/xmodmap $HOME/.Xmodmap 2>/dev/null &
 fi
 
-export PATH="$HOME/.cargo/bin:$PATH"
 
 #https://superuser.com/questions/114895/improve-man-page-search/114903#114903
 # saner defaults for LESS (and bat)
 export LESS="-iMRj4a"
+. "$HOME/.cargo/env"

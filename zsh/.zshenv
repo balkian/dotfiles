@@ -54,3 +54,4 @@ export PATH=$PATH:$GOPATH/bin/:$HOME/.npm/bin
 
 export WASMTIME_HOME="$HOME/.wasmtime"
 export PATH="$WASMTIME_HOME/bin:$PATH"
+. "$HOME/.cargo/env"
