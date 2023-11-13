@@ -29,7 +29,9 @@ in
     pkgs.starship
     pkgs.ripgrep
     pkgs.eza
+    pkgs.ansible
     pkgs.ranger
+    pkgs.sshpass
     nixgl.auto.nixGLDefault
     pkgs.alacritty
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DejaVuSansMono" ]; })
