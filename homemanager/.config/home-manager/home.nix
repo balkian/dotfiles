@@ -7,6 +7,13 @@ in
   home.username = "j";
   home.homeDirectory = "/home/j";
 
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = (_: true);
+    };
+  };
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
@@ -21,10 +28,14 @@ in
   programs.home-manager.enable = true;
   home.packages = [                               
     pkgs.htop
+    pkgs.zoom-us
     pkgs.fortune
     pkgs.tmux
     pkgs.git
+    pkgs.git-lfs
+    pkgs.hugo
     pkgs.fish
+    pkgs.fd
     pkgs.helix
     pkgs.starship
     pkgs.ripgrep
@@ -32,9 +43,28 @@ in
     pkgs.ansible
     pkgs.ranger
     pkgs.sshpass
+    pkgs.jq
+    pkgs.bat
+    pkgs.davfs2
+    pkgs.pandoc
+    pkgs.rustup
+    #pkgs.texlive
+    # pkgs.texlive.combine {
+    #   inherit (texlive) xcolor
+    # }
+    pkgs.wl-clipboard
     nixgl.auto.nixGLDefault
+   #(pkgs.python311.withPackages (p: with p; [
+    #jupyterlab
+    #matplotlib
+    #pandas
+    #openpyxl
+   #]))
     pkgs.alacritty
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DejaVuSansMono" ]; })
+    pkgs.wezterm
+    pkgs.kitty
+    pkgs.zellij
+    (pkgs.nerdfonts.override { fonts = [ "Iosevka" "IosevkaTerm" "Hack" "CascadiaCode" "FiraCode" "DejaVuSansMono" ]; })
   ];
 
   fonts.fontconfig.enable = true;
@@ -47,4 +77,5 @@ in
       lightline-vim
     ];
   };
+  services.owncloud-client.enable = true;
 }
