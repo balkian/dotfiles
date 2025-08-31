@@ -22,6 +22,9 @@
     pavucontrol
     wofi
     waybar
+    mako 	# Notification daemon
+    hyprlock 	# Lock
+    hypridle	# Run lock on idle
 
     pkgs.nerd-fonts.fira-code
     pkgs.nerd-fonts.monoid
@@ -35,19 +38,27 @@
 
     # Utils
     jq
-    bat # less alternative
-    eza # Better ld
-    zoxide # better cd
-    yazi # File manager
+    bat 	# Replacement for less
+    eza 	# Better ld
+    zoxide 	# better cd
+    yazi 	# File manager
+    ripgrep 	# Better search
+    fzf		# Fuzzy file finder
+
+    zenith 	# System monitor
 
     # Shells
     fish
-    grc # Colorizer
+    grc 	# Colorizer
     fishPlugins.grc
     starship
 
     # Dev tools
     git
+    lazygit
+
+    # Python
+    uv
 
     #uutils-coreutils
 
