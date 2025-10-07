@@ -2,6 +2,9 @@
 {
   home.packages = with pkgs; [
   	jujutsu
+	ansible
+	awscli2
+	tinybird
   ];
   programs.git = {
       enable = true;

@@ -33,7 +33,7 @@
 
     # Editors
     emacs
-    neovim
+    neovim # This and packages.neovim.enable cannot be done at the same time
     helix
 
     # Utils
@@ -44,6 +44,12 @@
     yazi 	# File manager
     ripgrep 	# Better search
     fzf		# Fuzzy file finder
+    dust	# File disk utilization
+    gnumake
+
+    taskwarrior3
+    taskwarrior-tui
+    timewarrior
 
     zenith 	# System monitor
 
@@ -52,12 +58,14 @@
     grc 	# Colorizer
     fishPlugins.grc
     starship
+    zellij
 
     # Dev tools
     git
     lazygit
 
     # Python
+    python3
     uv
 
     #uutils-coreutils
@@ -107,10 +115,15 @@
   #
   #  /etc/profiles/per-user/j/etc/profile.d/hm-session-vars.sh
   #
+  xdg.enable = true;
+  # I am not sure this is working
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    XDG_BIN_HOME    = "${config.home.homeDirectory}/.local/bin";
+    #This variable is overriden. It does not work
     EDITOR = "nvim";
   };
+  home.sessionPath = [ "$XDG_BIN_HOME" ];
+
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -128,9 +141,17 @@
 	];
   };
 
+  home.shellAliases = {
+  	lg = "lazygit";
+	gs = "git status";
+  };
+
   programs.fish = {
       enable = true;
-      interactiveShellInit = ''set fish_greeting '';
+      interactiveShellInit = ''
+	      set fish_greeting
+	      fish_add_path -g $HOME/.local/bin
+      '';
       plugins = [
         { name = "grc"; src = pkgs.fishPlugins.grc.src; }
       ];
@@ -142,6 +163,9 @@
 	    add_newline = false;
     };
   };
+
+  #programs.neovim.enable = true;
+  programs.neovim.defaultEditor = true;
 
   programs.zoxide.enable = true;
   programs.bash = {
