@@ -148,7 +148,7 @@ output "DP-1" {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 5
+    gaps 0
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -295,10 +295,10 @@ layout {
     // Top and bottom struts will simply add outer gaps in addition to the area occupied by
     // layer-shell panels and regular gaps.
     struts {
-        left 5
-        right 5
-        top 5
-        bottom 5
+        left 2
+        right 2
+        top 2
+        bottom 2
     }
 }
 
@@ -314,13 +314,9 @@ workspace "teams" {
 	open-on-output "eDP-1"
 }
 
-workspace "3" {}
-workspace "4" {}
-workspace "5" {}
-workspace "6" {}
-workspace "7" {}
-workspace "8" {}
-workspace "9" {}
+workspace "notes" {
+	open-on-output "eDP-1"
+}
 
 // Add lines like this to spawn processes at startup.
 // Note that running niri as a session supports xdg-desktop-autostart,
@@ -355,7 +351,7 @@ animations {
     // off
 
     // Slow down all animations by this factor. Values below 1 speed them up instead.
-    slowdown 0.5
+    slowdown 0.75
 }
 
 // Window rules let you adjust behavior for individual windows.
@@ -378,12 +374,14 @@ window-rule {
     // - host Firefox (app-id is "firefox")
     // - Flatpak Firefox (app-id is "org.mozilla.firefox")
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    default-column-width {}
     open-floating true
 }
 
 window-rule {
-    match app-id=r#"firefox$"# title="Bitwarden"
+    match app-id="firefox" title=r#".*Bitwarden.*"#
     open-floating true
+    block-out-from "screen-capture"
 }
 
 // Example: block out two password managers from screen capture.
@@ -459,10 +457,15 @@ binds {
     Mod+K     { focus-window-up; }
     Mod+L     { focus-column-right; }
 
+    //Mod+Alt+H     { move-window-left; }
+    Mod+Alt+J     { move-window-down; }
+    //Mod+Alt+L     { move-window-right; }
+    Mod+Alt+K     { move-window-up; }
+
     Mod+Ctrl+H     { move-column-left-or-to-monitor-left; }
+    Mod+Ctrl+J     { move-window-down; }
     Mod+Ctrl+L     { move-column-right-or-to-monitor-right; }
-    Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
-    Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
+    Mod+Ctrl+K     { move-window-up; }
 
     Mod+Home { focus-column-first; }
     Mod+End  { focus-column-last; }
@@ -479,30 +482,23 @@ binds {
     Mod+Shift+K     { focus-monitor-up; }
     Mod+Shift+L     { focus-monitor-right; }
 
-    Ctrl+Alt+H  { move-workspace-to-monitor-left; }
-    Ctrl+Alt+J  { move-workspace-to-monitor-down; }
-    Ctrl+Alt+K    { move-workspace-to-monitor-up; }
-    Ctrl+Alt+L { move-workspace-to-monitor-right; }
-    Mod+Alt+H     { move-column-to-monitor-left; }
-    Mod+Alt+J     { move-column-to-monitor-down; }
-    Mod+Alt+K     { move-column-to-monitor-up; }
-    Mod+Alt+L     { move-column-to-monitor-right; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
     // ...
 
     // And you can also move a whole workspace to another monitor:
-    Mod+Ctrl+Shift+H  { move-workspace-to-monitor-left; }
-    Mod+Ctrl+Shift+L  { move-workspace-to-monitor-right; }
-    Mod+Ctrl+Shift+J  { move-workspace-to-monitor-down; }
-    Mod+Ctrl+Shift+K  { move-workspace-to-monitor-up; }
+    Ctrl+Alt+H  { move-workspace-to-monitor-left; }
+    Ctrl+Alt+L  { move-workspace-to-monitor-right; }
+    Ctrl+Alt+J  { move-workspace-to-monitor-down; }
+    Ctrl+Alt+K  { move-workspace-to-monitor-up; }
     // ...
 
     Mod+Page_Down      { focus-workspace-down; }
     Mod+Page_Up        { focus-workspace-up; }
     Mod+D              { focus-workspace-down; }
     Mod+U              { focus-workspace-up; }
+
     Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
     Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
     Mod+Ctrl+U         { move-column-to-workspace-down; }
@@ -559,24 +555,24 @@ binds {
     // will all refer to the 3rd workspace.
     Mod+1 { focus-workspace "terminal"; }
     Mod+2 { focus-workspace "firefox"; }
-    Mod+3 { focus-workspace "3"; }
-    Mod+4 { focus-workspace "4"; }
-    Mod+5 { focus-workspace "5"; }
-    Mod+6 { focus-workspace "6"; }
-    Mod+7 { focus-workspace "7"; }
-    Mod+8 { focus-workspace "8"; }
-    Mod+9 { focus-workspace "9"; }
+    Mod+3 { focus-workspace "notes"; }
+    //Mod+4 { focus-workspace 4; }
+    //Mod+5 { focus-workspace "5"; }
+    //Mod+6 { focus-workspace "6"; }
+    //Mod+7 { focus-workspace "7"; }
+    //Mod+8 { focus-workspace "8"; }
+    //Mod+9 { focus-workspace "9"; }
     Mod+grave { focus-workspace "teams"; }
     Mod+0 { focus-workspace "teams"; }
     Mod+Ctrl+1 { move-column-to-workspace "terminal"; }
     Mod+Ctrl+2 { move-column-to-workspace "firefox"; }
-    Mod+Ctrl+3 { move-column-to-workspace "3"; }
-    Mod+Ctrl+4 { move-column-to-workspace "4"; }
-    Mod+Ctrl+5 { move-column-to-workspace "5"; }
-    Mod+Ctrl+6 { move-column-to-workspace "6"; }
-    Mod+Ctrl+7 { move-column-to-workspace "7"; }
-    Mod+Ctrl+8 { move-column-to-workspace "8"; }
-    Mod+Ctrl+9 { move-column-to-workspace "9"; }
+    Mod+Ctrl+3 { move-column-to-workspace "notes"; }
+    //Mod+Ctrl+4 { move-column-to-workspace "4"; }
+    //Mod+Ctrl+5 { move-column-to-workspace "5"; }
+    //Mod+Ctrl+6 { move-column-to-workspace "6"; }
+    //Mod+Ctrl+7 { move-column-to-workspace "7"; }
+    //Mod+Ctrl+8 { move-column-to-workspace "8"; }
+    //Mod+Ctrl+9 { move-column-to-workspace "9"; }
     Mod+Ctrl+0 { move-column-to-workspace "teams"; }
 
     // Alternatively, there are commands to move just a single window:
@@ -600,6 +596,7 @@ binds {
     Mod+Shift+R { switch-preset-window-height; }
     Mod+Ctrl+R { reset-window-height; }
     Mod+F { maximize-column; }
+    Mod+G { maximize-window-to-edges; }
     Mod+Shift+F { fullscreen-window; }
 
     // Expand the focused column to space not taken up by other fully visible columns.
