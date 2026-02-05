@@ -39,6 +39,7 @@
     # Utils
     jq
     bat 	# Replacement for less
+    delta # Replacement for less (for git diff and the like)
     eza 	# Better ld
     zoxide 	# better cd
     yazi 	# File manager
@@ -47,11 +48,12 @@
     dust	# File disk utilization
     gnumake
 
+    zenith 	# System monitor
+
+    # Productivity
     taskwarrior3
     taskwarrior-tui
     timewarrior
-
-    zenith 	# System monitor
 
     # Shells
     fish
@@ -120,7 +122,8 @@
   home.sessionVariables = {
     XDG_BIN_HOME    = "${config.home.homeDirectory}/.local/bin";
     #This variable is overriden. It does not work
-    EDITOR = "nvim";
+    EDITOR = "hx";
+    PAGER = "bat";
   };
   home.sessionPath = [ "$XDG_BIN_HOME" ];
 
@@ -181,6 +184,10 @@
 
   fonts.fontconfig.enable = true;
 
-
-
+  xdg.configFile = {
+    "git" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/git/dotfiles/git/.config/git";
+      recursive = true;
+    };
+  };
 }

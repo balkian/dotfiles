@@ -1,0 +1,12 @@
+[user]
+    name = J. Fernando Sánchez
+    email = j@sinpapel.es
+
+[core]
+    pager = delta
+
+[includeIf "gitdir:~/git/work/tcs/"]
+    path = tcs.config
+
+[delta]
+    side-by-side = true

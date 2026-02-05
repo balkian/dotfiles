@@ -103,6 +103,7 @@ output "eDP-1" {
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
     position x=0 y=0
+    //position x=0 y=1080
 }
 
 output "DP-1" {
@@ -115,10 +116,15 @@ output "DP-1" {
     // for the resolution.
     // If the mode is omitted altogether or is invalid, niri will pick one automatically.
     // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
+    //mode "3840x2160@60"
     mode "3840x2160@60"
+    scale 1.25
+    //mode "1920x1080@60"
+    //mode "2560x1440"
+    //scale 1
 
     // You can use integer or fractional scale, for example use 1.5 for 150% scale.
-    scale 1.25
+    //scale 1.0
 
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
@@ -134,6 +140,7 @@ output "DP-1" {
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
     position x=1920 y=-500
+    //position x=0 y=0
 }
 
 // Settings that influence how windows are positioned and sized.
@@ -427,6 +434,9 @@ binds {
     // Note: the entire command goes as a single argument in the end.
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec wezterm"; }
 
+    Ctrl+Alt+W { spawn "firefox" "--ProfileManager"; }
+    Ctrl+Alt+Q { spawn "chromium-browser" "--ozone-platform=wayland"; }
+
     // Brightness control
     XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "s" "+5%"; }
     XF86MonBrightnessDown   allow-when-locked=true { spawn "brightnessctl" "s" "5%-"; }
@@ -556,6 +566,7 @@ binds {
     Mod+7 { focus-workspace "7"; }
     Mod+8 { focus-workspace "8"; }
     Mod+9 { focus-workspace "9"; }
+    Mod+grave { focus-workspace "teams"; }
     Mod+0 { focus-workspace "teams"; }
     Mod+Ctrl+1 { move-column-to-workspace "terminal"; }
     Mod+Ctrl+2 { move-column-to-workspace "firefox"; }

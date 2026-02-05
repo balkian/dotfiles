@@ -1,0 +1,18 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[user]
+name = "J. Fernando Sánchez"
+email = "f.sanchez@thechannelstore.tv"
+
+[[--scope]]
+--when.repositories = ["~/git/personal/"]
+[--scope.user]
+email = "j@sanchezrada.es"
+
+[ui]
+pager = "delta" #":builtin"
+diff-formatter=":git"
+
+[merge-tools.delta]
+diff-args=["--side-by-side", "$left", "$right", "--width=$width"]
+

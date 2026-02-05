@@ -1,0 +1,15 @@
+customCommands:
+  #  - key: "m"
+  #    description: "Merge (no‑ff, no‑commit)"
+  #    command: "git merge --no-ff --no-commit {{.SelectedBranch}}"
+  #    context: "localBranches"
+  #    output: terminal
+  - key: "m"
+    description: "Merge (no‑ff, no‑commit)"
+    command: "git merge --no-ff --no-commit {{.SelectedLocalBranch.Name}}"
+    context: "localBranches"
+    output: terminal
+
+#keybindings:
+#  branches:
+#    merge: "m" # make the UI “Merge” use our custom command

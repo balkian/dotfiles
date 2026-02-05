@@ -1,10 +1,15 @@
 [user]
 	name = J. Fernando Sánchez
-	email = balkian@gmail.com
+	email = j@sanchezrada.es
+
 [diff]
-	tool = vimdiff
+	tool = delta
 [alias]
 	d = difftool
+
+[includeIf "gitdir:~/git/work/tcs"]
+    path = ~/.config/git/tcs.config
+
 [include]
  	path = ~/.gitconfig_secret
 
