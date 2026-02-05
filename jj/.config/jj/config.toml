@@ -2,16 +2,19 @@
 
 [user]
 name = "J. Fernando Sánchez"
-email = "f.sanchez@thechannelstore.tv"
+email = "j@sanchezrada.es"
 
 [[--scope]]
---when.repositories = ["~/git/personal/"]
+--when.repositories = ["~/git/work/tcs"]
 [--scope.user]
-email = "j@sanchezrada.es"
+name = "J. Fernando Sánchez"
+email = "f.sanchez@thechannelstore.tv"
+
 
 [ui]
 pager = "delta" #":builtin"
 diff-formatter=":git"
+paginate = "auto"
 
 [merge-tools.delta]
-diff-args=["--side-by-side", "$left", "$right", "--width=$width"]
+diff-args=["--color-only", "--side-by-side", "$left", "$right", "--width=$width"]

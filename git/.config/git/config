@@ -5,8 +5,9 @@
 [core]
     pager = delta
 
+[delta]
+    side-by-side = true
+
 [includeIf "gitdir:~/git/work/tcs/"]
     path = tcs.config
 
-[delta]
-    side-by-side = true
