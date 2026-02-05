@@ -65,6 +65,7 @@
     # Dev tools
     git
     lazygit
+    jujutsu
 
     # Python
     python3
@@ -123,7 +124,7 @@
     XDG_BIN_HOME    = "${config.home.homeDirectory}/.local/bin";
     #This variable is overriden. It does not work
     EDITOR = "hx";
-    PAGER = "bat";
+    #PAGER = "bat";
   };
   home.sessionPath = [ "$XDG_BIN_HOME" ];
 
@@ -168,7 +169,9 @@
   };
 
   #programs.neovim.enable = true;
-  programs.neovim.defaultEditor = true;
+  #programs.neovim.defaultEditor = false;
+  #programs.helix.enable = true;
+  #programs.helix.defaultEditor = true;
 
   programs.zoxide.enable = true;
   programs.bash = {
@@ -187,7 +190,7 @@
   xdg.configFile = let 
 	  dotfiles = "${config.home.homeDirectory}/git/dotfiles";
 
-	  createDotlink = name: {
+	  createDotLink = name: {
 		  source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${name}/.config/${name}";
 		  recursive = true;
 	  };
@@ -196,5 +199,6 @@
     "git" = createDotLink "git";
     "niri" = createDotLink "niri";
     "jj" = createDotLink "jj";
+    "helix" = createDotLink "helix";
   };
 }
