@@ -184,10 +184,17 @@
 
   fonts.fontconfig.enable = true;
 
-  xdg.configFile = {
-    "git" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/git/dotfiles/git/.config/git";
-      recursive = true;
-    };
+  xdg.configFile = let 
+	  dotfiles = "${config.home.homeDirectory}/git/dotfiles";
+
+	  createDotlink = name: {
+		  source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${name}/.config/${name}";
+		  recursive = true;
+	  };
+
+  in {
+    "git" = createDotLink "git";
+    "niri" = createDotLink "niri";
+    "jj" = createDotLink "jj";
   };
 }

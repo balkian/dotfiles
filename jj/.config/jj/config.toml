@@ -15,4 +15,3 @@ diff-formatter=":git"
 
 [merge-tools.delta]
 diff-args=["--side-by-side", "$left", "$right", "--width=$width"]
-
