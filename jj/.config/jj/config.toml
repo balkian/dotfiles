@@ -10,11 +10,18 @@ email = "j@sanchezrada.es"
 name = "J. Fernando Sánchez"
 email = "f.sanchez@thechannelstore.tv"
 
+[aliases]
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
+l = ["log"]
+s = ["status"]
+f = ["git", "fetch"]
+p = ["git", "push"]
 
 [ui]
 pager = "delta" #":builtin"
 diff-formatter=":git"
 paginate = "auto"
+default-command = ["log", "--reversed"]
 
 [merge-tools.delta]
 diff-args=["--color-only", "--side-by-side", "$left", "$right", "--width=$width"]

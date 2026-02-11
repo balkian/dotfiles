@@ -147,7 +147,12 @@
 
   home.shellAliases = {
   	lg = "lazygit";
-	gs = "git status";
+  	gs = "git status";
+  	j  = "jj";
+  	js = "jj status";
+  	jt = "jj tug";
+  	jf = "jj git fetch";
+  	jl = "jj log";
   };
 
   programs.fish = {
@@ -173,7 +178,12 @@
   #programs.helix.enable = true;
   #programs.helix.defaultEditor = true;
 
-  programs.zoxide.enable = true;
+  programs.zoxide = {
+	  enable = true;
+	  options = [
+		  "--cmd z"
+	  ];
+  };
   programs.bash = {
     enable = true;
     initExtra = ''
