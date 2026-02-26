@@ -29,7 +29,8 @@
     pkgs.nerd-fonts.fira-code
     pkgs.nerd-fonts.monoid
 
-    wezterm
+    #wezterm
+    ghostty
 
     # Editors
     emacs
@@ -210,5 +211,6 @@
     "niri" = createDotLink "niri";
     "jj" = createDotLink "jj";
     "helix" = createDotLink "helix";
+    "ghostty" = createDotLink "ghostty";
   };
 }
