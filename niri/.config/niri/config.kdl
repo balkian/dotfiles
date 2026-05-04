@@ -118,7 +118,7 @@ output "DP-1" {
     // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
     //mode "3840x2160@60"
     mode "3840x2160@60"
-    scale 1.25
+    scale 1.5
     //mode "1920x1080@60"
     //mode "2560x1440"
     //scale 1
