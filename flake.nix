@@ -24,9 +24,9 @@
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
         modules = [
-		./home-manager/common.nix
-		./home-manager/lenny.nix
-	];
+      		./home-manager/common.nix
+      		./home-manager/lenny.nix
+      	];
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
@@ -39,8 +39,8 @@
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
         modules = [
-		./home-manager/common.nix
-	];
+      		./home-manager/common.nix
+      	];
       };
     };
 }

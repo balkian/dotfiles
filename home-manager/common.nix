@@ -31,6 +31,7 @@
 
     #wezterm
     ghostty
+    ghostty.terminfo
 
     # Editors
     emacs
@@ -71,6 +72,9 @@
     # Python
     python3
     uv
+
+    # Password manager
+    keepassxc
 
     #uutils-coreutils
 
