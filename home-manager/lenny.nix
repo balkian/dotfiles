@@ -12,6 +12,7 @@
     ruff
     vial
     chromium
+    graphviz
 
     # Bloque VS Code corregido
     ((pkgs.vscode-with-extensions.override {

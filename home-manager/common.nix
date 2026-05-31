@@ -1,6 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
+  imports = [
+    inputs.nix-index-database.homeModules.default
+  ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "j";
@@ -14,6 +17,10 @@
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "25.05"; # Please read the comment before changing.
+
+  programs.nix-index.enable = true;
+  programs.nix-index-database.comma.enable = true;
+   # Optional: installs 'comma' too
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -35,7 +42,7 @@
 
     # Editors
     emacs
-    neovim # This and packages.neovim.enable cannot be done at the same time
+    #neovim # This and packages.neovim.enable cannot be done at the same time
     helix
 
     # Utils
@@ -49,6 +56,7 @@
     fzf		# Fuzzy file finder
     dust	# File disk utilization
     gnumake
+    fd
 
     zenith 	# System monitor
 
@@ -68,6 +76,8 @@
     git
     lazygit
     jujutsu
+    jjui
+    lazyjj
 
     # Python
     python3
@@ -179,6 +189,32 @@
   };
 
   #programs.neovim.enable = true;
+  programs.neovim = {
+	  enable = true;
+	  plugins = with pkgs.vimPlugins; [
+	    (nvim-treesitter.withPlugins (p: with p; [ 
+	      nix 
+	      lua
+	      markdown
+	    ]))
+	  ];
+
+	  extraLuaConfig = ''
+	    vim.opt.foldmethod = "expr"
+	    vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+	    vim.opt.foldlevel = 99
+
+	    vim.api.nvim_create_autocmd("FileType", {
+	      pattern = "*",
+	      callback = function()
+		local has_highlighter = vim.api.nvim_buf_line_count(0) > 0 and pcall(vim.treesitter.get_parser)
+		if not has_highlighter then
+		  vim.wo.foldmethod = "indent"
+		end
+	      end,
+	    })
+	  '';
+  };
   #programs.neovim.defaultEditor = false;
   #programs.helix.enable = true;
   #programs.helix.defaultEditor = true;

@@ -4,6 +4,7 @@ theme = "github_dark"
 line-number = "relative"
 mouse = false
 auto-pairs = false
+soft-wrap.enable = true
 
 [editor.cursor-shape]
 insert = "bar"

@@ -1,0 +1,10 @@
+output "LG Electronics LG ULTRAWIDE 0x0005B9E2" {
+    mode "2560x1080@59.978"
+    scale 1
+    position x=-1395 y=0
+}
+
+output "Chimei Innolux Corporation 0x144F Unknown" {
+    scale 1
+    position x=-1395 y=0
+}
