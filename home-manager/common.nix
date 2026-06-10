@@ -1,12 +1,18 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, lib, inputs, dotfilesSrc, dotfiles, ... }:
 
 let 
-	  dotfiles = "${config.home.homeDirectory}/git/dotfiles";
-
-	  createDotLink = name: {
-		  source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${name}/.config/${name}";
-		  recursive = true;
-	  };
+  createDotLinks = name:
+  let
+    configDir = dotfilesSrc + "/${name}/.config";
+    allEntries = builtins.readDir configDir;
+    entries = builtins.attrNames allEntries;  # both files and dirs
+  in
+  builtins.listToAttrs (map (entry: {
+    name = entry;
+    value = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${name}/.config/${entry}";
+    };
+  }) entries);
 in
 {
   imports = [
@@ -86,6 +92,7 @@ in
     jujutsu
     jjui
     lazyjj
+    meld
 
     # Python
     python3
@@ -189,13 +196,13 @@ in
         { name = "grc"; src = pkgs.fishPlugins.grc.src; }
       ];
   };
-
-  programs.starship = {
-    enable = true;
-    settings = {
-	    add_newline = false;
-    };
+  home.shellAliases = {
+      nvimdiff = "nvim -d";
   };
+
+  # programs.starship = {
+  #   enable = true;
+  # };
 
   #programs.neovim.enable = true;
   programs.neovim = {
@@ -248,13 +255,9 @@ in
 
   fonts.fontconfig.enable = true;
 
-  xdg.configFile =  {
-    "git" = createDotLink "git";
-    "niri" = createDotLink "niri";
-    "jj" = createDotLink "jj";
-    "helix" = createDotLink "helix";
-    "ghostty" = createDotLink "ghostty";
-  };
+  xdg.configFile = lib.mkMerge (map createDotLinks [
+    "git" "niri" "jj" "helix" "ghostty" "starship"
+  ]);
   home.file = {
     ".pdbrc" = { source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/python/.pdbrc";};
     ".pdb_startup.py" = { source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/python/.pdb_startup.py";};

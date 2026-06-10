@@ -13,10 +13,15 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, ... } @ inputs:
+    { self, nixpkgs, home-manager, ... } @ inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      extraSpecialArgs = {
+        inherit inputs;
+        dotfilesSrc = self.outPath;  # store copy, for readDir only
+        dotfiles = "/home/j/git/dotfiles";  # live path, for symlink targets
+      };
     in
     {
       # TCS config
@@ -32,12 +37,13 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-        extraSpecialArgs = { inherit inputs; };
+        inherit extraSpecialArgs;
       };
 
       # Home
       homeConfigurations."j" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
+        inherit extraSpecialArgs;
 
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
