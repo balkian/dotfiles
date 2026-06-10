@@ -18,13 +18,14 @@ f = ["git", "fetch"]
 p = ["git", "push"]
 
 [ui]
-pager = "delta" #":builtin"
-diff-formatter=":git"
+pager = "delta"
+diff-formatter = "delta"
 paginate = "auto"
 default-command = ["log", "--reversed"]
+merge-editor = "meld"
 
 [merge-tools.delta]
-diff-args=["--color-only", "--side-by-side", "$left", "$right", "--width=$width"]
+diff-args = ["--side-by-side", "$left", "$right", "--width=$width"]
 
 [revset-aliases]
 'private_commits()' = "description('[local]')"
