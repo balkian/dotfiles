@@ -256,8 +256,7 @@ in
     "ghostty" = createDotLink "ghostty";
   };
   home.file = {
-		".pdbrc" = {
-		    source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/python/.pdbrc";
-    };
+    ".pdbrc" = { source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/python/.pdbrc";};
+    ".pdb_startup.py" = { source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/python/.pdb_startup.py";};
   };
 }

@@ -1,18 +1,1 @@
-# ~/.pdbrc
-import atexit
-import os
-import readline
-
-# Define where the pdb command history will be saved
-historyPath = os.path.expanduser("~/.pdb_history")
-
-# Read existing history if it exists
-if os.path.exists(historyPath):
-    readline.read_history_file(historyPath)
-
-# Register a hook to automatically save history when exiting pdb
-def save_history(historyPath=historyPath):
-    import readline
-    readline.write_history_file(historyPath)
-
-atexit.register(save_history)
+import importlib.util, os; spec = importlib.util.spec_from_file_location("pdb_startup", os.path.expanduser("~/.pdb_startup.py")); mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
