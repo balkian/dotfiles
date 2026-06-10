@@ -1,17 +1,33 @@
-import atexit
 import os
+import pdb
 
 try:
     import readline
+
     historyPath = os.path.expanduser("~/.pdb_history")
+    readline.set_history_length(1000)
     readline.clear_history()
     if os.path.exists(historyPath):
-        readline.read_history_file(historyPath)
+        try:
+            readline.read_history_file(historyPath)
+        except OSError:
+            pass
 
-    def save_history(historyPath=historyPath):
-        import readline
-        readline.write_history_file(historyPath)
+    class PdbWithHistory(pdb.Pdb):
+        def default(self, line):
+            readline.append_history_file(1, historyPath)
+            return super().default(line)
 
-    atexit.register(save_history)
+        def cmdloop(self, intro=None):
+            try:
+                super().cmdloop(intro)
+            finally:
+                try:
+                    readline.write_history_file(historyPath)
+                except OSError:
+                    pass
+
+    pdb.Pdb = PdbWithHistory
+
 except ImportError:
     pass
