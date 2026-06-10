@@ -1,5 +1,13 @@
 { config, pkgs, inputs, ... }:
 
+let 
+	  dotfiles = "${config.home.homeDirectory}/git/dotfiles";
+
+	  createDotLink = name: {
+		  source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${name}/.config/${name}";
+		  recursive = true;
+	  };
+in
 {
   imports = [
     inputs.nix-index-database.homeModules.default
@@ -137,9 +145,6 @@
   # I am not sure this is working
   home.sessionVariables = {
     XDG_BIN_HOME    = "${config.home.homeDirectory}/.local/bin";
-    #This variable is overriden. It does not work
-    EDITOR = "hx";
-    #PAGER = "bat";
   };
   home.sessionPath = [ "$XDG_BIN_HOME" ];
 
@@ -176,6 +181,10 @@
 	      set fish_greeting
 	      fish_add_path -g $HOME/.local/bin
       '';
+       shellInit = ''
+	    set -gx EDITOR "nvim"
+	    set -gx VISUAL "$EDITOR"
+	  '';
       plugins = [
         { name = "grc"; src = pkgs.fishPlugins.grc.src; }
       ];
@@ -190,30 +199,31 @@
 
   #programs.neovim.enable = true;
   programs.neovim = {
-	  enable = true;
-	  plugins = with pkgs.vimPlugins; [
-	    (nvim-treesitter.withPlugins (p: with p; [ 
-	      nix 
-	      lua
-	      markdown
-	    ]))
-	  ];
+          enable = true;
+          defaultEditor = true;
+          plugins = with pkgs.vimPlugins; [
+            (nvim-treesitter.withPlugins (p: with p; [ 
+              nix 
+              lua
+              markdown
+            ]))
+          ];
 
-	  extraLuaConfig = ''
-	    vim.opt.foldmethod = "expr"
-	    vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-	    vim.opt.foldlevel = 99
+          extraLuaConfig = ''
+            vim.opt.foldmethod = "expr"
+            vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            vim.opt.foldlevel = 99
 
-	    vim.api.nvim_create_autocmd("FileType", {
-	      pattern = "*",
-	      callback = function()
-		local has_highlighter = vim.api.nvim_buf_line_count(0) > 0 and pcall(vim.treesitter.get_parser)
-		if not has_highlighter then
-		  vim.wo.foldmethod = "indent"
-		end
-	      end,
-	    })
-	  '';
+            vim.api.nvim_create_autocmd("FileType", {
+              pattern = "*",
+              callback = function()
+        	local has_highlighter = vim.api.nvim_buf_line_count(0) > 0 and pcall(vim.treesitter.get_parser)
+        	if not has_highlighter then
+        	  vim.wo.foldmethod = "indent"
+        	end
+              end,
+            })
+          '';
   };
   #programs.neovim.defaultEditor = false;
   #programs.helix.enable = true;
@@ -238,19 +248,16 @@
 
   fonts.fontconfig.enable = true;
 
-  xdg.configFile = let 
-	  dotfiles = "${config.home.homeDirectory}/git/dotfiles";
-
-	  createDotLink = name: {
-		  source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${name}/.config/${name}";
-		  recursive = true;
-	  };
-
-  in {
+  xdg.configFile =  {
     "git" = createDotLink "git";
     "niri" = createDotLink "niri";
     "jj" = createDotLink "jj";
     "helix" = createDotLink "helix";
     "ghostty" = createDotLink "ghostty";
+  };
+  home.file = {
+		".pdbrc" = {
+		    source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/python/.pdbrc";
+    };
   };
 }
