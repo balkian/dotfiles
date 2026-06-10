@@ -245,6 +245,10 @@ workspace "teams" {
 	open-on-output "eDP-1"
 }
 
+workspace "agents" {
+	open-on-output "eDP-1"
+}
+
 workspace "notes" {
 	open-on-output "eDP-1"
 }
@@ -489,7 +493,7 @@ binds {
     Mod+1 { focus-workspace "terminal"; }
     Mod+2 { focus-workspace "firefox"; }
     Mod+3 { focus-workspace "notes"; }
-    //Mod+4 { focus-workspace 4; }
+    Mod+4 { focus-workspace "agents"; }
     //Mod+5 { focus-workspace "5"; }
     //Mod+6 { focus-workspace "6"; }
     //Mod+7 { focus-workspace "7"; }
@@ -500,7 +504,7 @@ binds {
     Mod+Ctrl+1 { move-column-to-workspace "terminal"; }
     Mod+Ctrl+2 { move-column-to-workspace "firefox"; }
     Mod+Ctrl+3 { move-column-to-workspace "notes"; }
-    //Mod+Ctrl+4 { move-column-to-workspace "4"; }
+    Mod+Ctrl+4 { move-column-to-workspace "agents"; }
     //Mod+Ctrl+5 { move-column-to-workspace "5"; }
     //Mod+Ctrl+6 { move-column-to-workspace "6"; }
     //Mod+Ctrl+7 { move-column-to-workspace "7"; }
