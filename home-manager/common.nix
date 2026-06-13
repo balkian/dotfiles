@@ -200,9 +200,9 @@ in
       nvimdiff = "nvim -d";
   };
 
-  # programs.starship = {
-  #   enable = true;
-  # };
+  programs.starship = {
+    enable = true;
+  };
 
   #programs.neovim.enable = true;
   programs.neovim = {
@@ -256,7 +256,7 @@ in
   fonts.fontconfig.enable = true;
 
   xdg.configFile = lib.mkMerge (map createDotLinks [
-    "git" "niri" "jj" "helix" "ghostty" "starship"
+    "git" "niri" "jj" "helix" "ghostty" "starship" "zellij"
   ]);
   home.file = {
     ".pdbrc" = { source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/python/.pdbrc";};
